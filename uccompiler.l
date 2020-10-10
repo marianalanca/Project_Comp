@@ -1,4 +1,4 @@
-%x START DOCUMENT ITEMIZE ENUMERATE
+%x COMMENTS
 ID                  [a-zA-Z][a-zA-Z0-9_]*
 INTLIT              [0-9]+
 CHRLIT              '([a-zA-Z]|"\\n"|"\\t"|"\\"|"\'"|"\""|"\\"[0-7]{1,3})'
@@ -42,10 +42,15 @@ REALLIT             [0-9]+"."[0-9]+([eE][+-]?[0-9]+)?
 {INTLIT}        {printf("INTLIT(%s)\n", yytext); }
 {CHRLIT}        {printf("CHRLIT(%s)\n", yytext); }
 {REALLIT}       {printf("REALLIT(%s)\n", yytext); }
+"//"            { BEGIN COMMENTS; }
+
+<COMMENTS>\n    { BEGIN 0; }
+<COMMENTS>.    { ; }
+
 
 " "+    ;
-\t+  ;
 \n ; //nao faz nada
+.   ;
 
 
 %%
