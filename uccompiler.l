@@ -1,13 +1,13 @@
-%x COMMENTS1 COMMENTS2
+%x COMMENTS1 COMMENTS2 CHRLIT_STATE
 ID                  [a-zA-Z][a-zA-Z0-9_]*
 INTLIT              [0-9]+
-CHRLIT              '([a-zA-Z]|"\\n"|"\\t"|"\\"|"\'"|"\""|"\\"[0-7]{1,3})'
 REALLIT             [0-9]+"."[0-9]+([eE][+-]?[0-9]+)?
+CHRLIT              '([a-zA-Z]|"\\n"|"\\t"|"\\"|"\'"|"\""|"\\"[0-7]{1,3})
 RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"++"|"--"|"\["|"\]")
 
 %{
   int line = 1;
-  int column = ;
+  int column = 1;
 %}
 
 %%
@@ -49,22 +49,27 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 {RESERVED}      { printf("RESERVED(%s)\n", yytext); column+=strlen(yytext); }
 {ID}            { printf("ID(%s)\n", yytext); column+=strlen(yytext); }
 {INTLIT}        { printf("INTLIT(%s)\n", yytext); column+=strlen(yytext); }
-{CHRLIT}        { printf("CHRLIT(%s)\n", yytext); column+=strlen(yytext); }
 {REALLIT}       { printf("REALLIT(%s)\n", yytext); column+=strlen(yytext); }
+{CHRLIT}        { BEGIN CHRLIT_STATE; }
 
 "//"            { BEGIN COMMENTS1; }
 "/*"            { BEGIN COMMENTS2; }
 
-<COMMENTS1>\n    { BEGIN 0; }
+<COMMENTS1>\n    { line++; BEGIN 0; }
 <COMMENTS1>.     { ; }
 
 <COMMENTS2>.     { ; }
-<COMMENTS2>"*/" { BEGIN 0; }
+<COMMENTS2>"*/"  { BEGIN 0; }
+<COMMENTS2><<EOF>>  { printf("Line <%d>, col <%d>: unterminated comment\n", line, column); return 1; }
+
+<CHRLIT_STATE>"\'"    { printf("CHRLIT(%s)\n", yytext); column+=strlen(yytext); BEGIN 0; }
+<CHRLIT_STATE><<EOF>>  { printf("Line <%d>, col <%d>: unterminated char constant\n", line, column); return 1; }
+<CHRLIT_STATE>.       { printf("Line <%d>, col <%d>: invalid char constant %s\n", line, column, yytext); BEGIN 0; }
 
 
-" "+    ;
+" "+    { ; }
 \n  {line++; column = 1;}
-.   ;
+.   { ; }
 
 
 %%
