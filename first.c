@@ -1,11 +1,12 @@
 int main(void) {
   char i = 'A';
   char p = '\n';
+  int do = "do";
   // this is a comment
-  while (i <= 'Z')
+  do
   {
-    putchar(i);
+    putchar(i); /*comment*/
     i = i + 1;
-  }
+  }while (i <= 'Z')
   return 0;
 }
