@@ -7,7 +7,7 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 
 %{
   int line = 1;
-  int column = 1;
+  int column = ;
 %}
 
 %%
