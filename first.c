@@ -1,5 +1,6 @@
 int main(void) {
-  char i = 'Ab;
+  char i = ';
+
   char p = '\n';
   // this is a comment
   do
