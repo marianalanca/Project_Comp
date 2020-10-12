@@ -8,62 +8,57 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 %{
   int line = 1;
   int column = 1;
+  int flag = 0;
   int errorC, errorL;
 
-  /*void print(char* string, int value){
-    if (flag==flag){
-
+  void print(char* string, int flag)
+  {
+    if (flag == 1){
+        printf("%s", string);
     }
-    else {
-      if (flag==0){
-
-      }else {
-
-      }
-    }
-  }*/
+  }
 %}
 
 %%
 
-"char"          { printf("CHAR\n"); column+=yyleng; }
-"else"          { printf("ELSE\n"); column+=yyleng; }
-"while"         { printf("WHILE\n"); column+=yyleng; }
-"if"            { printf("IF\n"); column+=yyleng; }
-"int"           { printf("INT\n"); column+=yyleng; }
-"short"         { printf("SHORT\n"); column+=yyleng; }
-"double"        { printf("DOUBLE\n"); column+=yyleng; }
-"return"        { printf("RETURN\n"); column+=yyleng; }
-"void"          { printf("VOID\n"); column+=yyleng; }
-"&"             { printf("BITWISEAND\n"); column+=yyleng; }
-"|"             { printf("BITWISEOR\n"); column+=yyleng; }
-"^"             { printf("BITWISEXOR\n"); column+=yyleng; }
-"&&"            { printf("AND\n"); column+=yyleng; }
-"="             { printf("ASSIGN\n"); column+=yyleng; }
-"*"             { printf("MUL\n"); column+=yyleng; }
-","             { printf("COMMA\n"); column+=yyleng; }
-"/"             { printf("DIV\n"); column+=yyleng; }
-"=="            { printf("EQ\n"); column+=yyleng; }
-">="            { printf("GE\n");column+=yyleng; }
-">"             { printf("GT\n"); column+=yyleng; }
-"{"             { printf("LBRACE\n"); column+=yyleng; }
-"<="            { printf("LE\n"); column+=yyleng; }
-"("             { printf("LPAR\n"); column+=yyleng; }
-"<"             { printf("LT\n"); column+=yyleng; }
-"-"             { printf("MINUS\n"); column+=yyleng; }
-"%"             { printf("MOD\n"); column+=yyleng; }
-"!="            { printf("NE\n"); column+=yyleng; }
-"!"             { printf("NOT\n"); column+=yyleng; }
-"||"            { printf("OR\n"); column+=yyleng; }
-"+"             { printf("PLUS\n"); column+=yyleng; }
-"}"             { printf("RBRACE\n"); column+=yyleng; }
-")"             { printf("RPAR\n"); column+=yyleng; }
-";"             { printf("SEMI\n"); column+=yyleng; }
+"char"          { print("CHAR\n", flag); column+=yyleng; }
+"else"          { print("ELSE\n", flag); column+=yyleng; }
+"while"         { print("WHILE\n", flag); column+=yyleng; }
+"if"            { print("IF\n", flag); column+=yyleng; }
+"int"           { print("INT\n", flag); column+=yyleng; }
+"short"         { print("SHORT\n", flag); column+=yyleng; }
+"double"        { print("DOUBLE\n", flag); column+=yyleng; }
+"return"        { print("RETURN\n", flag); column+=yyleng; }
+"void"          { print("VOID\n", flag); column+=yyleng; }
+"&"             { print("BITWISEAND\n", flag); column+=yyleng; }
+"|"             { print("BITWISEOR\n", flag); column+=yyleng; }
+"^"             { print("BITWISEXOR\n", flag); column+=yyleng; }
+"&&"            { print("AND\n", flag); column+=yyleng; }
+"="             { print("ASSIGN\n", flag); column+=yyleng; }
+"*"             { print("MUL\n", flag); column+=yyleng; }
+","             { print("COMMA\n", flag); column+=yyleng; }
+"/"             { print("DIV\n", flag); column+=yyleng; }
+"=="            { print("EQ\n", flag); column+=yyleng; }
+">="            { print("GE\n", flag);column+=yyleng; }
+">"             { print("GT\n", flag); column+=yyleng; }
+"{"             { print("LBRACE\n", flag); column+=yyleng; }
+"<="            { print("LE\n", flag); column+=yyleng; }
+"("             { print("LPAR\n", flag); column+=yyleng; }
+"<"             { print("LT\n", flag); column+=yyleng; }
+"-"             { print("MINUS\n", flag); column+=yyleng; }
+"%"             { print("MOD\n", flag); column+=yyleng; }
+"!="            { print("NE\n", flag); column+=yyleng; }
+"!"             { print("NOT\n", flag); column+=yyleng; }
+"||"            { print("OR\n", flag); column+=yyleng; }
+"+"             { print("PLUS\n", flag); column+=yyleng; }
+"}"             { print("RBRACE\n", flag); column+=yyleng; }
+")"             { print("RPAR\n", flag); column+=yyleng; }
+";"             { print("SEMI\n", flag); column+=yyleng; }
 
-{RESERVED}      { printf("RESERVED(%s)\n", yytext); column+=yyleng; }
-{ID}            { printf("ID(%s)\n", yytext); column+=yyleng; }
-{INTLIT}        { printf("INTLIT(%s)\n", yytext); column+=yyleng; }
-{REALLIT}       { printf("REALLIT(%s)\n", yytext); column+=yyleng; }
+{RESERVED}      { if(flag ==1 ) printf("RESERVED(%s)\n", yytext); column+=yyleng; }
+{ID}            { if(flag ==1 ) printf("ID(%s)\n", yytext); column+=yyleng; }
+{INTLIT}        { if(flag ==1 ) printf("INTLIT(%s)\n", yytext); column+=yyleng; }
+{REALLIT}       { if(flag ==1 ) printf("REALLIT(%s)\n", yytext); column+=yyleng; }
 "\'"            { BEGIN CHRLIT_STATE; errorC = column; errorL = line; }
 
 "//".*\n        { line++; }
@@ -72,7 +67,7 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 <CHRLIT_STATE>{CHRLIT}'      { yytext[yyleng - 1] = '\0'; printf("CHRLIT(%s)\n", yytext); column+=yyleng; column+=2; BEGIN 0; }
 <CHRLIT_STATE>{CHRLIT}*'     { yytext[yyleng - 1] = '\0'; printf("Line %d, col %d: invalid char constant (%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
 <CHRLIT_STATE>.+'            { yytext[yyleng - 1] = '\0'; printf("Line %d, col %d: illegal character (%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
-<CHRLIT_STATE>\n|<<EOF>>     { printf("Line %d, col %d:unterminated char constant\n", errorL, errorC); return 1; }
+<CHRLIT_STATE>\n | <<EOF>>     { printf("Line %d, col %d:unterminated char constant\n", errorL, errorC); return 1; }
 <CHRLIT_STATE>.              { column+=yyleng; }
 
 <COMMENTS>.     { column+=yyleng; }
@@ -86,8 +81,16 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 
 
 %%
-int main()
+int main(int argc, char **argv)
 {
+  if (argc == 2)
+  {
+    if(strcmp(argv[1], "-l")==0)
+    {
+      flag = 1;
+    }
+  }
+
   yylex();
   return 0;
 }
