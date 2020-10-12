@@ -1,0 +1,2 @@
+bash compile.sh uccompiler.l analiser
+./analiser < first.c > test.txt
