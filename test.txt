@@ -1,15 +1,17 @@
+Sem nenhuma flag, faz o mesmo que -e1
 INT
 ID(main)
 LPAR
 VOID
 RPAR
 LBRACE
-CHAR
 ID(i)
 ASSIGN
-;
-
-Line 2, col 12: illegal character (  char p = '\n')
+ID(A)
+SEMI
+ID(p)
+ASSIGN
+CHRLIT('\n')
 SEMI
 RESERVED(do)
 LBRACE
@@ -18,4 +20,7 @@ LPAR
 ID(i)
 RPAR
 SEMI
-Line 5, col 17: unterminated comment
+
+
+
+

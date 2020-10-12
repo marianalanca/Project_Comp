@@ -10,7 +10,7 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
   int column = 1;
   int errorC, errorL;
 
-  /*void print(char* string, int flag){
+  /*void print(char* string, int value){
     if (flag==flag){
 
     }
@@ -72,16 +72,13 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"register"|"typedef"|
 <CHRLIT_STATE>{CHRLIT}'      { yytext[yyleng - 1] = '\0'; printf("CHRLIT(%s)\n", yytext); column+=yyleng; column+=2; BEGIN 0; }
 <CHRLIT_STATE>{CHRLIT}*'     { yytext[yyleng - 1] = '\0'; printf("Line %d, col %d: invalid char constant (%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
 <CHRLIT_STATE>.+'            { yytext[yyleng - 1] = '\0'; printf("Line %d, col %d: illegal character (%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
-<CHRLIT_STATE><<EOF>>        { printf("Line %d, col %d:unterminated char constant\n", errorL, errorC); BEGIN 0;}
+<CHRLIT_STATE>\n|<<EOF>>     { printf("Line %d, col %d:unterminated char constant\n", errorL, errorC); return 1; }
 <CHRLIT_STATE>.              { column+=yyleng; }
-<CHRLIT_STATE>\n             { line++; column = 1; }
 
 <COMMENTS>.     { column+=yyleng; }
 <COMMENTS>\n    { line++; column = 1; }
 <COMMENTS>"*/"  { BEGIN 0; }
 <COMMENTS><<EOF>>  { printf("Line %d, col %d: unterminated comment\n", line, column); BEGIN 0; }
-
-
 
 
 \n  {line++; column = 1;}
