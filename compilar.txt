@@ -1,3 +1,0 @@
-cd /mnt/c/Users/maria/Google\ Drive/Universidade/3_ano/comp/Projeto/
-bash compile.sh uccompiler.l analiser
-./analiser < first.c > test.txt
