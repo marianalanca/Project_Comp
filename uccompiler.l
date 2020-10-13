@@ -4,6 +4,7 @@ INTLIT              [0-9]+
 CHRLIT              ([a-zA-Z0-9]|"\""|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t)
 REALLIT             (([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))([eE][+-]?[0-9]+)?
 RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"++"|"--"|"\["|"\]")
+OTHER               ";"|" "|\t
 
 %{
   int line = 1;
@@ -77,7 +78,7 @@ RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"t
 
 
 \n  {line++; column = 1;}
-" " { column++; }
+{OTHER} { column+= yyleng; }
 .   { printf("Line %d, col %d: illegal character ('%s')\n", line, column , yytext); column++; }
 
 
