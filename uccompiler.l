@@ -12,7 +12,7 @@ OTHER               ";"|" "|\t
   int flag = 0;
   int errorC, errorL;
 
-  void print(char* string, int type)
+  void print(char* string)
   {
     if (flag == 1){
         printf("%s", string);
@@ -22,39 +22,39 @@ OTHER               ";"|" "|\t
 
 %%
 
-"char"          { print("CHAR\n", flag); column+=yyleng; }
-"else"          { print("ELSE\n", flag); column+=yyleng; }
-"while"         { print("WHILE\n", flag); column+=yyleng; }
-"if"            { print("IF\n", flag); column+=yyleng; }
-"int"           { print("INT\n", flag); column+=yyleng; }
-"short"         { print("SHORT\n", flag); column+=yyleng; }
-"double"        { print("DOUBLE\n", flag); column+=yyleng; }
-"return"        { print("RETURN\n", flag); column+=yyleng; }
-"void"          { print("VOID\n", flag); column+=yyleng; }
-"&"             { print("BITWISEAND\n", flag); column+=yyleng; }
-"|"             { print("BITWISEOR\n", flag); column+=yyleng; }
-"^"             { print("BITWISEXOR\n", flag); column+=yyleng; }
-"&&"            { print("AND\n", flag); column+=yyleng; }
-"="             { print("ASSIGN\n", flag); column+=yyleng; }
-"*"             { print("MUL\n", flag); column+=yyleng; }
-","             { print("COMMA\n", flag); column+=yyleng; }
-"/"             { print("DIV\n", flag); column+=yyleng; }
-"=="            { print("EQ\n", flag); column+=yyleng; }
-">="            { print("GE\n", flag);column+=yyleng; }
-">"             { print("GT\n", flag); column+=yyleng; }
-"{"             { print("LBRACE\n", flag); column+=yyleng; }
-"<="            { print("LE\n", flag); column+=yyleng; }
-"("             { print("LPAR\n", flag); column+=yyleng; }
-"<"             { print("LT\n", flag); column+=yyleng; }
-"-"             { print("MINUS\n", flag); column+=yyleng; }
-"%"             { print("MOD\n", flag); column+=yyleng; }
-"!="            { print("NE\n", flag); column+=yyleng; }
-"!"             { print("NOT\n", flag); column+=yyleng; }
-"||"            { print("OR\n", flag); column+=yyleng; }
-"+"             { print("PLUS\n", flag); column+=yyleng; }
-"}"             { print("RBRACE\n", flag); column+=yyleng; }
-")"             { print("RPAR\n", flag); column+=yyleng; }
-";"             { print("SEMI\n", flag); column+=yyleng; }
+"char"          { print("CHAR\n"); column+=yyleng; }
+"else"          { print("ELSE\n"); column+=yyleng; }
+"while"         { print("WHILE\n"); column+=yyleng; }
+"if"            { print("IF\n"); column+=yyleng; }
+"int"           { print("INT\n"); column+=yyleng; }
+"short"         { print("SHORT\n"); column+=yyleng; }
+"double"        { print("DOUBLE\n"); column+=yyleng; }
+"return"        { print("RETURN\n"); column+=yyleng; }
+"void"          { print("VOID\n"); column+=yyleng; }
+"&"             { print("BITWISEAND\n"); column+=yyleng; }
+"|"             { print("BITWISEOR\n"); column+=yyleng; }
+"^"             { print("BITWISEXOR\n"); column+=yyleng; }
+"&&"            { print("AND\n"); column+=yyleng; }
+"="             { print("ASSIGN\n"); column+=yyleng; }
+"*"             { print("MUL\n"); column+=yyleng; }
+","             { print("COMMA\n"); column+=yyleng; }
+"/"             { print("DIV\n"); column+=yyleng; }
+"=="            { print("EQ\n"); column+=yyleng; }
+">="            { print("GE\n");column+=yyleng; }
+">"             { print("GT\n"); column+=yyleng; }
+"{"             { print("LBRACE\n"); column+=yyleng; }
+"<="            { print("LE\n"); column+=yyleng; }
+"("             { print("LPAR\n"); column+=yyleng; }
+"<"             { print("LT\n"); column+=yyleng; }
+"-"             { print("MINUS\n"); column+=yyleng; }
+"%"             { print("MOD\n"); column+=yyleng; }
+"!="            { print("NE\n"); column+=yyleng; }
+"!"             { print("NOT\n"); column+=yyleng; }
+"||"            { print("OR\n"); column+=yyleng; }
+"+"             { print("PLUS\n"); column+=yyleng; }
+"}"             { print("RBRACE\n"); column+=yyleng; }
+")"             { print("RPAR\n"); column+=yyleng; }
+";"             { print("SEMI\n"); column+=yyleng; }
 
 {RESERVED}      { if(flag ==1 ) printf("RESERVED(%s)\n", yytext); column+=yyleng; }
 {ID}            { if(flag ==1 ) printf("ID(%s)\n", yytext); column+=yyleng; }
@@ -76,9 +76,8 @@ OTHER               ";"|" "|\t
 <COMMENTS>"*/"  { BEGIN 0; }
 <COMMENTS><<EOF>>  { printf("Line %d, col %d: unterminated comment\n", errorL, errorC); BEGIN 0; }
 
-
-\n  {line++; column = 1;}
 {OTHER} { column+= yyleng; }
+\n|\r\n  {line++; column = 1;}
 .   { printf("Line %d, col %d: illegal character ('%s')\n", line, column , yytext); column++; }
 
 
