@@ -65,7 +65,7 @@ OTHER               ";"|" "|\t
 "//".*\n        { line++; column = 1; }
 "/*"            { BEGIN COMMENTS; errorC = column; errorL = line; }
 
-<CHRLIT_STATE>{CHRLIT}'      { printf("CHRLIT('%s)\n", yytext); column+=yyleng; column+=2; BEGIN 0; }
+<CHRLIT_STATE>{CHRLIT}'      { if (flag == 1) printf("CHRLIT('%s)\n", yytext); column+=yyleng; column+=2; BEGIN 0; }
 <CHRLIT_STATE>{CHRLIT}*'     { printf("Line %d, col %d: invalid char constant ('%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
 <CHRLIT_STATE>.+'            { printf("Line %d, col %d: illegal character ('%s)\n", errorL, errorC , yytext); column+=yyleng + 1; BEGIN 0; }
 <CHRLIT_STATE>\n | <<EOF>>   { printf("Line %d, col %d:unterminated char constant\n", errorL, errorC); return 1; }
