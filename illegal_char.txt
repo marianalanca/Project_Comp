@@ -5,9 +5,7 @@ VOID
 RPAR
 LBRACE
 INT
-
-Line 2, col 9: illegal character (#)    //DEVE APARECER!
-
+Line 2, col 9: illegal character ('#')
 ASSIGN
 INTLIT(223)
 SEMI
