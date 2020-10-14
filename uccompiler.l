@@ -3,7 +3,7 @@ ID                       [a-zA-Z_][a-zA-Z0-9_]*
 INTLIT              [0-9]+
 CHRLIT              ([a-zA-Z0-9.,_!?$%&=<>#" -]|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t)
 REALLIT             (([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+))([eE][+-]?[0-9]+)?
-RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"restrict"|"inline"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"_Bool"|"_Complex"|"_Imaginary"|"++"|"--"|"\["|"\]")
+RESERVED            ("auto"|"break"|"const"|"continue"|"asm"|"do"|"enum"|"extern"|"float"|"for"|"goto"|"register"|"long"|"signed"|"unsigned"|"sizeof"|"static"|"struct"|"switch"|"case"|"default"|"typedef"|"union"|"volatile"|"break"|"_Bool"|"_Imaginary"|"restrict"|"inline"|"_Complex"|"["|"]"|"++"|"--")
 OTHER               " "|\t
 
 %{
@@ -78,7 +78,7 @@ OTHER               " "|\t
 <COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC); BEGIN 0; }
 
 {OTHER}                                { column+= yyleng; }
-\n|\r\n                                     { line++; column = 1; }
+\n|\r\n                                { line++; column = 1; }
 .                                      { printf("Line %d, col %d: illegal character (%s)\n", line, column , yytext); column++; }
 
 %%
