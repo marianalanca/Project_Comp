@@ -4,7 +4,7 @@ INTLIT              [0-9]+
 EXCEPTIONS          [^\'\\\n]
 CHRLIT              ({EXCEPTIONS}|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t)
 EXPONENT            [eE][+-]?{INTLIT}
-REALLIT             (({INTLIT}".")|({INTLIT}"."{INTLIT})|{INTLIT}"."{INTLIT}{EXPONENT}|{INTLIT}"."{EXPONENT}|"."{INTLIT}{EXPONENT}|{INTLIT}{EXPONENT}|"."{INTLIT})
+REALLIT             ((({INTLIT}"."[0-9]*)|([0-9]*"."[0-9]+)){EXPONENT}?)|{INTLIT}{EXPONENT}
 RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"restrict"|"inline"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"_Bool"|"_Complex"|"_Imaginary"|"++"|"--"|"\["|"\]")
 OTHER               " "|\t
 
