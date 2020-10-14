@@ -1,9 +1,11 @@
 %x COMMENTS CHRLIT_STATE
 ID                  [a-zA-Z\_][a-zA-Z0-9\_]*
 INTLIT              [0-9]+
-CHRLIT              ([^\n\'\\]|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t)
-REALLIT             (({INTLIT}"."[0-9]*)|([0-9]*"."[0-9]+))([eE][+-]?[0-9]+)?
-RESERVED            ("auto"|"break"|"const"|"continue"|"asm"|"do"|"enum"|"extern"|"float"|"for"|"goto"|"register"|"long"|"signed"|"unsigned"|"sizeof"|"static"|"struct"|"switch"|"case"|"default"|"typedef"|"union"|"volatile"|"break"|"_Bool"|"_Imaginary"|"restrict"|"inline"|"_Complex"|"["|"]"|"++"|"--")
+EXCEPTIONS          [^\'\\\n]
+CHRLIT              ({EXCEPTIONS}|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t)
+EXPONENT            [eE][+-]?{INTLIT}
+REALLIT             (({INTLIT}".")|({INTLIT}"."{INTLIT})|{INTLIT}"."{INTLIT}{EXPONENT}|{INTLIT}"."{EXPONENT}|"."{INTLIT}{EXPONENT}|{INTLIT}{EXPONENT}|"."{INTLIT})
+RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"restrict"|"inline"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"_Bool"|"_Complex"|"_Imaginary"|"++"|"--"|"\["|"\]")
 OTHER               " "|\t
 
 %{
@@ -62,8 +64,8 @@ OTHER               " "|\t
 {REALLIT}                              { if(flag ==1 ) printf("REALLIT(%s)\n", yytext); column+=yyleng; }
 
 \'{CHRLIT}\'                           { if(flag ==1 ) printf("CHRLIT(%s)\n", yytext); column+=yyleng; }
-\'([^\n\'\\]|\\.)*\'                   { printf("Line %d, col %d: invalid char constant (%s)\n", line, column , yytext); column+=yyleng; }
-\'([^\n\'\\]|\\.)*(\\)?                { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
+\'({EXCEPTIONS}|\\.)*\'                   { printf("Line %d, col %d: invalid char constant (%s)\n", line, column , yytext); column+=yyleng; }
+\'({EXCEPTIONS}|\\.)*(\\)?                { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
 
 "//".*(\n|\r\n)                        { line++; column = 1; }
 "/*"                                   { BEGIN COMMENTS; errorC = column; errorL = line; }
