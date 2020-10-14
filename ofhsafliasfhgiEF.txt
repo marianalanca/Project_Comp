@@ -1,0 +1,10 @@
+Line 1, col 1: unterminated char constant
+Line 2, col 1: unterminated char constant
+Line 3, col 1: invalid char constant ('\\\\')
+ID(sdfsdf)
+CHRLIT('	')
+CHRLIT('	')
+Line 7, col 1: unterminated char constant
+Line 8, col 1: unterminated char constant
+CHRLIT('!')
+CHRLIT('!')
