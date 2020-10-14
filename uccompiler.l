@@ -1,10 +1,12 @@
 %x COMMENTS
-ID                  [a-zA-Z\_][a-zA-Z0-9\_]*
-INTLIT              [0-9]
+
+ID                  [a-zA-Z_][a-zA-Z0-9_]*
+INTLIT              [0-9]+
 EXCEPTIONS          [^\'\\\n]
-EXPONENT            [eE][+-]?{INTLIT}
-REALLIT             ((({INTLIT}+"."?{INTLIT}*)|({INTLIT}*"."?{INTLIT}+))([eE][+-]?{INTLIT}+)?)
-RESERVED            ("auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"restrict"|"inline"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"_Bool"|"_Complex"|"_Imaginary"|"++"|"--"|"\["|"\]")
+CHRLIT              {EXCEPTIONS}|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}|\t
+EXPONENTIAL         [eE][+-]?{INTLIT}
+REALLIT             (([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+)){EXPONENTIAL}?|{INTLIT}{EXPONENTIAL}
+RESERVED            "auto"|"long"|"switch"|"break"|"enum"|"float"|"register"|"typedef"|"case"|"extern"|"union"|"unsigned"|"union"|"unsigned"|"restrict"|"inline"|"const"|"for"|"signed"|"continue"|"goto"|"sizeof"|"volatile"|"default"|"static"|"do"|"struct"|"_Packed"|"_Bool"|"_Complex"|"_Imaginary"|"++"|"--"|"\["|"\]"
 OTHER               " "|\t
 
 %{
@@ -59,18 +61,18 @@ OTHER               " "|\t
 
 {RESERVED}                             { if(flag ==1 ) printf("RESERVED(%s)\n", yytext); column+=yyleng; }
 {ID}                                   { if(flag ==1 ) printf("ID(%s)\n", yytext); column+=yyleng; }
-{INTLIT}+                              { if(flag ==1 ) printf("INTLIT(%s)\n", yytext); column+=yyleng; }
+{INTLIT}                               { if(flag ==1 ) printf("INTLIT(%s)\n", yytext); column+=yyleng; }
 {REALLIT}                              { if(flag ==1 ) printf("REALLIT(%s)\n", yytext); column+=yyleng; }
 
-\'{CHRLIT}\'                           { if(flag ==1 ) printf("CHRLIT(%s)\n", yytext); column+=yyleng; }
-\'({EXCEPTIONS}|\\.)*\'                { printf("Line %d, col %d: invalid char constant (%s)\n", line, column , yytext); column+=yyleng; }
-\'({EXCEPTIONS}|\\.)*(\\)?             { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
+'{CHRLIT}'                             { if(flag ==1 ) printf("CHRLIT(%s)\n", yytext); column+=yyleng; }
+'({EXCEPTIONS}|\\.)*'                  { printf("Line %d, col %d: invalid char constant (%s)\n", line, column , yytext); column+=yyleng; }
+'({EXCEPTIONS}|\\.)*(\\)?              { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
 
-"\/\/".*(\n|\r\n)                      { line++; column = 1; }
-"\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
+"//".*(\n|\r\n)                        { line++; column = 1; }
+"/*"                                   { BEGIN COMMENTS; errorC = column; errorL = line; }
 
 <COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
-<COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng; }
+<COMMENTS>"*/"                         { BEGIN 0; column += yyleng; }
 <COMMENTS>\n                           { line++; column = 1; }
 <COMMENTS>.                            { column++; }
 
