@@ -20,63 +20,55 @@ END_OF_LINE         \n|\r\n|\r
   int column = 1;
   int flag = 0;
   int errorC, errorL;
-
-  void print(char* string)
-  {
-    if (flag){
-        printf("%s", string);
-    }
-  }
 %}
 
 %%
 
-"char"                                 { if(flag) print("CHAR\n"); column+=yyleng; }
-"else"                                 { if(flag) print("ELSE\n"); column+=yyleng; }
-"if"                                   { if(flag) print("IF\n"); column+=yyleng; }
-"while"                                { if(flag) print("WHILE\n"); column+=yyleng; }
-"int"                                  { if(flag) print("INT\n"); column+=yyleng; }
-"double"                               { if(flag) print("DOUBLE\n"); column+=yyleng; }
-"short"                                { if(flag) print("SHORT\n"); column+=yyleng; }
-"return"                               { if(flag) print("RETURN\n"); column+=yyleng; }
-"void"                                 { if(flag) print("VOID\n"); column+=yyleng; }
-"&"                                    { if(flag) print("BITWISEAND\n"); column+=yyleng; }
-"|"                                    { if(flag) print("BITWISEOR\n"); column+=yyleng; }
-"^"                                    { if(flag) print("BITWISEXOR\n"); column+=yyleng; }
-"&&"                                   { if(flag) print("AND\n"); column+=yyleng; }
-"="                                    { if(flag) print("ASSIGN\n"); column+=yyleng; }
-"*"                                    { if(flag) print("MUL\n"); column+=yyleng; }
-","                                    { if(flag) print("COMMA\n"); column+=yyleng; }
-"/"                                    { if(flag) print("DIV\n"); column+=yyleng; }
-"=="                                   { if(flag) print("EQ\n"); column+=yyleng; }
-">="                                   { if(flag) print("GE\n");column+=yyleng; }
-">"                                    { if(flag) print("GT\n"); column+=yyleng; }
-"{"                                    { if(flag) print("LBRACE\n"); column+=yyleng; }
-"<="                                   { if(flag) print("LE\n"); column+=yyleng; }
-"("                                    { if(flag) print("LPAR\n"); column+=yyleng; }
-"<"                                    { if(flag) print("LT\n"); column+=yyleng; }
-"-"                                    { if(flag) print("MINUS\n"); column+=yyleng; }
-"%"                                    { if(flag) print("MOD\n"); column+=yyleng; }
-"!="                                   { if(flag) print("NE\n"); column+=yyleng; }
-"!"                                    { if(flag) print("NOT\n"); column+=yyleng; }
-"||"                                   { if(flag) print("OR\n"); column+=yyleng; }
-"+"                                    { if(flag) print("PLUS\n"); column+=yyleng; }
-"}"                                    { if(flag) print("RBRACE\n"); column+=yyleng; }
-")"                                    { if(flag) print("RPAR\n"); column+=yyleng; }
-";"                                    { if(flag) print("SEMI\n"); column+=yyleng; }
+"\/\/".*{END_OF_LINE}                  { line++; column = 1; }
+"\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
+
+"char"                                 { if(flag) printf("CHAR\n"); column+=yyleng; }
+"else"                                 { if(flag) printf("ELSE\n"); column+=yyleng; }
+"if"                                   { if(flag) printf("IF\n"); column+=yyleng; }
+"while"                                { if(flag) printf("WHILE\n"); column+=yyleng; }
+"int"                                  { if(flag) printf("INT\n"); column+=yyleng; }
+"double"                               { if(flag) printf("DOUBLE\n"); column+=yyleng; }
+"short"                                { if(flag) printf("SHORT\n"); column+=yyleng; }
+"return"                               { if(flag) printf("RETURN\n"); column+=yyleng; }
+"void"                                 { if(flag) printf("VOID\n"); column+=yyleng; }
+"&"                                    { if(flag) printf("BITWISEAND\n"); column+=yyleng; }
+"|"                                    { if(flag) printf("BITWISEOR\n"); column+=yyleng; }
+"^"                                    { if(flag) printf("BITWISEXOR\n"); column+=yyleng; }
+"&&"                                   { if(flag) printf("AND\n"); column+=yyleng; }
+"="                                    { if(flag) printf("ASSIGN\n"); column+=yyleng; }
+"*"                                    { if(flag) printf("MUL\n"); column+=yyleng; }
+","                                    { if(flag) printf("COMMA\n"); column+=yyleng; }
+"/"                                    { if(flag) printf("DIV\n"); column+=yyleng; }
+"=="                                   { if(flag) printf("EQ\n"); column+=yyleng; }
+">="                                   { if(flag) printf("GE\n");column+=yyleng; }
+">"                                    { if(flag) printf("GT\n"); column+=yyleng; }
+"{"                                    { if(flag) printf("LBRACE\n"); column+=yyleng; }
+"<="                                   { if(flag) printf("LE\n"); column+=yyleng; }
+"("                                    { if(flag) printf("LPAR\n"); column+=yyleng; }
+"<"                                    { if(flag) printf("LT\n"); column+=yyleng; }
+"-"                                    { if(flag) printf("MINUS\n"); column+=yyleng; }
+"%"                                    { if(flag) printf("MOD\n"); column+=yyleng; }
+"!="                                   { if(flag) printf("NE\n"); column+=yyleng; }
+"!"                                    { if(flag) printf("NOT\n"); column+=yyleng; }
+"||"                                   { if(flag) printf("OR\n"); column+=yyleng; }
+"+"                                    { if(flag) printf("PLUS\n"); column+=yyleng; }
+"}"                                    { if(flag) printf("RBRACE\n"); column+=yyleng; }
+")"                                    { if(flag) printf("RPAR\n"); column+=yyleng; }
+";"                                    { if(flag) printf("SEMI\n"); column+=yyleng; }
 
 
 {RESERVED}                             { if(flag) printf("RESERVED(%s)\n", yytext); column+=yyleng; }
 {ID}                                   { if(flag) printf("ID(%s)\n", yytext); column+=yyleng; }
 {INTLIT}                               { if(flag) printf("INTLIT(%s)\n", yytext); column+=yyleng; }
 {REALLIT}                              { if(flag) printf("REALLIT(%s)\n", yytext); column+=yyleng; }
-
 \'{CHRLIT}\'                           { if(flag) printf("CHRLIT(%s)\n", yytext); column+=yyleng; }
 \'({EXCEPTIONS}|\\.)*'                 { printf("Line %d, col %d: invalid char constant (%s)\n", line, column , yytext); column+=yyleng; }
 \'({EXCEPTIONS}|\\.)*(\\)?             { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
-
-"\/\/".*{END_OF_LINE}                  { line++; column = 1; }
-"\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
 
 <COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
 <COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng; }
