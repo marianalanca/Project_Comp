@@ -18,7 +18,7 @@
 %token DOUBLE
 %token SHORT
 %token RETURN
-%token
+%token VOID
 %token BITWISEAND
 %token BITWISEOR
 %token BITWISEXOR
@@ -51,8 +51,14 @@
 %token REALLIT
 %token <string> RESERVED
 
-%left PLUS MINUS
-%right MUL DIV COMMA
+%left   COMMA
+%right  ASSIGN
+%left   OR
+%left   AND
+%left   EQ NEQ
+%left   PLUS MINUS
+%left   DIV MUL
+%right  NOT
 
 %type FunctionsAndDeclarations
 %type optFuncAndDec
@@ -82,8 +88,10 @@
 
 
 %%
-
-FunctionsAndDeclarations: (FunctionDefinition | FunctionDeclaration | Declaration) optFuncAndDec $
+FunctionsAndDeclarations: FunctionDefinition optFuncAndDec  
+    | FunctionDeclaration optFuncAndDec 
+    | Declaration optFuncAndDec 
+    ;
 
 optFuncAndDec: FunctionsAndDeclarations | %empty
     ;
@@ -94,7 +102,11 @@ FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
 FunctionBody: LBRACE DeclarationsAndStatements RBRACE
     ;
 
-DeclarationsAndStatements: Statement DeclarationsAndStatements | Declaration DeclarationsAndStatements | Statement | Declaration | %empty
+DeclarationsAndStatements: Statement DeclarationsAndStatements 
+    | Declaration DeclarationsAndStatements 
+    | Statement 
+    | Declaration 
+    | %empty
     ;
 
 FunctionDeclaration: TypeSpec FunctionDeclarator SEMI
