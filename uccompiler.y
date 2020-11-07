@@ -51,6 +51,11 @@
 %token REALLIT
 %token <string> RESERVED
 
+/*
+%nonassoc   IF -- ??
+%nonassoc   ELSE
+*/
+
 %left   COMMA
 %right  ASSIGN
 %left   OR
@@ -88,70 +93,89 @@
 
 
 %%
-FunctionsAndDeclarations: FunctionDefinition optFuncAndDec  
-    | FunctionDeclaration optFuncAndDec 
-    | Declaration optFuncAndDec 
+FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
+    | FunctionDeclaration optFuncAndDec                      {;}
+    | Declaration optFuncAndDec                              {;}
     ;
 
-optFuncAndDec: FunctionsAndDeclarations | %empty
+optFuncAndDec: FunctionsAndDeclarations                      {;}
+    | %empty                                                 {;}
     ;
 
-FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
+FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody {;}
     ;
 
-FunctionBody: LBRACE DeclarationsAndStatements RBRACE
+FunctionBody: LBRACE DeclarationsAndStatements RBRACE        {;}
     ;
 
-DeclarationsAndStatements: Statement DeclarationsAndStatements 
-    | Declaration DeclarationsAndStatements 
-    | Statement 
-    | Declaration 
-    | %empty
+DeclarationsAndStatements: Statement DeclarationsAndStatements  {;}
+    | Declaration DeclarationsAndStatements                     {;}
+    | Statement                                                 {;}
+    | Declaration                                               {;}
+    | %empty                                                    {;}
     ;
 
-FunctionDeclaration: TypeSpec FunctionDeclarator SEMI
+FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           {;}
     ;
 
-FunctionDeclarator: ID LPAR ParameterList RPAR
+FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
     ;
 
-ParameterList: ParameterDeclaration optParamList
+ParameterList: ParameterDeclaration optParamList                {;}
     ;
 
-optParamList: COMMA ParameterDeclaration optParamList | %empty
+optParamList: COMMA ParameterDeclaration optParamList | %empty  {;}
     ;
 
-ParameterDeclaration: TypeSpec optParamDec
+ParameterDeclaration: TypeSpec optParamDec                      {;}
     ;
 
-optParamDec: ID | %empty
+optParamDec: ID                                                 {;}
+    | %empty                                                    {;}
     ;
 
-Declarator: ID OptDeclarator
+Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
+
+optDeclaration: COMMA Declarator optDeclaration                 {;}
+    | %empty                                                    {;}
+
+TypeSpec: CHAR | INT | VOID | SHORT | DOUBLE                    {;}
+
+Declarator: ID OptDeclarator                                    {;}
     ;
 
-OptDeclarator: ASSIGN Expr | %empty
+OptDeclarator: ASSIGN Expr                                      {;}
+    | %empty                                                    {;}
     ;
 
-Statement: optExp SEMI
-    | LBRACE optState RBRACE
-    | IF LPAR Expr RPAR Statement optElse
-    | WHILE LPAR Expr RPAR Statement
-    | RETURN optExp SEMI
+Statement: optExp SEMI                                          {;}
+    | LBRACE optState RBRACE                                    {;}
+    | IF LPAR Expr RPAR Statement optElse                       {;}
+    | WHILE LPAR Expr RPAR Statement                            {;}
+    | RETURN optExp SEMI                                        {;}
     ;
 
-optExp: Expr | %empty
+optExp: Expr                                                    {;}
+    | %empty                                                    {;}
     ;
 
-optState: Statement optState | %empty
+optState: Statement optState                                    {;}
+    | %empty                                                    {;}
     ;
 
-optElse: ELSE Statement | %empty
+optElse: ELSE Statement                                         {;}
+    | %empty                                                    {;}
     ;
 
-Expr: Expr optExpr Expr
-    | (PLUS | MINUS | NOT) Expr
-    | ID optID | INTLIT | CHRLIT | REALLIT | LPAR Expr RPAR
+Expr: Expr optExpr Expr                                         {;}
+    | PLUS Expr                                                 {;}
+    | MINUS Expr                                                {;}
+    | NOT Expr                                                  {;}
+    | ID optID                                                  {;}
+    | INTLIT                                                    {;}
+    | CHRLIT                                                    {;}
+    | REALLIT                                                   {;}
+    | LPAR Expr RPAR                                            {;}
     ;
 
 optExpr: ASSIGN | COMMA | PLUS | MINUS
@@ -172,17 +196,6 @@ optCExp: COMMA Expr optCExp
     | %empty
     ;
 
-calc: expression                        {printf("%d\n", $1);}
-
-expression:
-    |   '(' expression ')'                  {$$=$2;}
-    |   expression '+' expression           {$$=$1+$3;}
-    |   expression '-' expression           {$$=$1-$3;}
-    |   expression '*' expression           {$$=$1*$3;}
-    |   expression '/' expression           { if ($3 == 0) {printf("Divide by zero!\n"); $$ = 0; return -1;} $$=$1/$3;}
-    |   '-'NUMBER                           {$$=-$1;}
-    |   NUMBER                              {$$=$1;}
-    |   ;
 %%
 
 int main() {
