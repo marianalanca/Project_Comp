@@ -59,11 +59,15 @@
 %right  ASSIGN
 %left   OR
 %left   AND
+%left   BITWISEOR
+%left   BITWISEXOR
+%left   BITWISEAND
 %left   EQ NE
 %left   LT GT LE GE
 %left   PLUS MINUS
 %left   DIV MUL MOD
 %right  NOT
+/*%left   LBRACE RBRACE LPAR RPAR*/
 
 %type FunctionsAndDeclarations
 %type optFuncAndDec
