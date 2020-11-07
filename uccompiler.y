@@ -135,11 +135,14 @@ optParamDec: ID                                                 {;}
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
+    ;
 
-optDeclaration: COMMA Declarator optDeclaration                 {;}
-    | %empty                                                    {;}
+optDeclaration: %empty                                          {;}
+    | COMMA Declarator optDeclaration                           {;}
+    ;
 
 TypeSpec: CHAR | INT | VOID | SHORT | DOUBLE                    {;}
+    ;
 
 Declarator: ID OptDeclarator                                    {;}
     ;
