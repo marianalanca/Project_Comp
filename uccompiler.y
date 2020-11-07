@@ -10,16 +10,52 @@
     void yyerror (const char *s);
 %}
 
+
+%token
+
+%token CHAR
+%token ELSE
+%token IF
+%token WHILE
+%token INT
+%token DOUBLE
+%token SHORT
+%token RETURN
+%token
+%token BITWISEAND
+%token BITWISEOR
+%token BITWISEXOR
+%token AND
+%token ASSIGN
+%token MUL
+%token COMMA
+%token DIV
+%token EQ
+%token GE
+%token GT
+%token LBRACE
+%token LE
+%token LPAR
+%token LT
+%token MINUS
+%token MOD
+%token NE
+%token NOT
+%token OR
+%token PLUS
+%token RBRACE
+%token RPAR
+%token SEMI
+
 %token <string> CHRLIT
 %token <string> ID
 %token INTLIT
 %token EXPONENTIAL
 %token REALLIT
-
 %token <string> RESERVED
 
-%left '+' '-'
-%right '*'
+%left PLUS MINUS
+%right MUL DIV COMMA
 
 
 %%
