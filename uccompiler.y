@@ -47,7 +47,6 @@
 %token <string> CHRLIT
 %token <string> ID
 %token INTLIT
-%token EXPONENTIAL
 %token REALLIT
 %token <string> RESERVED
 
