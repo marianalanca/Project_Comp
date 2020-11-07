@@ -51,8 +51,8 @@
 %token REALLIT
 %token <string> RESERVED
 
-/*
-%nonassoc   IF -- ??
+/* //???
+%nonassoc   IF 
 %nonassoc   ELSE
 */
 
@@ -60,9 +60,10 @@
 %right  ASSIGN
 %left   OR
 %left   AND
-%left   EQ NEQ
+%left   EQ NE
+%left   LT GT LE GE
 %left   PLUS MINUS
-%left   DIV MUL
+%left   DIV MUL MOD
 %right  NOT
 
 %type FunctionsAndDeclarations
