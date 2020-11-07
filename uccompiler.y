@@ -71,9 +71,11 @@
 
 %type FunctionsAndDeclarations
 %type optFuncAndDec
+/*%type optComum*/
 %type FunctionDefinition
 %type FunctionBody
 %type DeclarationsAndStatements
+%type optDecAndState 
 %type FunctionDeclaration
 %type FunctionDeclarator
 %type ParameterList
@@ -106,20 +108,21 @@ optFuncAndDec: FunctionsAndDeclarations                      {;}
     | %empty                                                 {;}
     ;
 
-FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody {;}
-    ;
+FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody 
+;
 
 FunctionBody: LBRACE DeclarationsAndStatements RBRACE        {;}
     ;
 
-DeclarationsAndStatements: Statement DeclarationsAndStatements  {;}
-    | Declaration DeclarationsAndStatements                     {;}
-    | Statement                                                 {;}
-    | Declaration                                               {;}
-    | %empty                                                    {;}
+FunctionDeclaration: TypeSpec FunctionDeclarator SEMI        {;}
+;
+
+DeclarationsAndStatements: Statement optDecAndState             {;}
+    | Declaration optDecAndState                                {;}
     ;
 
-FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           {;}
+optDecAndState: DeclarationsAndStatements                       {;}
+    | %empty                                                    {;}
     ;
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
