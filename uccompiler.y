@@ -10,9 +10,6 @@
     void yyerror (const char *s);
 %}
 
-
-%token
-
 %token CHAR
 %token ELSE
 %token IF
@@ -57,8 +54,111 @@
 %left PLUS MINUS
 %right MUL DIV COMMA
 
+%type FunctionsAndDeclarations
+%type optFuncAndDec
+%type FunctionDefinition
+%type FunctionBody
+%type DeclarationsAndStatements
+%type FunctionDeclaration
+%type FunctionDeclarator
+%type ParameterList
+%type optParamList
+%type ParameterDeclaration
+%type optParamDec
+%type Declaration
+%type optDeclaration
+%type TypeSpec
+%type Declarator
+%type OptDeclarator
+%type Statement
+%type optExp
+%type optState
+%type optElse
+%type Expr
+%type optExpr
+%type optID
+%type optExpCExp
+%type optCExp
+
 
 %%
+
+FunctionsAndDeclarations: (FunctionDefinition | FunctionDeclaration | Declaration) optFuncAndDec $
+
+optFuncAndDec: FunctionsAndDeclarations | %empty
+    ;
+
+FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
+    ;
+
+FunctionBody: LBRACE DeclarationsAndStatements RBRACE
+    ;
+
+DeclarationsAndStatements: Statement DeclarationsAndStatements | Declaration DeclarationsAndStatements | Statement | Declaration | %empty
+    ;
+
+FunctionDeclaration: TypeSpec FunctionDeclarator SEMI
+    ;
+
+FunctionDeclarator: ID LPAR ParameterList RPAR
+    ;
+
+ParameterList: ParameterDeclaration optParamList
+    ;
+
+optParamList: COMMA ParameterDeclaration optParamList | %empty
+    ;
+
+ParameterDeclaration: TypeSpec optParamDec
+    ;
+
+optParamDec: ID | %empty
+    ;
+
+Declarator: ID OptDeclarator
+    ;
+
+OptDeclarator: ASSIGN Expr | %empty
+    ;
+
+Statement: optExp SEMI
+    | LBRACE optState RBRACE
+    | IF LPAR Expr RPAR Statement optElse
+    | WHILE LPAR Expr RPAR Statement
+    | RETURN optExp SEMI
+    ;
+
+optExp: Expr | %empty
+    ;
+
+optState: Statement optState | %empty
+    ;
+
+optElse: ELSE Statement | %empty
+    ;
+
+Expr: Expr optExpr Expr
+    | (PLUS | MINUS | NOT) Expr
+    | ID optID | INTLIT | CHRLIT | REALLIT | LPAR Expr RPAR
+    ;
+
+optExpr: ASSIGN | COMMA | PLUS | MINUS
+    | MUL | DIV | MOD | OR | AND
+    | BITWISEAND | BITWISEOR | BITWISEXOR
+    | EQ | NE | LE | GE | LT | GT
+    ;
+
+optID: LPAR optExpCExp RPAR
+    | %empty
+    ;
+
+optExpCExp: Expr optCExp
+    | %empty
+    ;
+
+optCExp: COMMA Expr optCExp
+    | %empty
+    ;
 
 calc: expression                        {printf("%d\n", $1);}
 
