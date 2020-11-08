@@ -55,6 +55,8 @@
 %nonassoc   ELSE
 */
 
+/*%nonassoc LBRACE RBRACE LPAR RPAR --> dos 24 ficam 23 conflitos*/
+
 %left   COMMA
 %right  ASSIGN
 %left   OR
@@ -67,11 +69,12 @@
 %left   PLUS MINUS
 %left   DIV MUL MOD
 %right  NOT
-/*%left   LBRACE RBRACE LPAR RPAR*/
 
+/*%left   LBRACE RBRACE LPAR RPAR --> dos 24 ficam 23 conflitos*/
+
+%type Program
 %type FunctionsAndDeclarations
 %type optFuncAndDec
-/*%type optComum*/
 %type FunctionDefinition
 %type FunctionBody
 %type DeclarationsAndStatements
@@ -99,13 +102,16 @@
 
 
 %%
+Program: FunctionsAndDeclarations                            {;}
+;
+
 FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
     | FunctionDeclaration optFuncAndDec                      {;}
     | Declaration optFuncAndDec                              {;}
     ;
 
 optFuncAndDec: FunctionsAndDeclarations                      {;}
-    | %empty                                                 {;}
+    | /*empty*/                                              {;}
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody 
@@ -122,7 +128,7 @@ DeclarationsAndStatements: Statement optDecAndState             {;}
     ;
 
 optDecAndState: DeclarationsAndStatements                       {;}
-    | %empty                                                    {;}
+    | /*empty*/                                                 {;}
     ;
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
@@ -131,7 +137,8 @@ FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
 ParameterList: ParameterDeclaration optParamList                {;}
     ;
 
-optParamList: COMMA ParameterDeclaration optParamList | %empty  {;}
+optParamList: optParamList COMMA ParameterDeclaration           {;} 
+    | %empty                                                    {;}
     ;
 
 ParameterDeclaration: TypeSpec optParamDec                      {;}
@@ -144,8 +151,8 @@ optParamDec: ID                                                 {;}
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
     ;
 
-optDeclaration: %empty                                          {;}
-    | COMMA Declarator optDeclaration                           {;}
+optDeclaration: optDeclaration COMMA Declarator                 {;}
+    | %empty                                                    {;}
     ;
 
 TypeSpec: CHAR | INT | VOID | SHORT | DOUBLE                    {;}
@@ -202,7 +209,7 @@ optExpCExp: Expr optCExp
     | %empty
     ;
 
-optCExp: COMMA Expr optCExp
+optCExp: optCExp COMMA Expr
     | %empty
     ;
 
