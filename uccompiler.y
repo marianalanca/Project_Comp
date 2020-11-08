@@ -46,8 +46,8 @@
 
 %token <string> CHRLIT
 %token <string> ID
-%token INTLIT
-%token REALLIT
+%token <string> INTLIT
+%token <string> REALLIT
 %token <string> RESERVED
 
 /* //???
@@ -55,7 +55,9 @@
 %nonassoc   ELSE
 */
 
-/*%nonassoc LBRACE RBRACE LPAR RPAR --> dos 24 ficam 23 conflitos*/
+/*%nonassoc LBRACE RBRACE LPAR RPAR*/
+
+%nonassoc   ELSE
 
 %left   COMMA
 %right  ASSIGN
@@ -70,7 +72,7 @@
 %left   DIV MUL MOD
 %right  NOT
 
-/*%left   LBRACE RBRACE LPAR RPAR --> dos 24 ficam 23 conflitos*/
+/*%left   LBRACE RBRACE LPAR RPAR*/
 
 %type Program
 %type FunctionsAndDeclarations
@@ -155,7 +157,11 @@ optDeclaration: optDeclaration COMMA Declarator                 {;}
     | %empty                                                    {;}
     ;
 
-TypeSpec: CHAR | INT | VOID | SHORT | DOUBLE                    {;}
+TypeSpec: CHAR 
+    | INT                                                       {;}
+    | VOID                                                      {;}
+    | SHORT                                                     {;}
+    | DOUBLE                                                    {;}
     ;
 
 Declarator: ID OptDeclarator                                    {;}
@@ -176,12 +182,12 @@ optExp: Expr                                                    {;}
     | %empty                                                    {;}
     ;
 
-optState: Statement optState                                    {;}
+optState: optState Statement                                    {;}
     | %empty                                                    {;}
     ;
 
 optElse: ELSE Statement                                         {;}
-    | %empty                                                    {;}
+    | /*empty*/                                                 {;}
     ;
 
 Expr: Expr optExpr Expr                                         {;}
@@ -195,22 +201,24 @@ Expr: Expr optExpr Expr                                         {;}
     | LPAR Expr RPAR                                            {;}
     ;
 
-optExpr: ASSIGN | COMMA | PLUS | MINUS
-    | MUL | DIV | MOD | OR | AND
+optExpr: ASSIGN | COMMA 
+    | PLUS | MINUS
+    | MUL | DIV | MOD 
+    | OR | AND
     | BITWISEAND | BITWISEOR | BITWISEXOR
     | EQ | NE | LE | GE | LT | GT
     ;
 
 optID: LPAR optExpCExp RPAR
-    | %empty
+    | /*empty*/
     ;
 
 optExpCExp: Expr optCExp
-    | %empty
+    | /*empty*/ 
     ;
 
 optCExp: optCExp COMMA Expr
-    | %empty
+    | /*empty*/
     ;
 
 %%

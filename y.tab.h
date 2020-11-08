@@ -38,19 +38,98 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
 #endif
 
+/* Token type.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    CHAR = 258,
+    ELSE = 259,
+    IF = 260,
+    WHILE = 261,
+    INT = 262,
+    DOUBLE = 263,
+    SHORT = 264,
+    RETURN = 265,
+    VOID = 266,
+    BITWISEAND = 267,
+    BITWISEOR = 268,
+    BITWISEXOR = 269,
+    AND = 270,
+    ASSIGN = 271,
+    MUL = 272,
+    COMMA = 273,
+    DIV = 274,
+    EQ = 275,
+    GE = 276,
+    GT = 277,
+    LBRACE = 278,
+    LE = 279,
+    LPAR = 280,
+    LT = 281,
+    MINUS = 282,
+    MOD = 283,
+    NE = 284,
+    NOT = 285,
+    OR = 286,
+    PLUS = 287,
+    RBRACE = 288,
+    RPAR = 289,
+    SEMI = 290,
+    CHRLIT = 291,
+    ID = 292,
+    INTLIT = 293,
+    REALLIT = 294,
+    RESERVED = 295
+  };
+#endif
+/* Tokens.  */
+#define CHAR 258
+#define ELSE 259
+#define IF 260
+#define WHILE 261
+#define INT 262
+#define DOUBLE 263
+#define SHORT 264
+#define RETURN 265
+#define VOID 266
+#define BITWISEAND 267
+#define BITWISEOR 268
+#define BITWISEXOR 269
+#define AND 270
+#define ASSIGN 271
+#define MUL 272
+#define COMMA 273
+#define DIV 274
+#define EQ 275
+#define GE 276
+#define GT 277
+#define LBRACE 278
+#define LE 279
+#define LPAR 280
+#define LT 281
+#define MINUS 282
+#define MOD 283
+#define NE 284
+#define NOT 285
+#define OR 286
+#define PLUS 287
+#define RBRACE 288
+#define RPAR 289
+#define SEMI 290
+#define CHRLIT 291
+#define ID 292
+#define INTLIT 293
+#define REALLIT 294
+#define RESERVED 295
 
 /* Value type.  */
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
-# define YYSTYPE_IS_DECLARED 1
-#endif
 
 
 extern YYSTYPE yylval;
