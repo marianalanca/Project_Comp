@@ -8,6 +8,8 @@
     int yylex(void);
     // colocar os erros aqui
     void yyerror (const char *s);
+
+
 %}
 
 %token CHAR
@@ -50,13 +52,6 @@
 %token <string> REALLIT
 %token <string> RESERVED
 
-/* //???
-%nonassoc   IF 
-%nonassoc   ELSE
-*/
-
-/*%nonassoc LBRACE RBRACE LPAR RPAR*/
-
 %nonassoc   ELSE
 
 %left   COMMA
@@ -72,7 +67,7 @@
 %left   DIV MUL MOD
 %right  NOT
 
-/*%left   LBRACE RBRACE LPAR RPAR*/
+%start Program
 
 %type Program
 %type FunctionsAndDeclarations
@@ -97,15 +92,16 @@
 %type optState
 %type optElse
 %type Expr
-%type optExpr
+/*%type Expr1
+/*%type optExpr*/
+%type optLparRpar
 %type optID
 %type optExpCExp
 %type optCExp
 
-
 %%
-Program: FunctionsAndDeclarations                            {;}
-;
+Program: FunctionsAndDeclarations
+    ;
 
 FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
     | FunctionDeclaration optFuncAndDec                      {;}
@@ -151,6 +147,7 @@ optParamDec: ID                                                 {;}
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
+    | error SEMI
     ;
 
 optDeclaration: optDeclaration COMMA Declarator                 {;}
@@ -171,11 +168,15 @@ OptDeclarator: ASSIGN Expr                                      {;}
     | %empty                                                    {;}
     ;
 
-Statement: optExp SEMI                                          {;}
+Statement: StatementError SEMI                                          {;}
     | LBRACE optState RBRACE                                    {;}
     | IF LPAR Expr RPAR Statement optElse                       {;}
     | WHILE LPAR Expr RPAR Statement                            {;}
-    | RETURN optExp SEMI                                        {;}
+    ;
+
+StatementError: optExp
+    | RETURN optExp
+    | error
     ;
 
 optExp: Expr                                                    {;}
@@ -183,6 +184,7 @@ optExp: Expr                                                    {;}
     ;
 
 optState: optState Statement                                    {;}
+    | error
     | %empty                                                    {;}
     ;
 
@@ -190,36 +192,51 @@ optElse: ELSE Statement                                         {;}
     | /*empty*/                                                 {;}
     ;
 
-Expr: Expr optExpr Expr                                         {;}
-    | PLUS Expr                                                 {;}
+Expr: PLUS Expr                                                 {;}
     | MINUS Expr                                                {;}
     | NOT Expr                                                  {;}
     | ID optID                                                  {;}
     | INTLIT                                                    {;}
     | CHRLIT                                                    {;}
     | REALLIT                                                   {;}
-    | LPAR Expr RPAR                                            {;}
+    | LPAR optLparRpar RPAR                                     {;}
+    | Expr ASSIGN Expr
+    | Expr COMMA Expr 
+    | Expr PLUS Expr 
+    | Expr MINUS Expr
+    | Expr MUL Expr
+    | Expr DIV Expr
+    | Expr MOD Expr
+    | Expr OR Expr
+    | Expr AND Expr
+    | Expr BITWISEAND Expr
+    | Expr BITWISEOR Expr
+    | Expr BITWISEXOR Expr
+    | Expr EQ Expr
+    | Expr NE Expr 
+    | Expr LE Expr 
+    | Expr GE Expr 
+    | Expr LT Expr 
+    | Expr GT Expr
     ;
 
-optExpr: ASSIGN | COMMA 
-    | PLUS | MINUS
-    | MUL | DIV | MOD 
-    | OR | AND
-    | BITWISEAND | BITWISEOR | BITWISEXOR
-    | EQ | NE | LE | GE | LT | GT
-    ;
+optLparRpar: Expr
+    | error
+;
 
 optID: LPAR optExpCExp RPAR
     | /*empty*/
     ;
 
 optExpCExp: Expr optCExp
+    | error
     | /*empty*/ 
     ;
 
 optCExp: optCExp COMMA Expr
     | /*empty*/
     ;
+
 
 %%
 

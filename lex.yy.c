@@ -2146,9 +2146,20 @@ int main(int argc, char **argv)
 {
   if (argc == 2)
   {
-    if(strcmp(argv[1], "-l")==0)
+    /*Sem flag deve escrever erros lexicais e de sintaxe*/
+    if(strcmp(argv[1], "-e1")==0)
     {
-      flag = 1;
+      flag = 0; /*Só analise lexical - erros*/
+    }
+    else if(strcmp(argv[1], "-l")==0)
+    {
+      flag = 1; /*Só analise lexical - erros e tokens*/
+    }
+    else if(strcmp(argv[1], "-t")==0){
+      flag = 2; /*parsing tree*/
+    }
+    else if(strcmp(argv[1], "-e2")==0){
+      flag= 3; /*erros sintaticos e lexicais*/
     }
   }
 
