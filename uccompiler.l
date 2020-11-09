@@ -5,6 +5,7 @@
 
 %{
     #include "y.tab.h"
+    #include "AST.h"
 %}
 
 %x COMMENTS

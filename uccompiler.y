@@ -18,20 +18,13 @@
 %}
 
 %union{
+    char * id;
     struct node* node;
-    char* id;
 }
 
 %token CHAR ELSE IF WHILE INT DOUBLE SHORT RETURN VOID BITWISEAND BITWISEOR BITWISEXOR AND ASSIGN MUL COMMA DIV EQ GE GT LBRACE LE LPAR LT MINUS MOD NE NOT OR PLUS RBRACE RPAR SEMI
 // Perceber melhor isto
 %token <id> CHRLIT ID INTLIT REALLIT RESERVED
-
-/* //???
-%nonassoc   IF
-%nonassoc   ELSE
-*/
-
-/*%nonassoc LBRACE RBRACE LPAR RPAR*/
 
 %nonassoc   ELSE
 
@@ -69,12 +62,11 @@
 %type <node> Declarator
 %type <node> OptDeclarator
 %type <node> Statement
+%type <node> StatementError
 %type <node> optExp
 %type <node> optState
 %type <node> optElse
 %type <node> Expr
-/*%type <node> Expr1
-/*%type <node> optExpr*/
 %type <node> optLparRpar
 %type <node> optID
 %type <node> optExpCExp
@@ -91,7 +83,7 @@ FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
     ;
 
 optFuncAndDec: FunctionsAndDeclarations                      {;}
-    | /*empty*/                                              {;}
+    | /*epsilon*/                                              {;}
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
@@ -108,7 +100,7 @@ DeclarationsAndStatements: Statement optDecAndState             {;}
     ;
 
 optDecAndState: DeclarationsAndStatements                       {;}
-    | /*empty*/                                                 {;}
+    | /*epsilon*/                                                 {;}
     ;
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
@@ -118,14 +110,14 @@ ParameterList: ParameterDeclaration optParamList                {;}
     ;
 
 optParamList: optParamList COMMA ParameterDeclaration           {;}
-    |  /*empty*/                                                    {;}
+    |  /*epsilon*/                                                    {;}
     ;
 
 ParameterDeclaration: TypeSpec optParamDec                      {;}
     ;
 
 optParamDec: ID                                                 {;}
-    |  /*empty*/                                                    {;}
+    |  /*epsilon*/                                                    {;}
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
@@ -133,7 +125,7 @@ Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
     ;
 
 optDeclaration: optDeclaration COMMA Declarator                 {;}
-    |  /*empty*/                                                    {;}
+    |  /*epsilon*/                                                    {;}
     ;
 
 TypeSpec: CHAR 
@@ -147,10 +139,10 @@ Declarator: ID OptDeclarator                                    {;}
     ;
 
 OptDeclarator: ASSIGN Expr                                      {;}
-    |  /*empty*/                                                    {;}
+    |  /*epsilon*/                                              {;}
     ;
 
-Statement: StatementError SEMI                                          {;}
+Statement: StatementError SEMI                                  {;}
     | LBRACE optState RBRACE                                    {;}
     | IF LPAR Expr RPAR Statement optElse                       {;}
     | WHILE LPAR Expr RPAR Statement                            {;}
@@ -162,16 +154,16 @@ StatementError: optExp
     ;
 
 optExp: Expr                                                    {;}
-    |  /*empty*/                                                    {;}
+    |  /*epsilon*/                                              {;}
     ;
 
 optState: optState Statement                                    {;}
     | error
-    | /*empty*/                                                {;}
+    | /*epsilon*/                                               {;}
     ;
 
 optElse: ELSE Statement                                         {;}
-    | /*empty*/                                                 {;}
+    | /*epsilon*/                                               {;}
     ;
 
 Expr: PLUS Expr                                                 {;}
@@ -182,41 +174,41 @@ Expr: PLUS Expr                                                 {;}
     | CHRLIT                                                    {;}
     | REALLIT                                                   {;}
     | LPAR optLparRpar RPAR                                     {;}
-    | Expr ASSIGN Expr
-    | Expr COMMA Expr 
-    | Expr PLUS Expr 
-    | Expr MINUS Expr
-    | Expr MUL Expr
-    | Expr DIV Expr
-    | Expr MOD Expr
-    | Expr OR Expr
-    | Expr AND Expr
-    | Expr BITWISEAND Expr
-    | Expr BITWISEOR Expr
-    | Expr BITWISEXOR Expr
-    | Expr EQ Expr
-    | Expr NE Expr 
-    | Expr LE Expr 
-    | Expr GE Expr 
-    | Expr LT Expr 
-    | Expr GT Expr
+    | Expr ASSIGN Expr                                          {;}
+    | Expr COMMA Expr                                           {;}
+    | Expr PLUS Expr                                            {;}
+    | Expr MINUS Expr                                           {;}
+    | Expr MUL Expr                                             {;}
+    | Expr DIV Expr                                             {;}
+    | Expr MOD Expr                                             {;}
+    | Expr OR Expr                                              {;}
+    | Expr AND Expr                                             {;}
+    | Expr BITWISEAND Expr                                      {;}
+    | Expr BITWISEOR Expr                                       {;}
+    | Expr BITWISEXOR Expr                                      {;}
+    | Expr EQ Expr                                              {;}
+    | Expr NE Expr                                              {;}
+    | Expr LE Expr                                              {;}
+    | Expr GE Expr                                              {;}
+    | Expr LT Expr                                              {;}
+    | Expr GT Expr                                              {;}
     ;
 
-optLparRpar: Expr
-    | error
+optLparRpar: Expr                                               {;}
+    | error                                                     {;} 
 ;
 
-optID: LPAR optExpCExp RPAR
-    | /*empty*/
+optID: LPAR optExpCExp RPAR                                     {;}
+    | /*epsilon*/                                               {;}
     ;
 
-optExpCExp: Expr optCExp
-    | error
-    | /*empty*/ 
+optExpCExp: Expr optCExp                                        {;}
+    | error                                                     {;}
+    | /*epsilon*/                                               {;}
     ;
 
-optCExp: optCExp COMMA Expr
-    | /*empty*/
+optCExp: optCExp COMMA Expr                                     {;}
+    | /*epsilon*/                                               {;}
     ;
 
 
