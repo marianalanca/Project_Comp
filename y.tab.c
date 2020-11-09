@@ -69,13 +69,18 @@
 #line 6 "uccompiler.y"
 
     #include <stdio.h>
-    int yylex(void);
+    #include <stdlib.h>
+    #include <string.h>
+    #include "AST.h"
+
+
+    int yylex (void);
     // colocar os erros aqui
-    void yyerror (const char *s);
+    void yyerror (char const *s) {
+        fprintf (stderr, "%s\n", s);
+    }
 
-
-
-#line 79 "y.tab.c"
+#line 84 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -112,7 +117,7 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -204,6 +209,21 @@ extern int yydebug;
 #define RESERVED 295
 
 /* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+union YYSTYPE
+{
+#line 20 "uccompiler.y"
+
+    struct node* node;
+    char* id;
+
+#line 221 "y.tab.c"
+
+};
+typedef union YYSTYPE YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
 
 
 extern YYSTYPE yylval;
@@ -576,15 +596,15 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   103,   103,   106,   107,   108,   111,   112,   115,   118,
-     121,   124,   125,   128,   129,   132,   135,   138,   139,   142,
-     145,   146,   149,   150,   153,   154,   157,   158,   159,   160,
-     161,   164,   167,   168,   171,   172,   173,   174,   177,   178,
-     179,   182,   183,   186,   187,   188,   191,   192,   195,   196,
-     197,   198,   199,   200,   201,   202,   203,   204,   205,   206,
-     207,   208,   209,   210,   211,   212,   213,   214,   215,   216,
-     217,   218,   219,   220,   223,   224,   227,   228,   231,   232,
-     233,   236,   237
+       0,    85,    85,    88,    89,    90,    93,    94,    97,   100,
+     103,   106,   107,   110,   111,   114,   117,   120,   121,   124,
+     127,   128,   131,   132,   135,   136,   139,   140,   141,   142,
+     143,   146,   149,   150,   153,   154,   155,   156,   159,   160,
+     161,   164,   165,   168,   169,   170,   173,   174,   177,   178,
+     179,   180,   181,   182,   183,   184,   185,   186,   187,   188,
+     189,   190,   191,   192,   193,   194,   195,   196,   197,   198,
+     199,   200,   201,   202,   205,   206,   209,   210,   213,   214,
+     215,   218,   219
 };
 #endif
 
@@ -1532,284 +1552,290 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 3:
-#line 106 "uccompiler.y"
+  case 2:
+#line 85 "uccompiler.y"
                                                              {;}
-#line 1539 "y.tab.c"
+#line 1559 "y.tab.c"
+    break;
+
+  case 3:
+#line 88 "uccompiler.y"
+                                                             {;}
+#line 1565 "y.tab.c"
     break;
 
   case 4:
-#line 107 "uccompiler.y"
+#line 89 "uccompiler.y"
                                                              {;}
-#line 1545 "y.tab.c"
+#line 1571 "y.tab.c"
     break;
 
   case 5:
-#line 108 "uccompiler.y"
+#line 90 "uccompiler.y"
                                                              {;}
-#line 1551 "y.tab.c"
+#line 1577 "y.tab.c"
     break;
 
   case 6:
-#line 111 "uccompiler.y"
+#line 93 "uccompiler.y"
                                                              {;}
-#line 1557 "y.tab.c"
+#line 1583 "y.tab.c"
     break;
 
   case 7:
-#line 112 "uccompiler.y"
+#line 94 "uccompiler.y"
                                                              {;}
-#line 1563 "y.tab.c"
+#line 1589 "y.tab.c"
     break;
 
   case 9:
-#line 118 "uccompiler.y"
+#line 100 "uccompiler.y"
                                                              {;}
-#line 1569 "y.tab.c"
+#line 1595 "y.tab.c"
     break;
 
   case 10:
-#line 121 "uccompiler.y"
+#line 103 "uccompiler.y"
                                                              {;}
-#line 1575 "y.tab.c"
+#line 1601 "y.tab.c"
     break;
 
   case 11:
-#line 124 "uccompiler.y"
+#line 106 "uccompiler.y"
                                                                 {;}
-#line 1581 "y.tab.c"
+#line 1607 "y.tab.c"
     break;
 
   case 12:
-#line 125 "uccompiler.y"
+#line 107 "uccompiler.y"
                                                                 {;}
-#line 1587 "y.tab.c"
+#line 1613 "y.tab.c"
     break;
 
   case 13:
-#line 128 "uccompiler.y"
+#line 110 "uccompiler.y"
                                                                 {;}
-#line 1593 "y.tab.c"
+#line 1619 "y.tab.c"
     break;
 
   case 14:
-#line 129 "uccompiler.y"
+#line 111 "uccompiler.y"
                                                                 {;}
-#line 1599 "y.tab.c"
+#line 1625 "y.tab.c"
     break;
 
   case 15:
-#line 132 "uccompiler.y"
+#line 114 "uccompiler.y"
                                                                 {;}
-#line 1605 "y.tab.c"
+#line 1631 "y.tab.c"
     break;
 
   case 16:
-#line 135 "uccompiler.y"
+#line 117 "uccompiler.y"
                                                                 {;}
-#line 1611 "y.tab.c"
+#line 1637 "y.tab.c"
     break;
 
   case 17:
-#line 138 "uccompiler.y"
+#line 120 "uccompiler.y"
                                                                 {;}
-#line 1617 "y.tab.c"
+#line 1643 "y.tab.c"
     break;
 
   case 18:
-#line 139 "uccompiler.y"
-                                                                {;}
-#line 1623 "y.tab.c"
+#line 121 "uccompiler.y"
+                                                                    {;}
+#line 1649 "y.tab.c"
     break;
 
   case 19:
-#line 142 "uccompiler.y"
+#line 124 "uccompiler.y"
                                                                 {;}
-#line 1629 "y.tab.c"
+#line 1655 "y.tab.c"
     break;
 
   case 20:
-#line 145 "uccompiler.y"
+#line 127 "uccompiler.y"
                                                                 {;}
-#line 1635 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
   case 21:
-#line 146 "uccompiler.y"
-                                                                {;}
-#line 1641 "y.tab.c"
+#line 128 "uccompiler.y"
+                                                                    {;}
+#line 1667 "y.tab.c"
     break;
 
   case 22:
-#line 149 "uccompiler.y"
+#line 131 "uccompiler.y"
                                                                 {;}
-#line 1647 "y.tab.c"
+#line 1673 "y.tab.c"
     break;
 
   case 24:
-#line 153 "uccompiler.y"
+#line 135 "uccompiler.y"
                                                                 {;}
-#line 1653 "y.tab.c"
+#line 1679 "y.tab.c"
     break;
 
   case 25:
-#line 154 "uccompiler.y"
-                                                                {;}
-#line 1659 "y.tab.c"
+#line 136 "uccompiler.y"
+                                                                    {;}
+#line 1685 "y.tab.c"
     break;
 
   case 27:
-#line 158 "uccompiler.y"
+#line 140 "uccompiler.y"
                                                                 {;}
-#line 1665 "y.tab.c"
+#line 1691 "y.tab.c"
     break;
 
   case 28:
-#line 159 "uccompiler.y"
+#line 141 "uccompiler.y"
                                                                 {;}
-#line 1671 "y.tab.c"
+#line 1697 "y.tab.c"
     break;
 
   case 29:
-#line 160 "uccompiler.y"
+#line 142 "uccompiler.y"
                                                                 {;}
-#line 1677 "y.tab.c"
+#line 1703 "y.tab.c"
     break;
 
   case 30:
-#line 161 "uccompiler.y"
+#line 143 "uccompiler.y"
                                                                 {;}
-#line 1683 "y.tab.c"
+#line 1709 "y.tab.c"
     break;
 
   case 31:
-#line 164 "uccompiler.y"
+#line 146 "uccompiler.y"
                                                                 {;}
-#line 1689 "y.tab.c"
+#line 1715 "y.tab.c"
     break;
 
   case 32:
-#line 167 "uccompiler.y"
+#line 149 "uccompiler.y"
                                                                 {;}
-#line 1695 "y.tab.c"
+#line 1721 "y.tab.c"
     break;
 
   case 33:
-#line 168 "uccompiler.y"
-                                                                {;}
-#line 1701 "y.tab.c"
+#line 150 "uccompiler.y"
+                                                                    {;}
+#line 1727 "y.tab.c"
     break;
 
   case 34:
-#line 171 "uccompiler.y"
+#line 153 "uccompiler.y"
                                                                         {;}
-#line 1707 "y.tab.c"
+#line 1733 "y.tab.c"
     break;
 
   case 35:
-#line 172 "uccompiler.y"
+#line 154 "uccompiler.y"
                                                                 {;}
-#line 1713 "y.tab.c"
+#line 1739 "y.tab.c"
     break;
 
   case 36:
-#line 173 "uccompiler.y"
+#line 155 "uccompiler.y"
                                                                 {;}
-#line 1719 "y.tab.c"
+#line 1745 "y.tab.c"
     break;
 
   case 37:
-#line 174 "uccompiler.y"
+#line 156 "uccompiler.y"
                                                                 {;}
-#line 1725 "y.tab.c"
+#line 1751 "y.tab.c"
     break;
 
   case 41:
-#line 182 "uccompiler.y"
+#line 164 "uccompiler.y"
                                                                 {;}
-#line 1731 "y.tab.c"
+#line 1757 "y.tab.c"
     break;
 
   case 42:
-#line 183 "uccompiler.y"
-                                                                {;}
-#line 1737 "y.tab.c"
+#line 165 "uccompiler.y"
+                                                                    {;}
+#line 1763 "y.tab.c"
     break;
 
   case 43:
-#line 186 "uccompiler.y"
+#line 168 "uccompiler.y"
                                                                 {;}
-#line 1743 "y.tab.c"
+#line 1769 "y.tab.c"
     break;
 
   case 45:
-#line 188 "uccompiler.y"
-                                                                {;}
-#line 1749 "y.tab.c"
+#line 170 "uccompiler.y"
+                                                               {;}
+#line 1775 "y.tab.c"
     break;
 
   case 46:
-#line 191 "uccompiler.y"
+#line 173 "uccompiler.y"
                                                                 {;}
-#line 1755 "y.tab.c"
+#line 1781 "y.tab.c"
     break;
 
   case 47:
-#line 192 "uccompiler.y"
+#line 174 "uccompiler.y"
                                                                 {;}
-#line 1761 "y.tab.c"
+#line 1787 "y.tab.c"
     break;
 
   case 48:
-#line 195 "uccompiler.y"
+#line 177 "uccompiler.y"
                                                                 {;}
-#line 1767 "y.tab.c"
+#line 1793 "y.tab.c"
     break;
 
   case 49:
-#line 196 "uccompiler.y"
+#line 178 "uccompiler.y"
                                                                 {;}
-#line 1773 "y.tab.c"
+#line 1799 "y.tab.c"
     break;
 
   case 50:
-#line 197 "uccompiler.y"
+#line 179 "uccompiler.y"
                                                                 {;}
-#line 1779 "y.tab.c"
+#line 1805 "y.tab.c"
     break;
 
   case 51:
-#line 198 "uccompiler.y"
+#line 180 "uccompiler.y"
                                                                 {;}
-#line 1785 "y.tab.c"
+#line 1811 "y.tab.c"
     break;
 
   case 52:
-#line 199 "uccompiler.y"
+#line 181 "uccompiler.y"
                                                                 {;}
-#line 1791 "y.tab.c"
+#line 1817 "y.tab.c"
     break;
 
   case 53:
-#line 200 "uccompiler.y"
+#line 182 "uccompiler.y"
                                                                 {;}
-#line 1797 "y.tab.c"
+#line 1823 "y.tab.c"
     break;
 
   case 54:
-#line 201 "uccompiler.y"
+#line 183 "uccompiler.y"
                                                                 {;}
-#line 1803 "y.tab.c"
+#line 1829 "y.tab.c"
     break;
 
   case 55:
-#line 202 "uccompiler.y"
+#line 184 "uccompiler.y"
                                                                 {;}
-#line 1809 "y.tab.c"
+#line 1835 "y.tab.c"
     break;
 
 
-#line 1813 "y.tab.c"
+#line 1839 "y.tab.c"
 
       default: break;
     }
@@ -2041,11 +2067,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 241 "uccompiler.y"
+#line 223 "uccompiler.y"
 
 
-int main() {
-    yyparse();
-    return 0;
-}
 

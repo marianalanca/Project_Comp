@@ -5,52 +5,33 @@
 
 %{
     #include <stdio.h>
-    int yylex(void);
+    #include <stdlib.h>
+    #include <string.h>
+    #include "AST.h"
+
+
+    int yylex (void);
     // colocar os erros aqui
-    void yyerror (const char *s);
-
-
+    void yyerror (char const *s) {
+        fprintf (stderr, "%s\n", s);
+    }
 %}
 
-%token CHAR
-%token ELSE
-%token IF
-%token WHILE
-%token INT
-%token DOUBLE
-%token SHORT
-%token RETURN
-%token VOID
-%token BITWISEAND
-%token BITWISEOR
-%token BITWISEXOR
-%token AND
-%token ASSIGN
-%token MUL
-%token COMMA
-%token DIV
-%token EQ
-%token GE
-%token GT
-%token LBRACE
-%token LE
-%token LPAR
-%token LT
-%token MINUS
-%token MOD
-%token NE
-%token NOT
-%token OR
-%token PLUS
-%token RBRACE
-%token RPAR
-%token SEMI
+%union{
+    struct node* node;
+    char* id;
+}
 
-%token <string> CHRLIT
-%token <string> ID
-%token <string> INTLIT
-%token <string> REALLIT
-%token <string> RESERVED
+%token CHAR ELSE IF WHILE INT DOUBLE SHORT RETURN VOID BITWISEAND BITWISEOR BITWISEXOR AND ASSIGN MUL COMMA DIV EQ GE GT LBRACE LE LPAR LT MINUS MOD NE NOT OR PLUS RBRACE RPAR SEMI
+// Perceber melhor isto
+%token <id> CHRLIT ID INTLIT REALLIT RESERVED
+
+/* //???
+%nonassoc   IF
+%nonassoc   ELSE
+*/
+
+/*%nonassoc LBRACE RBRACE LPAR RPAR*/
 
 %nonassoc   ELSE
 
@@ -69,38 +50,39 @@
 
 %start Program
 
-%type Program
-%type FunctionsAndDeclarations
-%type optFuncAndDec
-%type FunctionDefinition
-%type FunctionBody
-%type DeclarationsAndStatements
-%type optDecAndState 
-%type FunctionDeclaration
-%type FunctionDeclarator
-%type ParameterList
-%type optParamList
-%type ParameterDeclaration
-%type optParamDec
-%type Declaration
-%type optDeclaration
-%type TypeSpec
-%type Declarator
-%type OptDeclarator
-%type Statement
-%type optExp
-%type optState
-%type optElse
-%type Expr
-/*%type Expr1
-/*%type optExpr*/
-%type optLparRpar
-%type optID
-%type optExpCExp
-%type optCExp
+%type <node> Program
+%type <node> FunctionsAndDeclarations
+%type <node> optFuncAndDec
+%type <node> FunctionDefinition
+%type <node> FunctionBody
+%type <node> DeclarationsAndStatements
+%type <node> optDecAndState
+%type <node> FunctionDeclaration
+%type <node> FunctionDeclarator
+%type <node> ParameterList
+%type <node> optParamList
+%type <node> ParameterDeclaration
+%type <node> optParamDec
+%type <node> Declaration
+%type <node> optDeclaration
+%type <node> TypeSpec
+%type <node> Declarator
+%type <node> OptDeclarator
+%type <node> Statement
+%type <node> optExp
+%type <node> optState
+%type <node> optElse
+%type <node> Expr
+/*%type <node> Expr1
+/*%type <node> optExpr*/
+%type <node> optLparRpar
+%type <node> optID
+%type <node> optExpCExp
+%type <node> optCExp
 
 %%
-Program: FunctionsAndDeclarations
+
+Program: FunctionsAndDeclarations                            {;}
     ;
 
 FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
@@ -112,7 +94,7 @@ optFuncAndDec: FunctionsAndDeclarations                      {;}
     | /*empty*/                                              {;}
     ;
 
-FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody 
+FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
 ;
 
 FunctionBody: LBRACE DeclarationsAndStatements RBRACE        {;}
@@ -135,15 +117,15 @@ FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
 ParameterList: ParameterDeclaration optParamList                {;}
     ;
 
-optParamList: optParamList COMMA ParameterDeclaration           {;} 
-    | %empty                                                    {;}
+optParamList: optParamList COMMA ParameterDeclaration           {;}
+    |  /*empty*/                                                    {;}
     ;
 
 ParameterDeclaration: TypeSpec optParamDec                      {;}
     ;
 
 optParamDec: ID                                                 {;}
-    | %empty                                                    {;}
+    |  /*empty*/                                                    {;}
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
@@ -151,7 +133,7 @@ Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
     ;
 
 optDeclaration: optDeclaration COMMA Declarator                 {;}
-    | %empty                                                    {;}
+    |  /*empty*/                                                    {;}
     ;
 
 TypeSpec: CHAR 
@@ -165,7 +147,7 @@ Declarator: ID OptDeclarator                                    {;}
     ;
 
 OptDeclarator: ASSIGN Expr                                      {;}
-    | %empty                                                    {;}
+    |  /*empty*/                                                    {;}
     ;
 
 Statement: StatementError SEMI                                          {;}
@@ -180,12 +162,12 @@ StatementError: optExp
     ;
 
 optExp: Expr                                                    {;}
-    | %empty                                                    {;}
+    |  /*empty*/                                                    {;}
     ;
 
 optState: optState Statement                                    {;}
     | error
-    | %empty                                                    {;}
+    | /*empty*/                                                {;}
     ;
 
 optElse: ELSE Statement                                         {;}
@@ -240,8 +222,4 @@ optCExp: optCExp COMMA Expr
 
 %%
 
-int main() {
-    yyparse();
-    return 0;
-}
 
