@@ -13,7 +13,7 @@
     int yylex (void);
     // colocar os erros aqui
     void yyerror (char const *s) {
-        fprintf (stderr, "%s\n", s);
+        fprintf (stderr, "Line , col : %s :%s\n", s, yytext);
     }
 %}
 
@@ -83,24 +83,25 @@ FunctionsAndDeclarations: FunctionDefinition optFuncAndDec   {;}
     ;
 
 optFuncAndDec: FunctionsAndDeclarations                      {;}
-    | /*epsilon*/                                              {;}
+    | /*epsilon*/                                            {;}
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody
 ;
 
-FunctionBody: LBRACE DeclarationsAndStatements RBRACE        {;}
+FunctionBody: LBRACE optDecAndState RBRACE                      {;}
     ;
 
-FunctionDeclaration: TypeSpec FunctionDeclarator SEMI        {;}
+FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           {;}
 ;
 
 DeclarationsAndStatements: Statement optDecAndState             {;}
     | Declaration optDecAndState                                {;}
+    | error SEMI optDecAndState
     ;
 
 optDecAndState: DeclarationsAndStatements                       {;}
-    | /*epsilon*/                                                 {;}
+    | /*epsilon*/                                               {;}
     ;
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  {;}
@@ -110,22 +111,21 @@ ParameterList: ParameterDeclaration optParamList                {;}
     ;
 
 optParamList: optParamList COMMA ParameterDeclaration           {;}
-    |  /*epsilon*/                                                    {;}
+    |  /*epsilon*/                                              {;}
     ;
 
 ParameterDeclaration: TypeSpec optParamDec                      {;}
     ;
 
 optParamDec: ID                                                 {;}
-    |  /*epsilon*/                                                    {;}
+    |  /*epsilon*/                                              {;}
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            {;}
-    | error SEMI
     ;
 
 optDeclaration: optDeclaration COMMA Declarator                 {;}
-    |  /*epsilon*/                                                    {;}
+    |  /*epsilon*/                                              {;}
     ;
 
 TypeSpec: CHAR 
@@ -142,27 +142,27 @@ OptDeclarator: ASSIGN Expr                                      {;}
     |  /*epsilon*/                                              {;}
     ;
 
-Statement: StatementError SEMI                                  {;}
+Statement: optExp                                               {;}
+    | RETURN optExp                                             {;}
     | LBRACE optState RBRACE                                    {;}
-    | IF LPAR Expr RPAR Statement optElse                       {;}
-    | WHILE LPAR Expr RPAR Statement                            {;}
+    | IF LPAR Expr RPAR StatementError %prec optElse            {;}
+    | WHILE LPAR Expr RPAR StatementError                       {;}
     ;
 
-StatementError: optExp
-    | RETURN optExp
-    | error
+StatementError: error SEMI                                      {;}
+    | Statement                                                 {;}
     ;
 
-optExp: Expr                                                    {;}
-    |  /*epsilon*/                                              {;}
+optExp: Expr SEMI                                               {;}
+    | SEMI                                                      {;}
     ;
 
-optState: optState Statement                                    {;}
+optState: StatementError optState                               {;}
     | error
     | /*epsilon*/                                               {;}
     ;
 
-optElse: ELSE Statement                                         {;}
+optElse: ELSE StatementError                                    {;}
     | /*epsilon*/                                               {;}
     ;
 
@@ -208,7 +208,7 @@ optExpCExp: Expr optCExp                                        {;}
     ;
 
 optCExp: optCExp COMMA Expr                                     {;}
-    | /*epsilon*/                                               {;}
+    | /*epsilon*/ %prec COMMA                                   {;}
     ;
 
 
