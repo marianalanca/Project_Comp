@@ -13,7 +13,7 @@
     int yylex (void);
     // colocar os erros aqui
     void yyerror (char const *s) {
-        fprintf (stderr, "Line , col : %s :%s\n", s, yytext);
+        fprintf (stderr, "Line , col : %s :\n", s);
     }
 %}
 
@@ -145,7 +145,7 @@ OptDeclarator: ASSIGN Expr                                      {;}
 Statement: optExp                                               {;}
     | RETURN optExp                                             {;}
     | LBRACE optState RBRACE                                    {;}
-    | IF LPAR Expr RPAR StatementError %prec optElse            {;}
+    | IF LPAR Expr RPAR StatementError optElse                  {;}
     | WHILE LPAR Expr RPAR StatementError                       {;}
     ;
 
