@@ -9,7 +9,6 @@
     #include <string.h>
 
     int yylex (void);
-    // colocar os erros aqui
     void yyerror (char const *s) {
         fprintf (stderr, "%s\n", s);
     }
@@ -297,7 +296,7 @@ Expr: PLUS Expr                                                 { $$ = insertNod
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }
     | CHRLIT                                                    { $$ = insertNode($1, "ChrLit", NULL); }
     | REALLIT                                                   { $$ = insertNode($1, "RealLit", NULL); }
-    | LPAR optLparRpar RPAR                                     { ; }
+    | LPAR optLparRpar RPAR                                     { $$ = $2; }
     | Expr ASSIGN Expr                                          { $$ = insertNode(NULL, "Store", $1); connectBrothers($1, $3); }
     | Expr COMMA Expr                                           { $$ = insertNode(NULL, "Comma", $1); connectBrothers($1, $3); }
     | Expr PLUS Expr                                            { $$ = insertNode(NULL, "Add", $1); connectBrothers($1, $3); }
