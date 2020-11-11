@@ -1,8 +1,13 @@
-cd /mnt/c/Users/maria/Google\ Drive/Universidade/3_ano/comp/Projeto/
+cd "/mnt/c/Users/maria/OneDrive - dei.uc.pt/Universidade/3_ano/comp/Projeto"
+
 bash compile.sh uccompiler.l analiser
-./analiser < first.c > test.txt
+./analiser -l < first.c > test.txt
 
 
 lex mycalc.l
 yacc -d mycalc.y
 cc -o mycalc y.tab.c lex.yy.c
+
+bash yacc.sh uccompiler
+
+uccompiler < > test.out
