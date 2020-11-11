@@ -11,7 +11,7 @@
     int yylex (void);
     // colocar os erros aqui
     void yyerror (char const *s) {
-        fprintf (stderr, "Line , col : %s :\n", s);
+        fprintf (stderr, "%s\n", s);
     }
 
     int commaFlag = 0;
@@ -293,7 +293,7 @@ optState: StatementError optState                               { connectBrother
 Expr: PLUS Expr                                                 { $$ = insertNode(NULL, "Plus", $2); }
     | MINUS Expr                                                { $$ = insertNode(NULL, "Minus", $2); }
     | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2); }
-    | ID optID                                                  { $$ = insertNode($1, "Call", $2); connectBrothers($1, $2); }
+    | ID optID                                                  { $$ = insertNode(NULL, "Call", $2); connectBrothers(insertNode($1, "Id", NULL), $2); }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }
     | CHRLIT                                                    { $$ = insertNode($1, "ChrLit", NULL); }
     | REALLIT                                                   { $$ = insertNode($1, "RealLit", NULL); }
