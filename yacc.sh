@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # run lex and compile the resulting C analyser
-flex $1
-clang -o $2 lex.yy.c y.tab.c
+lex uccompiler.l
+yacc -d uccompiler.y
+cc -o $1 y.tab.c lex.yy.c
 
 # 'lex' and 'gcc' are commonly available too
