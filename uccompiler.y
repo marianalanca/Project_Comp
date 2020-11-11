@@ -8,11 +8,10 @@
     #include <stdlib.h>
     #include <string.h>
 
+    extern int flag;
+
     int yylex (void);
-    // colocar os erros aqui
-    void yyerror (char const *s) {
-        fprintf (stderr, "Line , col : %s :\n", s);
-    }
+    void yyerror (char const *s) ;
 
     int commaFlag = 0;
 
@@ -125,6 +124,7 @@
 %token CHAR ELSE IF WHILE INT DOUBLE SHORT RETURN VOID BITWISEAND BITWISEOR BITWISEXOR AND ASSIGN MUL COMMA DIV EQ GE GT LBRACE LE LPAR LT MINUS MOD NE NOT OR PLUS RBRACE RPAR SEMI
 %token <id> CHRLIT ID INTLIT REALLIT RESERVED
 
+%nonassoc   IFX
 %nonassoc   ELSE
 
 %left   COMMA
@@ -164,7 +164,6 @@
 %type <node> StatementError
 %type <node> optExp
 %type <node> optState
-%type <node> optElse
 %type <node> Expr
 %type <node> optLparRpar
 %type <node> optID
@@ -190,7 +189,7 @@ FunctionsAndDeclarations: FunctionDefinition optFuncAndDec      {  connectBrothe
     ;
 
 optFuncAndDec: FunctionsAndDeclarations                         { $$ = $1; }
-    | /*epsilon*/
+    | /*epsilon*/                                               {;}
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody    {   $$ = insertNode(NULL, "FuncDefinition", $1);
@@ -209,7 +208,7 @@ FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           { $$ = insertNod
 
 DeclarationsAndStatements: Statement optDecAndState             { ; }
     | Declaration optDecAndState                                { ; }
-    | error SEMI optDecAndState
+    | error SEMI optDecAndState                                 {;}
     ;
 
 optDecAndState: DeclarationsAndStatements                       { ; }
@@ -259,7 +258,8 @@ OptDeclarator: ASSIGN Expr                                      { ; }
 Statement: optExp                                               { ; }
     | RETURN optExp                                             { ; }
     | LBRACE optState RBRACE                                    { ; }
-    | IF LPAR Expr RPAR StatementError optElse                  { ; }
+    | IF LPAR Expr RPAR StatementError %prec IFX                { ; }
+    | IF LPAR Expr RPAR StatementError ELSE StatementError      { ; }
     | WHILE LPAR Expr RPAR StatementError                       { ; }
     ;
 
@@ -273,10 +273,6 @@ optExp: Expr SEMI                                               { ; }
 
 optState: StatementError optState                               { ; }
     | error
-    | /*epsilon*/                                               { ; }
-    ;
-
-optElse: ELSE StatementError                                    { ; }
     | /*epsilon*/                                               { ; }
     ;
 

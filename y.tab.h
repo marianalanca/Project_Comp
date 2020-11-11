@@ -86,7 +86,8 @@ extern int yydebug;
     ID = 292,
     INTLIT = 293,
     REALLIT = 294,
-    RESERVED = 295
+    RESERVED = 295,
+    IFX = 296
   };
 #endif
 /* Tokens.  */
@@ -128,17 +129,18 @@ extern int yydebug;
 #define INTLIT 293
 #define REALLIT 294
 #define RESERVED 295
+#define IFX 296
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "uccompiler.y"
+#line 119 "uccompiler.y"
 
     char * id;
-    struct node* node;
+    struct _t1* node;
 
-#line 142 "y.tab.h"
+#line 144 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
