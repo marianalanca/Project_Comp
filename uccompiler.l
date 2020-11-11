@@ -23,6 +23,7 @@ END_OF_LINE         \n|\r\n|\r
   int column = 1;
   int flag = 0;
   int errorC, errorL;
+
 %}
 
 %%
@@ -60,7 +61,6 @@ END_OF_LINE         \n|\r\n|\r
 "}"                                    { if(flag) printf("RBRACE\n"); column+=yyleng; return RBRACE;  }
 ")"                                    { if(flag) printf("RPAR\n"); column+=yyleng; return RPAR;  }
 ";"                                    { if(flag) printf("SEMI\n"); column+=yyleng; return SEMI;  }
-
 
 {RESERVED}                             { if(flag) printf("RESERVED(%s)\n", yytext); yylval.id = strdup(yytext); column+=yyleng; return RESERVED;  }
 {ID}                                   { ;if(flag) printf("ID(%s)\n", yytext); yylval.id = (char* ) strdup(yytext); column+=yyleng; return ID; }

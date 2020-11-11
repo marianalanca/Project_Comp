@@ -607,8 +607,9 @@ char *yytext;
   int column = 1;
   int flag = 0;
   int errorC, errorL;
-#line 611 "lex.yy.c"
+
 #line 612 "lex.yy.c"
+#line 613 "lex.yy.c"
 
 #define INITIAL 0
 #define COMMENTS 1
@@ -826,10 +827,10 @@ YY_DECL
 		}
 
 	{
-#line 28 "uccompiler.l"
+#line 29 "uccompiler.l"
 
 
-#line 833 "lex.yy.c"
+#line 834 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -888,167 +889,167 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 30 "uccompiler.l"
+#line 31 "uccompiler.l"
 { if(flag) printf("CHAR\n"); column+=yyleng; return CHAR;   }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "uccompiler.l"
+#line 32 "uccompiler.l"
 { if(flag) printf("ELSE\n"); column+=yyleng; return ELSE;  }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 32 "uccompiler.l"
+#line 33 "uccompiler.l"
 { if(flag) printf("IF\n"); column+=yyleng; return IF;  }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "uccompiler.l"
+#line 34 "uccompiler.l"
 { if(flag) printf("WHILE\n"); column+=yyleng; return WHILE;  }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 34 "uccompiler.l"
+#line 35 "uccompiler.l"
 { if(flag) printf("INT\n");  column+=yyleng; return INT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 35 "uccompiler.l"
+#line 36 "uccompiler.l"
 { if(flag) printf("DOUBLE\n"); column+=yyleng; return DOUBLE;  }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 36 "uccompiler.l"
+#line 37 "uccompiler.l"
 { if(flag) printf("SHORT\n"); column+=yyleng; return SHORT;  }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 37 "uccompiler.l"
+#line 38 "uccompiler.l"
 { if(flag) printf("RETURN\n"); column+=yyleng; return RETURN;  }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 38 "uccompiler.l"
+#line 39 "uccompiler.l"
 { if(flag) printf("VOID\n"); column+=yyleng; return VOID;  }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 39 "uccompiler.l"
+#line 40 "uccompiler.l"
 { if(flag) printf("BITWISEAND\n"); column+=yyleng; return BITWISEAND;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 40 "uccompiler.l"
+#line 41 "uccompiler.l"
 { if(flag) printf("BITWISEOR\n"); column+=yyleng; return BITWISEOR;  }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 41 "uccompiler.l"
+#line 42 "uccompiler.l"
 { if(flag) printf("BITWISEXOR\n"); column+=yyleng; return BITWISEXOR;  }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 42 "uccompiler.l"
+#line 43 "uccompiler.l"
 { if(flag) printf("AND\n"); column+=yyleng; return AND;  }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 43 "uccompiler.l"
+#line 44 "uccompiler.l"
 { if(flag) printf("ASSIGN\n"); column+=yyleng; return ASSIGN;  }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 44 "uccompiler.l"
+#line 45 "uccompiler.l"
 { if(flag) printf("MUL\n"); column+=yyleng; return MUL;  }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 45 "uccompiler.l"
+#line 46 "uccompiler.l"
 { if(flag) printf("COMMA\n"); column+=yyleng; return COMMA;  }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 46 "uccompiler.l"
+#line 47 "uccompiler.l"
 { if(flag) printf("DIV\n"); column+=yyleng; return DIV;  }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 47 "uccompiler.l"
+#line 48 "uccompiler.l"
 { if(flag) printf("EQ\n"); column+=yyleng; return EQ;  }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 48 "uccompiler.l"
+#line 49 "uccompiler.l"
 { if(flag) printf("GE\n"); column+=yyleng; return GE;  }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 49 "uccompiler.l"
+#line 50 "uccompiler.l"
 { if(flag) printf("GT\n"); column+=yyleng; return GT;  }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 50 "uccompiler.l"
+#line 51 "uccompiler.l"
 { if(flag) printf("LBRACE\n"); column+=yyleng; return LBRACE;  }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 51 "uccompiler.l"
+#line 52 "uccompiler.l"
 { if(flag) printf("LE\n"); column+=yyleng; return LE;  }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 52 "uccompiler.l"
+#line 53 "uccompiler.l"
 { if(flag) printf("LPAR\n"); column+=yyleng; return LPAR;  }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 53 "uccompiler.l"
+#line 54 "uccompiler.l"
 { if(flag) printf("LT\n"); column+=yyleng; return LT;  }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 54 "uccompiler.l"
+#line 55 "uccompiler.l"
 { if(flag) printf("MINUS\n"); column+=yyleng; return MINUS;  }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 55 "uccompiler.l"
+#line 56 "uccompiler.l"
 { if(flag) printf("MOD\n"); column+=yyleng; return MOD;  }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 56 "uccompiler.l"
+#line 57 "uccompiler.l"
 { if(flag) printf("NE\n"); column+=yyleng; return NE;  }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 57 "uccompiler.l"
+#line 58 "uccompiler.l"
 { if(flag) printf("NOT\n"); column+=yyleng; return NOT;  }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 58 "uccompiler.l"
+#line 59 "uccompiler.l"
 { if(flag) printf("OR\n"); column+=yyleng; return OR;  }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 59 "uccompiler.l"
+#line 60 "uccompiler.l"
 { if(flag) printf("PLUS\n"); column+=yyleng; return PLUS;  }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 60 "uccompiler.l"
+#line 61 "uccompiler.l"
 { if(flag) printf("RBRACE\n"); column+=yyleng; return RBRACE;  }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 61 "uccompiler.l"
+#line 62 "uccompiler.l"
 { if(flag) printf("RPAR\n"); column+=yyleng; return RPAR;  }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 62 "uccompiler.l"
+#line 63 "uccompiler.l"
 { if(flag) printf("SEMI\n"); column+=yyleng; return SEMI;  }
 	YY_BREAK
 case 34:
@@ -1138,7 +1139,7 @@ YY_RULE_SETUP
 #line 85 "uccompiler.l"
 ECHO;
 	YY_BREAK
-#line 1142 "lex.yy.c"
+#line 1143 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
