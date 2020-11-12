@@ -41,7 +41,6 @@
 
     void print_tree(node* node, int depth){
         if (node != NULL){
-            printf("entrei aqui\n");
             int i;
 
             for (i = 0; i < depth; i++){
@@ -56,7 +55,7 @@
             print_tree(node->son, depth + 1);
             print_tree(node->brother, depth);
 
-            //free(node);
+            free(node);
         }
     }
 
@@ -169,7 +168,7 @@ FunctionDeclarator: ID LPAR ParameterList RPAR                  { auxiliar = ins
                                                                 }
     ;
 
-ParameterList: ParameterDeclaration optParamList                { printf("hey\n"); $$ = insertNode(NULL, "ParamList", $1); printf("guardei?\n");
+ParameterList: ParameterDeclaration optParamList                { $$ = insertNode(NULL, "ParamList", $1);
 
                                                                   if ($2 != NULL) connectBrothers($1, $2);
                                                                 }
@@ -179,7 +178,7 @@ optParamList: optParamList COMMA ParameterDeclaration           { if ($1 != NULL
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
 
-ParameterDeclaration: TypeSpec optParamDec                      { printf("entrei aqui\n"); $$ = insertNode(NULL, "ParamDeclaration", $1);
+ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1);
                                                                   if ($2 != NULL)  connectBrothers($1, $2);
                                                                 }
     ;
@@ -217,10 +216,10 @@ OptDeclarator: ASSIGN Expr                                      { $$ = $2; }
 
 Statement: optExp                                               { $$ = $1; }
     | RETURN optExp                                             { $$ = insertNode(NULL, "Return", $2); }
-    | LBRACE optState RBRACE                                    { $$ = insertNode(NULL, "StatList", $2); } // NOOO
+    | LBRACE optState RBRACE                                    { $$ = insertNode(NULL, "StatList", $2); }
     | IF LPAR Expr RPAR StatementError %prec IFX                { $$ = insertNode(NULL, "If", $3); connectBrothers($3, $5); }
     | IF LPAR Expr RPAR StatementError ELSE StatementError      { $$ = insertNode(NULL, "If", $3); connectBrothers($3, $5); $$ = insertNode(NULL, "Else", $7); }
-    | WHILE LPAR Expr RPAR StatementError                       { $$ = insertNode(NULL, "While", $3); }
+    | WHILE LPAR Expr RPAR StatementError                       { $$ = insertNode(NULL, "While", $3); connectBrothers($3, $5); }
     ;
 
 StatementError: error SEMI                                      { ; }
@@ -239,9 +238,9 @@ optState: StatementError optState                               { if ($2!= NULL)
 Expr: PLUS Expr                                                 { $$ = insertNode(NULL, "Plus", $2); }
     | MINUS Expr                                                { $$ = insertNode(NULL, "Minus", $2); }
     | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2); }
-    | ID optID                                                  { printf("cheguei aqui\n"); auxiliar = insertNode($1, "Id", NULL);
+    | ID optID                                                  { auxiliar = insertNode($1, "Id", NULL);
                                                                   if ($2 == NULL){ $$ = auxiliar; }
-                                                                  else{printf(" e cheguei aqui\n"); $$ = insertNode(NULL, "Call", auxiliar); connectBrothers(auxiliar , $2); }
+                                                                  else{$$ = insertNode(NULL, "Call", auxiliar); connectBrothers(auxiliar , $2); }
                                                                 }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }
     | CHRLIT                                                    { $$ = insertNode($1, "ChrLit", NULL); }
