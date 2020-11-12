@@ -1,4 +1,4 @@
-int main(void) {
+douvle int main (void) {
   char i = 'A';
 
   /**oi oi oi*/

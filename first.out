@@ -1,0 +1,19 @@
+entrei aqui
+hey
+guardei?
+Line 4, col 1: syntax error: (
+Program
+..FuncDefinition
+....Int
+....Id(main)
+....FuncBody
+......Declaration
+........Char
+........Id(i)
+........ChrLit('A')
+......While
+........Le
+..........Id(i)
+..........ChrLit('Z')
+......Return
+........IntLit(0)
