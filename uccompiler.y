@@ -127,7 +127,7 @@
 
 %%
 
-Program: FunctionsAndDeclarations                               { $$ = insertNode(NULL, "Program", $1); print_tree($$, 0); }
+Program: FunctionsAndDeclarations                               { $$ = insertNode(NULL, "Program", $1); if(flag == 2) print_tree($$, 0); }
     ;
 
 FunctionsAndDeclarations: FunctionDefinition optFuncAndDec      { if ($2 != NULL) connectBrothers($1, $2);
