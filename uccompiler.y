@@ -41,18 +41,26 @@
 
     void print_tree(node* node, int depth){
         if (node != NULL){
-            int i;
+            if (node->type!=NULL){
+                int i;
 
-            for (i = 0; i < depth; i++){
-                printf("..");
-            }
-            printf("%s",node->type);
-            if (node->id != NULL){
-                printf("(%s)", node->id);
-            }
-            printf("\n");
 
-            print_tree(node->son, depth + 1);
+                for (i = 0; i < depth; i++){
+                    printf("..");
+                }
+                printf("%s",node->type);
+                if (node->id != NULL){
+                    printf("(%s)", node->id);
+                }
+                printf("\n");
+            }
+
+            if (node->type==NULL){
+                print_tree(node->son, depth);
+            } else {
+                print_tree(node->son, depth + 1);
+            }
+
             print_tree(node->brother, depth);
 
             free(node);
@@ -164,12 +172,11 @@ optDecAndState: DeclarationsAndStatements                       { $$ = $1; }
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  { auxiliar = insertNode($1, "Id", NULL);
                                                                   connectBrothers(auxiliar, $3);
-                                                                  $$ = auxiliar;
+                                                                  $$ = insertNode(NULL, NULL, auxiliar);
                                                                 }
     ;
 
 ParameterList: ParameterDeclaration optParamList                { $$ = insertNode(NULL, "ParamList", $1);
-
                                                                   if ($2 != NULL) connectBrothers($1, $2);
                                                                 }
     ;
@@ -178,9 +185,7 @@ optParamList: optParamList COMMA ParameterDeclaration           { if ($1 != NULL
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
 
-ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1);
-                                                                  if ($2 != NULL)  connectBrothers($1, $2);
-                                                                }
+ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1); if ( $2 != NULL) connectBrothers ($1, $2); }
     ;
 
 optParamDec: ID                                                 { $$ = insertNode($1, "Id", NULL); }
@@ -206,7 +211,8 @@ TypeSpec: CHAR                                                  { $$ = insertNod
 
 Declarator: ID OptDeclarator                                    { auxiliar = insertNode($1, "Id", NULL);
                                                                   if ($2 != NULL) connectBrothers(auxiliar, $2);
-                                                                  $$ = auxiliar;
+                                                                  $$ = insertNode(NULL, NULL, auxiliar);
+
                                                                 }
     ;
 
@@ -218,7 +224,11 @@ Statement: optExp                                               { $$ = $1; }
     | RETURN optExp                                             { $$ = insertNode(NULL, "Return", $2); }
     | LBRACE optState RBRACE                                    { $$ = insertNode(NULL, "StatList", $2); }
     | IF LPAR Expr RPAR StatementError %prec IFX                { $$ = insertNode(NULL, "If", $3); connectBrothers($3, $5); }
-    | IF LPAR Expr RPAR StatementError ELSE StatementError      { $$ = insertNode(NULL, "If", $3); connectBrothers($3, $5); $$ = insertNode(NULL, "Else", $7); }
+    | IF LPAR Expr RPAR StatementError ELSE StatementError      { auxiliar = insertNode(NULL, "If", $3); 
+                                                                  connectBrothers($3, $5); 
+                                                                  connectBrothers(auxiliar, insertNode(NULL, "Else", $7)); 
+                                                                  $$ = insertNode(NULL, NULL, auxiliar);
+                                                                }
     | WHILE LPAR Expr RPAR StatementError                       { $$ = insertNode(NULL, "While", $3); connectBrothers($3, $5); }
     ;
 
@@ -239,7 +249,7 @@ Expr: PLUS Expr                                                 { $$ = insertNod
     | MINUS Expr                                                { $$ = insertNode(NULL, "Minus", $2); }
     | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2); }
     | ID optID                                                  { auxiliar = insertNode($1, "Id", NULL);
-                                                                  if ($2 == NULL){ $$ = auxiliar; }
+                                                                  if ($2 == NULL){ $$ = insertNode(NULL, NULL, auxiliar); }
                                                                   else{$$ = insertNode(NULL, "Call", auxiliar); connectBrothers(auxiliar , $2); }
                                                                 }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }

@@ -1,9 +1,0 @@
-Program
-..FuncDefinition
-....Int
-....Id(main)
-....FuncBody
-......Declaration
-........Char
-........Id(i)
-........ChrLit('A')

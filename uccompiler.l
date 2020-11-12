@@ -110,7 +110,6 @@ int main(int argc, char **argv)
     }
   }
 
-  yylex();
   yyparse();
   return 0;
 }
