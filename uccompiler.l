@@ -73,7 +73,7 @@ END_OF_LINE         \n|\r\n|\r
 "\/\/".*{END_OF_LINE}?                 { line++; column = 1; }
 "\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
 
-<COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
+<COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); yyterminate(); }
 <COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng + 2; }
 <COMMENTS>\n                           { line++; column = 1; }
 <COMMENTS>.                            { column+=yyleng; }

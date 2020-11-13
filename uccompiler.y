@@ -23,16 +23,16 @@
         struct _t1* brother;
     } node;
 
-    node * auxiliar;
+    node * aux, aux1;
 
     node * insertNode(char * id, char * type, node * son) {
-        node * auxiliar = (node *)malloc(sizeof(node));
-        auxiliar->type = type;
-        auxiliar->id = id;
-        auxiliar->son = son;
-        auxiliar->brother = NULL;
+        node * aux = (node *)malloc(sizeof(node));
+        aux->type = type;
+        aux->id = id;
+        aux->son = son;
+        aux->brother = NULL;
 
-        return auxiliar;
+        return aux;
     }
 
     void connectBrothers(node* node1, node* brother){
@@ -170,9 +170,9 @@ FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           { $$ = insertNod
                                                                 }
     ;
 
-FunctionDeclarator: ID LPAR ParameterList RPAR                  { auxiliar = insertNode($1, "Id", NULL);
-                                                                  connectBrothers(auxiliar, $3);
-                                                                  $$ = insertNode(NULL, NULL, auxiliar);
+FunctionDeclarator: ID LPAR ParameterList RPAR                  { aux = insertNode($1, "Id", NULL);
+                                                                  connectBrothers(aux, $3);
+                                                                  $$ = insertNode(NULL, NULL, aux);
                                                                 }
     ;
 
@@ -210,9 +210,9 @@ TypeSpec: CHAR                                                  { $$ = insertNod
     | DOUBLE                                                    { $$ = insertNode(NULL, "Double", NULL); }
     ;
 
-Declarator: ID OptDeclarator                                    { auxiliar = insertNode($1, "Id", NULL);
-                                                                  if ($2 != NULL) connectBrothers(auxiliar, $2);
-                                                                  $$ = insertNode(NULL, NULL, auxiliar);
+Declarator: ID OptDeclarator                                    { aux = insertNode($1, "Id", NULL);
+                                                                  if ($2 != NULL) connectBrothers(aux, $2);
+                                                                  $$ = insertNode(NULL, NULL, aux);
 
                                                                 }
     ;
@@ -222,15 +222,35 @@ OptDeclarator: ASSIGN Expr                                      { $$ = $2; }
     ;
 
 Statement: optExp                                               { $$ = $1; }
-    | RETURN optExp                                             { $$ = insertNode(NULL, "Return", $2); }
     | LBRACE optState RBRACE                                    { $$ = insertNode(NULL, "StatList", $2); }
-    | IF LPAR Expr RPAR StatementError %prec IFX                { $$ = insertNode(NULL, "If", $3); connectBrothers($3, $5); }
-    | IF LPAR Expr RPAR StatementError ELSE StatementError      { auxiliar = insertNode(NULL, "If", $3);
+
+    | RETURN Expr SEMI                                          { $$ = insertNode(NULL, "Return", $2); }
+    | RETURN SEMI                                               { $$ = insertNode(NULL, "Return", insertNode(NULL, "Null", NULL)); }
+
+    | IF LPAR Expr RPAR StatementError ELSE StatementError      { if ($5 == NULL){ /*SEMI*/
+                                                                    $5 = insertNode(NULL, "Null", NULL);
+                                                                  }
+                                                                  if ($7 == NULL){
+                                                                      $7 = insertNode(NULL, "Null", NULL);
+                                                                  }
+                                                                  $$ = insertNode(NULL, "If", $3);
+                                                                  connectBrothers($5, $7);
                                                                   connectBrothers($3, $5);
-                                                                  connectBrothers(auxiliar, insertNode(NULL, "Else", $7));
-                                                                  $$ = insertNode(NULL, NULL, auxiliar);
                                                                 }
-    | WHILE LPAR Expr RPAR StatementError                       { $$ = insertNode(NULL, "While", $3); connectBrothers($3, $5); }
+    | IF LPAR Expr RPAR StatementError %prec IFX                { if ($5 == NULL){ /*SEMI*/
+                                                                    $5 = insertNode(NULL, "Null", NULL);
+                                                                  }
+
+                                                                  $$ = insertNode(NULL, "If", $3);
+                                                                  connectBrothers($3, $5);
+                                                                }
+
+    | WHILE LPAR Expr RPAR StatementError                       { if ($5 == NULL){ /*SEMI*/
+                                                                    $5 = insertNode(NULL, "Null", NULL);
+                                                                  }
+                                                                  $$ = insertNode(NULL, "While", $3);
+                                                                  connectBrothers($3, $5);
+                                                                }
     ;
 
 StatementError: error SEMI                                      { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL); }
@@ -241,9 +261,23 @@ optExp: Expr SEMI                                               { $$ = $1; }
     | SEMI                                                      { $$ = NULL; }
     ;
 
-optState: StatementError optState                               { if ($2!= NULL) connectBrothers( $1, $2); $$ = $1; }
+optState: StatementError optState                               { if ($1!= NULL) 
+                                                                    $$ = $1;
+                                                                    if ($2 !=NULL){
+                                                                        connectBrothers( $1, $2);
+                                                                    } else {
+                                                                        $$ = $2;
+                                                                    }
+                                                                }
     | error                                                     { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL); }
     | /*epsilon*/                                               { $$ = NULL; }
+    ;
+
+optExpCExp: Expr optCExp                                        { if ($2!= NULL) connectBrothers( $1, $2); $$ = insertNode(NULL, NULL, $1); }
+    ;
+
+optCExp: optCExp COMMA Expr                                     { connectBrothers( $1, $3); $$ = insertNode(NULL, NULL, $1); }
+    | /*epsilon*/ %prec COMMA                                   { $$ = NULL; }
     ;
 
 Expr: Expr ASSIGN Expr                                          { $$ = insertNode(NULL, "Store", $1); connectBrothers($1, $3); }
@@ -272,9 +306,9 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | MINUS Expr                                                { $$ = insertNode(NULL, "Minus", $2); }
     | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2); }
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1, "Id", NULL));}
-    | ID LPAR optExpCExp RPAR                                   { auxiliar = insertNode($1, "Id", NULL);
-                                                                  if ($3 == NULL){ $$ = insertNode(NULL, NULL, auxiliar); }
-                                                                  else{$$ = insertNode(NULL, "Call", auxiliar); connectBrothers(auxiliar , $3); }
+    | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1, "Id", NULL);
+                                                                  if ($3 == NULL){ $$ = insertNode(NULL, NULL, aux); }
+                                                                  else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); }
                                                                 }
     | ID                                                        { $$ = insertNode($1, "Id", NULL); }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }
@@ -282,14 +316,6 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | REALLIT                                                   { $$ = insertNode($1, "RealLit", NULL); }
     | LPAR Expr RPAR                                            { $$ = insertNode(NULL, NULL, $2); }
     ;
-
-optExpCExp: Expr optCExp                                        { if ($2!= NULL) connectBrothers( $1, $2); $$ = insertNode(NULL, NULL, $1); }
-    ;
-
-optCExp: optCExp COMMA Expr                                     { connectBrothers( $1, $3); $$ = insertNode(NULL, NULL, $1); }
-    | /*epsilon*/ %prec COMMA                                   { $$ = NULL; }
-    ;
-
 
 %%
 

@@ -1100,7 +1100,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case YY_STATE_EOF(COMMENTS):
 #line 76 "uccompiler.l"
-{ printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
+{ printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); yyterminate(); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
