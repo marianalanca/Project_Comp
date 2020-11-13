@@ -76,9 +76,9 @@ END_OF_LINE         \n|\r\n|\r
 <COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
 <COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng; }
 <COMMENTS>\n                           { line++; column = 1; }
-<COMMENTS>.                            {  }
+<COMMENTS>.                            { column+=yyleng; }
 
-{OTHER}                                {  }
+{OTHER}                                { column+=yyleng; }
 {END_OF_LINE}                          { line++; column = 1; }
 .                                      { printf("Line %d, col %d: illegal character (%s)\n", line, column , yytext); column+= yyleng; }
 
@@ -87,7 +87,7 @@ END_OF_LINE         \n|\r\n|\r
 void yyerror (char *s)
 {
   if(flag >= 2)
-    printf("Line %d, col %d: %s: %s\n", line + errorL , column + errorC, s, yytext);
+    printf("Line %d, col %d: %s: %s\n", line , column - (int)yyleng, s, yytext);
 }
 
 int main(int argc, char **argv)

@@ -1116,12 +1116,12 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 79 "uccompiler.l"
-{  }
+{ column+=yyleng; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 81 "uccompiler.l"
-{  }
+{ column+=yyleng; }
 	YY_BREAK
 case 47:
 /* rule 47 can match eol */
@@ -2150,7 +2150,7 @@ void yyfree (void * ptr )
 void yyerror (char *s)
 {
   if(flag >= 2)
-    printf("Line %d, col %d: %s: %s\n", line + errorL , column + errorC, s, yytext);
+    printf("Line %d, col %d: %s: %s\n", line , column - (int)yyleng, s, yytext);
 }
 
 int main(int argc, char **argv)
