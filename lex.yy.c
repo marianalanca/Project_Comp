@@ -1105,7 +1105,7 @@ case YY_STATE_EOF(COMMENTS):
 case 43:
 YY_RULE_SETUP
 #line 77 "uccompiler.l"
-{ BEGIN 0; column += yyleng; }
+{ BEGIN 0; column += yyleng + 2; }
 	YY_BREAK
 case 44:
 /* rule 44 can match eol */
@@ -1129,19 +1129,21 @@ YY_RULE_SETUP
 #line 82 "uccompiler.l"
 { line++; column = 1; }
 	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+#line 83 "uccompiler.l"
+{ column+=yyleng; yyterminate(); }
+	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 83 "uccompiler.l"
+#line 84 "uccompiler.l"
 { printf("Line %d, col %d: illegal character (%s)\n", line, column , yytext); column+= yyleng; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 85 "uccompiler.l"
+#line 86 "uccompiler.l"
 ECHO;
 	YY_BREAK
-#line 1143 "lex.yy.c"
-case YY_STATE_EOF(INITIAL):
-	yyterminate();
+#line 1147 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2144,7 +2146,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 85 "uccompiler.l"
+#line 86 "uccompiler.l"
 
 
 void yyerror (char *s)

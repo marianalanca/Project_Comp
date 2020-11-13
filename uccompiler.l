@@ -12,7 +12,7 @@ CHRLIT              {EXCEPTIONS}|"\\n"|"\\t"|"\\\\"|"\\\'"|"\\\""|"\\"[0-7]{1,3}
 EXPONENTIAL         [eE][+-]?{INTLIT}
 REALLIT             (([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+)){EXPONENTIAL}?|{INTLIT}{EXPONENTIAL}
 RESERVED            "auto"|"break"|"const"|"continue"|"asm"|"do"|"enum"|"extern"|"float"|"for"|"goto"|"register"|"long"|"signed"|"unsigned"|"sizeof"|"static"|"struct"|"switch"|"case"|"default"|"typedef"|"union"|"volatile"|"break"|"_Bool"|"_Imaginary"|"restrict"|"inline"|"_Complex"|"["|"]"|"++"|"--"
-OTHER               " "|\t
+OTHER               ([ ]|"\t")
 END_OF_LINE         \n|\r\n|\r
 
 %{
@@ -74,12 +74,13 @@ END_OF_LINE         \n|\r\n|\r
 "\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
 
 <COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); BEGIN 0; }
-<COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng; }
+<COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng + 2; }
 <COMMENTS>\n                           { line++; column = 1; }
 <COMMENTS>.                            { column+=yyleng; }
 
 {OTHER}                                { column+=yyleng; }
 {END_OF_LINE}                          { line++; column = 1; }
+<<EOF>>                                { column+=yyleng; yyterminate(); }
 .                                      { printf("Line %d, col %d: illegal character (%s)\n", line, column , yytext); column+= yyleng; }
 
 %%
