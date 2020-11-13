@@ -6,7 +6,8 @@ bash yacc.sh uccompiler
 
 for file in meta2/*
 do
-    ./uccompiler < "$file" > "$file.out"
+    printf "-> $file\n"
+    ./uccompiler < "$file" > "test.out"
 done
 
 # 'lex' and 'gcc' are commonly available too

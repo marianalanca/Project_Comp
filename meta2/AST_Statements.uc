@@ -18,7 +18,8 @@ int main(void){
 	}
 
 	if (a);else;
-
+	
+	
 	while(a){
 		statement2 = 2;
 	}

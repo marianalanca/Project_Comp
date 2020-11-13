@@ -4,9 +4,9 @@ bash compile.sh uccompiler.l analiser
 ./analiser -l < first.c > test.txt
 
 
-lex mycalc.l
-yacc -d mycalc.y
-cc -o mycalc y.tab.c lex.yy.c
+lex uccompiler.l
+yacc -d uccompiler.y
+cc -o uccompiler y.tab.c lex.yy.c
 
 bash yacc.sh uccompiler
 

@@ -87,7 +87,7 @@ END_OF_LINE         \n|\r\n|\r
 void yyerror (char *s)
 {
   if(flag >= 2)
-    printf("Line %d, col %d: %s: %s\n", errorL , errorC, s, yytext);
+    printf("Line %d, col %d: %s: %s\n", line + errorL , column + errorC, s, yytext);
 }
 
 int main(int argc, char **argv)
