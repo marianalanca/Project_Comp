@@ -6,7 +6,7 @@ bash yacc.sh uccompiler
 
 for file in meta2/*
 do
-    printf "-> $file\n"
+    printf "$file\n"
     ./uccompiler < "$file" > "test.out"
 done
 
