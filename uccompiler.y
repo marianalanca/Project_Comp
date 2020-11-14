@@ -37,6 +37,8 @@
     }
 
     void connectBrothers(node* node1, node* brother){
+        while (node1->brother!=NULL)
+            node1 = node1->brother;
         node1->brother = brother;
     }
 
@@ -202,31 +204,27 @@ optParamDec: ID                                                 { $$ = insertNod
 Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNode(NULL, "Declaration", $1);
                                                                   connectBrothers($1, $2);
                                                                   if ($3 != NULL) {
-                                                                      aux = $2;
-                                                                      aux1 = $3;
                                                                       connectBrothers($$, $3);
-                                                                      while(aux!=NULL){
-                                                                          aux = aux->brother;
+                                                                      while ($3!=NULL){
+                                                                          aux = $3->son;
+                                                                          $3->son = insertNode(NULL, $1->type, NULL);
+                                                                          connectBrothers($3->son, aux);
+                                                                          $3 = $3->brother;
                                                                       }
-                                                                      while(aux1!=NULL){
-                                                                        aux1->son->type = $1->type;
-                                                                        aux1 = aux1->brother;
-                                                                      }
-                                                                      aux->brother = $3;
                                                                   }
                                                                 }
     | error SEMI                                                { $$ = insertNode(NULL, NULL, NULL); errorFlag=1;}
     ;
 
+
+
 optDeclaration: optDeclaration COMMA Declarator                 { aux = insertNode(NULL, "Declaration", $3);
-                                                                  if ($1 != NULL) {
-                                                                    aux1 = $1;
-                                                                    while(aux!=NULL)
-                                                                        aux = aux->brother;
-                                                                    aux1->brother=aux;
-                                                                    $$ = aux1;
-                                                                  } else
-                                                                    $$ = aux;
+                                                                  if ( $1 != NULL){
+                                                                      connectBrothers($1, aux);
+                                                                      $$ = $1;
+                                                                  } else {
+                                                                      $$ = aux;
+                                                                  }
                                                                 }
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
@@ -239,14 +237,10 @@ TypeSpec: CHAR                                                  { $$ = insertNod
     ;
 
 Declarator: ID OptDeclarator                                    { aux = insertNode($1, "Id", NULL);
-                                                                  if ($2 != NULL) {
-                                                                      aux = $$;
-                                                                      while(aux->brother!=NULL){
-                                                                          aux = aux->brother;
-                                                                      }
+                                                                  if ($2 != NULL){
+                                                                    connectBrothers(aux, $2);
                                                                   }
-                                                                  aux->brother=$2;
-
+                                                                  $$ =aux;
                                                                 }
     ;
 
@@ -273,9 +267,9 @@ Statement: optExp                                               { $$ = $1; }
     | IF LPAR Expr RPAR StatementError %prec IFX                { if ($5 == NULL){ /*SEMI*/
                                                                     $5 = insertNode(NULL, "Null", NULL);
                                                                   }
-
                                                                   $$ = insertNode(NULL, "If", $3);
                                                                   connectBrothers($3, $5);
+                                                                  connectBrothers($5, insertNode(NULL, "Null", NULL));
                                                                 }
 
     | WHILE LPAR Expr RPAR StatementError                       { if ($5 == NULL){ /*SEMI*/
@@ -294,12 +288,13 @@ optExp: Expr SEMI                                               { $$ = $1; }
     | SEMI                                                      { $$ = NULL; }
     ;
 
-optState: StatementError optState                               { if ($1!= NULL) 
+optState: StatementError optState                               { if ($1!= NULL){
                                                                     $$ = $1;
-                                                                    if ($2 !=NULL){
+                                                                    if ($2 !=NULL)
                                                                         connectBrothers( $1, $2);
-                                                                    } else {
-                                                                        $$ = $2;
+                                                                    } 
+                                                                    else {
+                                                                    $$ = $2;
                                                                     }
                                                                 }
     | error                                                     { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL); }
