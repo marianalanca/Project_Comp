@@ -199,7 +199,7 @@ Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNod
     | error SEMI                                                { $$ = insertNode(NULL, NULL, NULL);}
     ;
 
-optDeclaration: optDeclaration COMMA Declarator                 { if ($1 != NULL) { connectBrothers($1, $3); $$ = $1; } else $$ = $3; }
+optDeclaration: COMMA Declarator optDeclaration                 { if ($3 != NULL) { connectBrothers($2, $3); $$ = $3; } else $$ = $2; }
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
 
@@ -213,7 +213,6 @@ TypeSpec: CHAR                                                  { $$ = insertNod
 Declarator: ID OptDeclarator                                    { aux = insertNode($1, "Id", NULL);
                                                                   if ($2 != NULL) connectBrothers(aux, $2);
                                                                   $$ = insertNode(NULL, NULL, aux);
-
                                                                 }
     ;
 
