@@ -3,11 +3,8 @@ cd "/mnt/c/Users/maria/OneDrive - dei.uc.pt/Universidade/3_ano/comp/Projeto"
 bash compile.sh uccompiler.l analiser
 ./analiser -l < first.c > test.txt
 
-
 lex uccompiler.l
 yacc -d uccompiler.y
 cc -o uccompiler y.tab.c lex.yy.c
 
 bash yacc.sh uccompiler
-
-uccompiler < > test.out

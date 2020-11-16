@@ -71,10 +71,10 @@ END_OF_LINE         \n|\r\n|\r
 \'({EXCEPTIONS}|\\.)*(\\)?             { printf("Line %d, col %d: unterminated char constant\n", line, column); column+= yyleng; }
 
 "\/\/".*{END_OF_LINE}?                 { line++; column = 1; }
-"\/\*"                                 { BEGIN COMMENTS; errorC = column; errorL = line; }
+"\/\*"                                 { BEGIN COMMENTS; column+= yyleng; errorC = column; errorL = line; }
 
-<COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC + 2); yyterminate(); }
-<COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng + 2; }
+<COMMENTS><<EOF>>                      { printf("Line %d, col %d: unterminated comment\n", errorL, errorC); yyterminate(); }
+<COMMENTS>"\*\/"                       { BEGIN 0; column += yyleng; }
 <COMMENTS>\n                           { line++; column = 1; }
 <COMMENTS>.                            { column+=yyleng; }
 
