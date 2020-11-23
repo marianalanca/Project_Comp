@@ -18,11 +18,16 @@ END_OF_LINE         \n|\r\n|\r
 %{
 
   #include "y.tab.h"
+  #include "symbol_table.h"
+  #include "semantics.h"
+
+  table_element *symtab=NULL;
 
   int line = 1;
   int column = 1;
   int flag = 0;
   int errorC, errorL;
+  extern is_program* myprogram;
 
 %}
 
@@ -93,6 +98,8 @@ void yyerror (char *s)
 
 int main(int argc, char **argv)
 {
+  int errors;
+
   if (argc == 2)
   {
     if(strcmp(argv[1], "-e1")==0)
@@ -116,6 +123,11 @@ int main(int argc, char **argv)
   }
 
   yyparse();
+  errors = check_program(myprogram);
+  print("%d\n", errors);
+  show_table();
+  yylex_destroy();
+
   return 0;
 }
 
