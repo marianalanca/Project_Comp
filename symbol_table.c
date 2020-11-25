@@ -13,7 +13,7 @@ table_element *insert_el(char *str, basic_type t, int line, int column)
 	table_element* previous;
 
 	strcpy(newSymbol->name, str);
-	newSymbol->type=t;
+	newSymbol->type= t;
     newSymbol->line = line;
     newSymbol->column = column;
 	newSymbol->next=NULL;
@@ -32,6 +32,20 @@ table_element *insert_el(char *str, basic_type t, int line, int column)
 	return newSymbol;
 }
 
+char id[32];
+	basic_type type;
+	int line;
+    int column;
+	struct _params *next;
+
+param_list* create_param(char* id, basic_type t){
+	param_list* newParam = (param_list*)malloc(sizeof(param_list));
+
+	newParam->id = id;
+	newParam->type = type;
+	newParam->next=NULL;
+}
+
 void delete_el(table_element* element){
     free(element);
     element=NULL;
@@ -41,9 +55,9 @@ void show_table()
 {
 table_element *aux;
 printf("\n");
-printf("===== Function main Symbol Table =====\n");
+printf("===== Global Symbol Table =====\n");
 for(aux=symtab; aux; aux=aux->next)
-	printf("%s\t%d\n", aux->name, aux->type);
+	printf("%s\t%d(%s)\n", aux->name, aux->type, NULL); // Acabar
 }
 
 //Procura um identificador, devolve 0 caso nao exista

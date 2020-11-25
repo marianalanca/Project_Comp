@@ -4,9 +4,10 @@
 */
 
 %{
-    #include <stdio.h>
+    /*#include <stdio.h>
     #include <stdlib.h>
-    #include <string.h>
+    #include <string.h>*/
+    #include "functions.h"
 
     extern int flag;
     int errorFlag = 0;
@@ -14,7 +15,7 @@
     int yylex (void);
     void yyerror (char const *s) ;
 
-    typedef struct _t1{
+    /*typedef struct _t1{
         char* id;
         char* type;
         struct _t1* son;
@@ -67,7 +68,7 @@
 
             free(node);
         }
-    }
+    }*/
 
 
 %}
