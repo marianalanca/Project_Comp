@@ -6,16 +6,17 @@
 extern table_element* symtab;
 
 //Insere um novo identificador na cauda de uma lista ligada de simbolo
-table_element *insert_el(char *str, basic_type t, int line, int column)
+table_element *insert_el(char *str, char* type/*, int line, int column*/)
 {
 	table_element *newSymbol=(table_element*) malloc(sizeof(table_element));
 	table_element *aux;
 	table_element* previous;
 
-	strcpy(newSymbol->name, str);
-	newSymbol->type= t;
-    newSymbol->line = line;
-    newSymbol->column = column;
+	newSymbol->name = (char*)strdup(str);
+	newSymbol->type = (char*)strdup(type);
+    //newSymbol->line = line;
+    //newSymbol->column = column;
+	newSymbol->parametes = NULL;
 	newSymbol->next=NULL;
 
 	if(symtab)	//Se table ja tem elementos
@@ -32,18 +33,51 @@ table_element *insert_el(char *str, basic_type t, int line, int column)
 	return newSymbol;
 }
 
-char id[32];
-	basic_type type;
-	int line;
-    int column;
-	struct _params *next;
-
-param_list* create_param(char* id, basic_type t){
+param_list* create_param(char* id, char* type){
 	param_list* newParam = (param_list*)malloc(sizeof(param_list));
 
-	newParam->id = id;
-	newParam->type = type;
+	if (id!=NULL)
+		newParam->id = (char*)strdup(id);
+	else
+	{
+		newParam->id = NULL;
+	}
+
+	newParam->type = (char*)strdup(type);
 	newParam->next=NULL;
+
+	return newParam;
+}
+
+void add_to_paramList( param_list* paramList, param_list* newParam ){
+	param_list* auxiliar = paramList;
+
+	if(auxiliar==NULL){
+		paramList = newParam;
+	} else
+	{
+		while (auxiliar->next!=NULL)
+	{
+		auxiliar = auxiliar->next;
+	}
+	auxiliar->next = newParam;
+	}
+
+}
+
+// INCOMPELTO
+char* print_param_types(param_list* paramList){
+	param_list* auxiliar = paramList;
+	char* types;
+
+	strcpy(types, auxiliar->type);
+	auxiliar= auxiliar->next;
+
+	while (auxiliar!=NULL)
+	{
+		strcat(types, ", "); // INCOMPELTO
+	}
+	return types;
 }
 
 void delete_el(table_element* element){
@@ -57,7 +91,7 @@ table_element *aux;
 printf("\n");
 printf("===== Global Symbol Table =====\n");
 for(aux=symtab; aux; aux=aux->next)
-	printf("%s\t%d(%s)\n", aux->name, aux->type, NULL); // Acabar
+	printf("%s\t%s()\n", aux->name, aux->type); // Acabar
 }
 
 //Procura um identificador, devolve 0 caso nao exista

@@ -18,8 +18,9 @@ END_OF_LINE         \n|\r\n|\r
 %{
 
   #include "y.tab.h"
+  #include "functions.h"
   #include "symbol_table.h"
-  #include "semantics.h"
+  //#include "semantics.h"
 
   table_element *symtab=NULL;
 
@@ -27,7 +28,7 @@ END_OF_LINE         \n|\r\n|\r
   int column = 1;
   int flag = 0;
   int errorC, errorL;
-  extern is_program* myprogram;
+  //extern is_program* myprogram;
 
 %}
 
@@ -121,11 +122,11 @@ int main(int argc, char **argv)
     /*Sem flag deve escrever erros lexicais e de sintaxe*/
     flag = 4;
   }
+  
 
   yyparse();
-  errors = check_program(myprogram);
-  print("%d\n", errors);
   show_table();
+  printf("\n");
   yylex_destroy();
 
   return 0;

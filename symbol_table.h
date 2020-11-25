@@ -2,24 +2,25 @@
 #define SYMBOL_TABLE_H
 
 typedef struct _params{
-	char id[32];
-	basic_type type;
+	char* id;
+	char* type;
 	int line;
     int column;
 	struct _params *next;
 } param_list;
 
-typedef enum {integer, character, doub, shor} basic_type;
-typedef struct _t1{
-	char name[32];
-	basic_type type;
+typedef struct _symbol_table{
+	char* name;
+	char* type;
 	int line;
     int column;
 	struct _params* parametes; // lista ligada dos parâmetros que estão incluídos -> será necessário imprimir os tipos
-	struct _t1 *next;
+	struct _symbol_table *next;
 } table_element;
 
-table_element *insert_el(char *str, basic_type t);
+table_element *insert_el(char *str, char* type);
+void add_to_paramList( param_list* paramList, param_list* newParam );
+param_list* create_param(char* id, char* type);
 void show_table();
 table_element *search_el(char *str);
 

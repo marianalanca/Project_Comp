@@ -4,10 +4,8 @@
 */
 
 %{
-    /*#include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>*/
     #include "functions.h"
+    #include "symbol_table.h"
 
     extern int flag;
     int errorFlag = 0;
@@ -15,61 +13,9 @@
     int yylex (void);
     void yyerror (char const *s) ;
 
-    /*typedef struct _t1{
-        char* id;
-        char* type;
-        struct _t1* son;
-        struct _t1* brother;
-    } node;
-
     node * aux;
     node * aux1;
-
-    node * insertNode(char * id, char * type, node * son) {
-        node * aux = (node *)malloc(sizeof(node));
-        aux->type = type;
-        aux->id = id;
-        aux->son = son;
-        aux->brother = NULL;
-
-        return aux;
-    }
-
-    void connectBrothers(node* node1, node* brother){
-        while (node1->brother!=NULL)
-            node1 = node1->brother;
-        node1->brother = brother;
-    }
-
-    void print_tree(node* node, int depth){
-
-        if (node != NULL){
-            if (node->type!=NULL){
-                int i;
-
-
-                for (i = 0; i < depth; i++){
-                    printf("..");
-                }
-                printf("%s",node->type);
-                if (node->id != NULL){
-                    printf("(%s)", node->id);
-                }
-                printf("\n");
-            }
-
-            if (node->type==NULL){
-                print_tree(node->son, depth);
-            } else {
-                print_tree(node->son, depth + 1);
-            }
-
-            print_tree(node->brother, depth);
-
-            free(node);
-        }
-    }*/
-
+    table_element* aux_table;
 
 %}
 
@@ -148,6 +94,15 @@ optFuncAndDec: FunctionsAndDeclarations                         { $$ = $1; }
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody    { $$ = insertNode(NULL, "FuncDefinition", $1);
+                                                                  aux_table = insert_el($2->son->id, $1->type);
+                                                                  aux1 = $2->son->brother->son; // ParameterList
+                                                                  while(aux1!=NULL){
+                                                                      if (aux1->son->brother!=NULL)
+                                                                        add_to_paramList(aux_table->parametes, create_param( aux1->son->brother->id ,aux1->son->type));
+                                                                    else
+                                                                        add_to_paramList(aux_table->parametes, create_param( NULL ,aux1->son->type));
+                                                                    aux1 = aux1->brother;
+                                                                  }
                                                                   connectBrothers($1, $2);
                                                                   connectBrothers($2, $3);
                                                                 }
@@ -196,6 +151,7 @@ optParamDec: ID                                                 { $$ = insertNod
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNode(NULL, "Declaration", $1);
+                                                                  insert_el($2->id, $1->type);
                                                                   connectBrothers($1, $2);
                                                                   if ($3 != NULL) {
                                                                       connectBrothers($$, $3);
@@ -323,8 +279,9 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
 
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1, "Id", NULL));}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1, "Id", NULL);
-                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux); }
-                                                                  else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); }
+                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux); insert_el($1, "int"); }
+                                                                  // search_el("i")->type
+                                                                  else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); insert_el($1, "int");}
                                                                 }
     | ID                                                        { $$ = insertNode($1, "Id", NULL); }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }
