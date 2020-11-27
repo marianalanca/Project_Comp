@@ -22,12 +22,16 @@ END_OF_LINE         \n|\r\n|\r
   #include "symbol_table.h"
   //#include "semantics.h"
 
-  table_element *symtab=NULL;
+  table_element *symtab_global = NULL;
+  table_element *symtab_local = NULL;
 
   int line = 1;
   int column = 1;
   int flag = 0;
   int errorC, errorL;
+
+  extern node* AST_root;
+  extern int errorFlag;
   //extern is_program* myprogram;
 
 %}
@@ -99,7 +103,10 @@ void yyerror (char *s)
 
 int main(int argc, char **argv)
 {
-  int errors;
+  symtab_global = create_table("Global", "Global", 0);
+  yyparse();
+
+  show_table();
 
   if (argc == 2)
   {
@@ -113,6 +120,9 @@ int main(int argc, char **argv)
     }
     else if(strcmp(argv[1], "-t")==0){
       flag = 2; /*parsing tree*/
+      if (errorFlag != -1){
+        print_tree(AST_root, 0);
+      }
     }
     else if(strcmp(argv[1], "-e2")==0){
       flag= 3; /*erros sintaticos e lexicais*/
@@ -122,11 +132,6 @@ int main(int argc, char **argv)
     /*Sem flag deve escrever erros lexicais e de sintaxe*/
     flag = 4;
   }
-  
-
-  yyparse();
-  show_table();
-  printf("\n");
   yylex_destroy();
 
   return 0;

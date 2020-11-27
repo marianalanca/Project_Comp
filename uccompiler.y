@@ -16,6 +16,10 @@
     node * aux;
     node * aux1;
     table_element* aux_table;
+    var_list* aux_var;
+    table_element* local_function;
+
+    node* AST_root;
 
 %}
 
@@ -73,7 +77,7 @@
 
 %%
 
-Program: FunctionsAndDeclarations                               { $$ = insertNode(NULL, "Program", $1); if (errorFlag != -1 && flag == 2) print_tree($$, 0); }
+Program: FunctionsAndDeclarations                               { $$ = insertNode(NULL, "Program", $1); AST_root = $$; }
     ;
 
 FunctionsAndDeclarations: FunctionDefinition optFuncAndDec      { if ($2 != NULL) connectBrothers($1, $2);
@@ -94,14 +98,14 @@ optFuncAndDec: FunctionsAndDeclarations                         { $$ = $1; }
     ;
 
 FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody    { $$ = insertNode(NULL, "FuncDefinition", $1);
-                                                                  aux_table = insert_el($2->son->id, $1->type);
-                                                                  aux1 = $2->son->brother->son; // ParameterList
-                                                                  while(aux1!=NULL){
-                                                                      if (aux1->son->brother!=NULL)
-                                                                        add_to_paramList(aux_table->parametes, create_param( aux1->son->brother->id ,aux1->son->type));
-                                                                    else
-                                                                        add_to_paramList(aux_table->parametes, create_param( NULL ,aux1->son->type));
-                                                                    aux1 = aux1->brother;
+                                                                  aux_var = insert_global($2->son->id, $1->type);
+                                                                  // adicionar a local
+                                                                  local_function = create_table($2->son->id,$1->type,1);
+                                                                  // adicionar também parâmetros (de ambos os lados)
+                                                                  aux = $2->son->brother->son;
+                                                                  while(aux!=NULL){
+                                                                    printf("%s\t%s\n", aux->son->brother->id ,aux->son->type);
+                                                                    aux = aux->brother;
                                                                   }
                                                                   connectBrothers($1, $2);
                                                                   connectBrothers($2, $3);
@@ -151,7 +155,7 @@ optParamDec: ID                                                 { $$ = insertNod
     ;
 
 Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNode(NULL, "Declaration", $1);
-                                                                  insert_el($2->id, $1->type);
+                                                                  //insert_local($2->id, $1->type);
                                                                   connectBrothers($1, $2);
                                                                   if ($3 != NULL) {
                                                                       connectBrothers($$, $3);
@@ -279,9 +283,9 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
 
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1, "Id", NULL));}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1, "Id", NULL);
-                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux); insert_el($1, "int"); }
-                                                                  // search_el("i")->type
-                                                                  else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); insert_el($1, "int");}
+                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux); insert_global($1, "int"); }
+                                                                  // search_local("i")->type
+                                                                  else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); insert_global($1, "int");}
                                                                 }
     | ID                                                        { $$ = insertNode($1, "Id", NULL); }
     | INTLIT                                                    { $$ = insertNode($1, "IntLit", NULL); }

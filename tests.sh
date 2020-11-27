@@ -4,7 +4,7 @@
 
 bash yacc.sh uccompiler
 
-for file in meta2/*
+for file in meta3/*
 do
     printf "$file\n"
     ./uccompiler < "$file" > "test.out"
