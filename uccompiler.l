@@ -20,6 +20,7 @@ END_OF_LINE         \n|\r\n|\r
   #include "y.tab.h"
   #include "functions.h"
   #include "symbol_table.h"
+  #include <ctype.h>
   //#include "semantics.h"
 
   table_element *symtab_global = NULL;
@@ -32,7 +33,6 @@ END_OF_LINE         \n|\r\n|\r
 
   extern node* AST_root;
   extern int errorFlag;
-  //extern is_program* myprogram;
 
 %}
 
@@ -103,9 +103,9 @@ void yyerror (char *s)
 
 int main(int argc, char **argv)
 {
-  symtab_global = create_table("Global", "Global", 0);
   yyparse();
 
+  create_semantics(AST_root);
   show_table();
 
   if (argc == 2)

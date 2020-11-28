@@ -3,7 +3,7 @@ short s, t;
 int i, j;
 double d, e;
 
-char f1(void) {
+char f1(void, short) {
 	short s;
 	int i;
 	double d;

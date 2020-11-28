@@ -8,3 +8,4 @@ yacc -d uccompiler.y
 cc -o uccompiler y.tab.c lex.yy.c
 
 bash yacc.sh uccompiler
+./uccompiler -t < meta3/first.c > test.txt

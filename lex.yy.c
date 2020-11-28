@@ -604,6 +604,7 @@ char *yytext;
   #include "y.tab.h"
   #include "functions.h"
   #include "symbol_table.h"
+  #include <ctype.h>
   //#include "semantics.h"
 
   table_element *symtab_global = NULL;
@@ -616,7 +617,6 @@ char *yytext;
 
   extern node* AST_root;
   extern int errorFlag;
-  //extern is_program* myprogram;
 
 #line 622 "lex.yy.c"
 #line 623 "lex.yy.c"
@@ -2167,9 +2167,9 @@ void yyerror (char *s)
 
 int main(int argc, char **argv)
 {
-  symtab_global = create_table("Global", "Global", 0);
   yyparse();
 
+  create_semantics(AST_root);
   show_table();
 
   if (argc == 2)

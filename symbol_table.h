@@ -1,6 +1,13 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
 
+#include "symbol_table.h"
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+#include "functions.h"
+#include <ctype.h>
+
 typedef struct _params{
 	char* id;
 	char* type;
@@ -28,10 +35,11 @@ typedef struct _symbol_table{
 	struct _symbol_table *next; // no caso de ser local
 } table_element;
 
-table_element* create_table(char* tableName, char* tableType, int flag);
+void create_semantics(node* root);
+table_element* create_table(char* tableName, char* tableType);
 var_list *insert_global(char *str, char* type);
-var_list *insert_local(char *str, char* type/*, int line, int column*/);
-void add_to_paramList( param_list* paramList, param_list* newParam );
+var_list *insert_local(char *str, char* type/*, int line, int column*/, table_element* local_table);
+param_list* add_to_paramList( param_list* paramList, param_list* newParam );
 param_list* create_param(char* id, char* type);
 void show_table();
 void show_global_table();
