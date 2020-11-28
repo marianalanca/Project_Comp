@@ -20,6 +20,10 @@ int ii(int i, char c, double d, short s) {
 	return i+j;
 }
 
+int ii(int i, char c, double d, short s) {
+	return i+j;
+}
+
 double dd;
 
 short sf(short s) {

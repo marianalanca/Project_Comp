@@ -19,8 +19,9 @@ typedef struct _params{
 typedef struct _vars{
 	char* id;
 	char* type;
-	int line;
-    int column;
+	int flag; //indica se é param ou não (1 se for) (2 se nao for para imprimir)
+    int function; //indica se é funçao ou nao
+    int n_params; //se for function tem o numero de parametros
 	// adicionar as variáveis -> ex funções; se variáveis não é necessário
 	struct _params* parameters;
 	struct _vars *next;
@@ -35,19 +36,25 @@ typedef struct _symbol_table{
 	struct _symbol_table *next; // no caso de ser local
 } table_element;
 
+extern table_element* symtab_global;
+extern table_element* symtab_local;
+
+void create_local(table_element* newLocal);
 void create_semantics(node* root);
 table_element* create_table(char* tableName, char* tableType);
-var_list *insert_global(char *str, char* type);
-var_list *insert_local(char *str, char* type/*, int line, int column*/, table_element* local_table);
+void insert_global(var_list* newVar);
+void insert_local(table_element* local_table, var_list* newVar);
+var_list* create_var (char *id, char* type);
+var_list* add_to_varList(var_list* list, var_list* newVar);
 param_list* add_to_paramList( param_list* paramList, param_list* newParam );
 param_list* create_param(char* id, char* type);
 void show_table();
 void show_global_table();
 void show_local_table();
-//Procura um identificador, devolve 0 caso nao exista
-var_list *search_global(char *str);
 void show_local_table();
-var_list *search_local(char *str);
+var_list *search_var_in_table (table_element* symtab, char* str);
+param_list *search_param_in_table (table_element* symtab, char* str);
+param_list *search_param_in_params (param_list* list, char* str);
 
 #endif
 

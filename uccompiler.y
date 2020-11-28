@@ -271,7 +271,6 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1, "Id", NULL));}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1, "Id", NULL);
                                                                   if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux); }
-                                                                  // search_local("i")->type
                                                                   else{$$ = insertNode(NULL, "Call", aux); connectBrothers(aux , $3); }
                                                                 }
     | ID                                                        { $$ = insertNode($1, "Id", NULL); }

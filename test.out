@@ -1,58 +1,135 @@
+Char
+Double
+Int
+Short
 ===== Global Symbol Table =====
-main	int()
-main1	int()
+c1	char
+c2	char
+s	short
+t	short
+i	int
+j	int
+d	double
+e	double
+f1	char(void,short)
+df	double(double,double)
+ii	int(int,char,double,short)
+dd	double
+sf	short(short)
+
+===== Function f1 Symbol Table =====
+return	char
+
+===== Function df Symbol Table =====
+return	char
+
+===== Function ii Symbol Table =====
+return	char
+
+===== Function sf Symbol Table =====
+return	char
 
 
 Program
-..FuncDefinition
+..Declaration
+....Char
+....Id(c1)
+..Declaration
+....Char
+....Id(c2)
+..Declaration
+....Short
+....Id(s)
+..Declaration
+....Short
+....Id(t)
+..Declaration
 ....Int
-....Id(main)
+....Id(i)
+..Declaration
+....Int
+....Id(j)
+..Declaration
+....Double
+....Id(d)
+..Declaration
+....Double
+....Id(e)
+..FuncDefinition
+....Char
+....Id(f1)
 ....ParamList
 ......ParamDeclaration
 ........Void
+......ParamDeclaration
+........Short
 ....FuncBody
 ......Declaration
-........Char
+........Short
+........Id(s)
+......Declaration
+........Int
 ........Id(i)
-........ChrLit('A')
-......While
-........Le
-..........Id(i)
-..........ChrLit('Z')
-........StatList
-..........Call
-............Id(putchar)
-............Id(i)
-..........Store
-............Id(i)
-............Add
-..............Id(i)
-..............IntLit(1)
+......Declaration
+........Double
+........Id(d)
 ......Return
-........IntLit(0)
-..FuncDefinition
-....Int
-....Id(main1)
+........Id(c1)
+..FuncDeclaration
+....Double
+....Id(df)
 ....ParamList
 ......ParamDeclaration
-........Void
+........Double
+......ParamDeclaration
+........Double
+..FuncDefinition
+....Double
+....Id(df)
+....ParamList
+......ParamDeclaration
+........Double
+........Id(d)
+......ParamDeclaration
+........Double
+........Id(dd)
 ....FuncBody
-......Declaration
-........Char
-........Id(i)
-........ChrLit('A')
-......While
-........Le
-..........Id(i)
-..........ChrLit('Z')
-........StatList
-..........Call
-............Id(putchar)
-............Id(i)
-..........Store
-............Id(i)
-............Add
-..............Id(i)
-..............IntLit(1)
 ......Return
-........IntLit(0)
+........Call
+..........Id(df)
+..........Id(d)
+..........Id(e)
+..FuncDefinition
+....Int
+....Id(ii)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(i)
+......ParamDeclaration
+........Char
+........Id(c)
+......ParamDeclaration
+........Double
+........Id(d)
+......ParamDeclaration
+........Short
+........Id(s)
+....FuncBody
+......Return
+........Add
+..........Id(i)
+..........Id(j)
+..Declaration
+....Double
+....Id(dd)
+..FuncDefinition
+....Short
+....Id(sf)
+....ParamList
+......ParamDeclaration
+........Short
+........Id(s)
+....FuncBody
+......Return
+........Id(t)

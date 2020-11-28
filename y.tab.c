@@ -608,8 +608,8 @@ static const yytype_int16 yyrline[] =
      210,   218,   226,   227,   230,   231,   234,   242,   245,   246,
      247,   248,   250,   251,   252,   253,   254,   255,   256,   257,
      258,   259,   260,   261,   262,   263,   264,   265,   267,   268,
-     269,   271,   272,   277,   278,   279,   280,   281,   284,   287,
-     288
+     269,   271,   272,   276,   277,   278,   279,   280,   283,   286,
+     287
 };
 #endif
 
@@ -2064,62 +2064,61 @@ yyreduce:
 #line 272 "uccompiler.y"
                                                                 { aux = insertNode((yyvsp[-3].id), "Id", NULL);
                                                                   if ((yyvsp[-1].node) == NULL){ (yyval.node) = insertNode(NULL, "Call", aux); }
-                                                                  // search_local("i")->type
                                                                   else{(yyval.node) = insertNode(NULL, "Call", aux); connectBrothers(aux , (yyvsp[-1].node)); }
                                                                 }
-#line 2071 "y.tab.c"
+#line 2070 "y.tab.c"
     break;
 
   case 73:
-#line 277 "uccompiler.y"
+#line 276 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id), "Id", NULL); }
-#line 2077 "y.tab.c"
+#line 2076 "y.tab.c"
     break;
 
   case 74:
-#line 278 "uccompiler.y"
+#line 277 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id), "IntLit", NULL); }
-#line 2083 "y.tab.c"
+#line 2082 "y.tab.c"
     break;
 
   case 75:
-#line 279 "uccompiler.y"
+#line 278 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id), "ChrLit", NULL); }
-#line 2089 "y.tab.c"
+#line 2088 "y.tab.c"
     break;
 
   case 76:
-#line 280 "uccompiler.y"
+#line 279 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id), "RealLit", NULL); }
-#line 2095 "y.tab.c"
+#line 2094 "y.tab.c"
     break;
 
   case 77:
-#line 281 "uccompiler.y"
+#line 280 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node)); }
-#line 2101 "y.tab.c"
+#line 2100 "y.tab.c"
     break;
 
   case 78:
-#line 284 "uccompiler.y"
+#line 283 "uccompiler.y"
                                                                 { if ((yyvsp[0].node)!= NULL) connectBrothers( (yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node)); }
-#line 2107 "y.tab.c"
+#line 2106 "y.tab.c"
     break;
 
   case 79:
-#line 287 "uccompiler.y"
+#line 286 "uccompiler.y"
                                                                 { if ((yyvsp[-2].node) != NULL) {connectBrothers( (yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); } else { (yyval.node) = (yyvsp[0].node); }  }
-#line 2113 "y.tab.c"
+#line 2112 "y.tab.c"
     break;
 
   case 80:
-#line 288 "uccompiler.y"
+#line 287 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 2119 "y.tab.c"
+#line 2118 "y.tab.c"
     break;
 
 
-#line 2123 "y.tab.c"
+#line 2122 "y.tab.c"
 
       default: break;
     }
@@ -2351,7 +2350,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 292 "uccompiler.y"
+#line 291 "uccompiler.y"
 
 
 
