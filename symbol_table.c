@@ -41,6 +41,7 @@ void create_semantics(node* root){
 				aux = actual_node->son;
 				aux_variable = create_var(aux->brother->son->id, aux->type);
 
+				aux_variable->function = 1;
 
 				aux1 = aux->brother->son->brother->son;
 
@@ -71,7 +72,7 @@ void create_semantics(node* root){
 				}
 
 			}
-			if (strcmp(actual_node->type, "Declaration") == 0) {
+			else if (strcmp(actual_node->type, "Declaration") == 0) {
 				aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
 				if (search_var_in_table(symtab_global, actual_node->son->brother->id)!=NULL){
 					printf("Line %d, col %d: Symbol %s already defined\n", 0, 0, actual_node->son->brother->id);
@@ -79,9 +80,41 @@ void create_semantics(node* root){
 					insert_global(aux_variable);
 				}
 			}
+			else if (strcmp(actual_node->type, "FuncDeclaration") == 0) {
+				aux = actual_node->son;
+				aux_variable = create_var(aux->brother->son->id, aux->type);
+
+				aux_variable->function = 0;
+				aux1 = aux->brother->son->brother->son;
+
+				while (aux1!=NULL){
+
+					count_params = 0;
+					if (aux1->son->brother==NULL){
+						aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
+					} else {
+						//verificar se existe
+						if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
+							printf("Line %d, col %d: Symbol %s already defined\n", 0, 0, aux1->son->brother->id);
+						} else {
+							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param(aux1->son->brother->id, aux1->son->type));
+						}
+					}
+
+					aux1 = aux1->brother;
+					count_params++;
+				}
+
+				aux_variable->n_params = count_params;
+
+				if (search_var_in_table(symtab_global, aux_variable->id)!=NULL){
+					printf("Line %d, col %d: Symbol %s already defined\n", 0, 0, aux_variable->id);
+				} else {
+					insert_global(aux_variable);
+				}
+			}
 
 
-			// se for uma variável fora de uma função
 			aux_program = aux_program->brother;
 		}
 

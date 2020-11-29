@@ -19,18 +19,15 @@ typedef struct _params{
 typedef struct _vars{
 	char* id;
 	char* type;
-	int flag; //indica se é param ou não (1 se for) (2 se nao for para imprimir)
     int function; //indica se é funçao ou nao
     int n_params; //se for function tem o numero de parametros
-	// adicionar as variáveis -> ex funções; se variáveis não é necessário
 	struct _params* parameters;
 	struct _vars *next;
 } var_list;
 
 typedef struct _symbol_table{
 	char* tableName;
-	// necessário?
-	char* tableType; // tipo function, local, global?
+	char* tableType; 
 	struct _vars* variables;
 	struct _params* parameters; // lista ligada dos parâmetros que estão incluídos -> será necessário imprimir os tipos
 	struct _symbol_table *next; // no caso de ser local
