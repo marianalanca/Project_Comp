@@ -42,9 +42,9 @@ END_OF_LINE         \n|\r\n|\r
 "else"                                 { if(flag==1) printf("ELSE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return ELSE; }
 "if"                                   { if(flag==1) printf("IF\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return IF; }
 "while"                                { if(flag==1) printf("WHILE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return WHILE; }
-"int"                                  {/*duvida*/ if(flag==1) printf("INT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return INT; }
-"double"                               {/*duvida*/ if(flag==1) printf("DOUBLE\n");  if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return DOUBLE; }
-"short"                                {/*duvida*/ if(flag==1) printf("SHORT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return SHORT; }
+"int"                                  { if(flag==1) printf("INT\n"); column+=yyleng; return INT; }
+"double"                               { if(flag==1) printf("DOUBLE\n"); column+=yyleng; return DOUBLE; }
+"short"                                { if(flag==1) printf("SHORT\n"); column+=yyleng; return SHORT; }
 "return"                               { if(flag==1) printf("RETURN\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return RETURN; }
 "void"                                 { if(flag==1) printf("VOID\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return VOID; }
 "&"                                    { if(flag==1) printf("BITWISEAND\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return BITWISEAND; }
@@ -53,7 +53,7 @@ END_OF_LINE         \n|\r\n|\r
 "&&"                                   { if(flag==1) printf("AND\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return AND; }
 "="                                    { if(flag==1) printf("ASSIGN\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return ASSIGN; }
 "*"                                    { if(flag==1) printf("MUL\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return MUL; }
-","                                    { if(flag==1) printf("COMMA\n"); column+=yyleng; return COMMA; }
+","                                    { if(flag==1) printf("COMMA\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return COMMA; }
 "/"                                    { if(flag==1) printf("DIV\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return DIV; }
 "=="                                   { if(flag==1) printf("EQ\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return EQ; }
 ">="                                   { if(flag==1) printf("GE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return GE; }

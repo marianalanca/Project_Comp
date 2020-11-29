@@ -126,6 +126,7 @@ FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           { $$ = insertNod
 FunctionDeclarator: ID LPAR ParameterList RPAR                  { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
                                                                   connectBrothers(aux, insertNode(NULL, "ParamList", $3, 0, 0));
                                                                   $$ = insertNode(NULL, NULL, aux, 0, 0);
+                                                                  /*freeToken($1);*/
                                                                 }
     ;
 
@@ -138,7 +139,8 @@ ParameterList: ParameterList COMMA ParameterDeclaration         { $$ = $1;
 ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1, 0, 0); if ( $2 != NULL) connectBrothers ($1, $2); }
     ;
 
-optParamDec: ID                                                 { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col); }
+optParamDec: ID                                                 { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col);
+                                                                  /*freeToken($1);*/ }
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
 
@@ -182,6 +184,7 @@ Declarator: ID OptDeclarator                                    { aux = insertNo
                                                                     connectBrothers(aux, $2);
                                                                   }
                                                                   $$ =aux;
+                                                                  /*freeToken($1);*/
                                                                 }
     ;
 
@@ -194,8 +197,12 @@ Statement: optExp                                               { $$ = $1; }
     | LBRACE error RBRACE                                       { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, 0, 0); }
     | LBRACE optState RBRACE                                    { if($2!=NULL && $2->brother!=NULL) $$ = insertNode(NULL, "StatList", $2, 0, 0); else $$ = $2; } /*caso {;;;} não pode entrar*/
 
-    | RETURN Expr SEMI                                          { $$ = insertNode(NULL, "Return", $2, 0, 0); }
-    | RETURN SEMI                                               { $$ = insertNode(NULL, "Return", insertNode(NULL, "Null", NULL, 0, 0), 0, 0); }
+    | RETURN Expr SEMI                                          { $$ = insertNode(NULL, "Return", $2, $1->line, $1->col);
+                                                                  /*freeToken($1); */
+                                                                }
+    | RETURN SEMI                                               { $$ = insertNode(NULL, "Return", insertNode(NULL, "Null", NULL, 0, 0), $1->line, $1->col); 
+                                                                  /*freeToken($1);*/
+                                                                }
 
     | IF LPAR Expr RPAR StatementError ELSE StatementError      { if ($5 == NULL){ /*SEMI*/
                                                                     $5 = insertNode(NULL, "Null", NULL, 0, 0);
@@ -203,23 +210,26 @@ Statement: optExp                                               { $$ = $1; }
                                                                   if ($7 == NULL){
                                                                       $7 = insertNode(NULL, "Null", NULL, 0, 0);
                                                                   }
-                                                                  $$ = insertNode(NULL, "If", $3, 0, 0);
+                                                                  $$ = insertNode(NULL, "If", $3, $1->line, $1->col);
                                                                   connectBrothers($5, $7);
                                                                   connectBrothers($3, $5);
+                                                                  /*freeToken($1);*/
                                                                 }
     | IF LPAR Expr RPAR StatementError %prec IFX                { if ($5 == NULL){ /*SEMI*/
                                                                     $5 = insertNode(NULL, "Null", NULL, 0, 0);
                                                                   }
-                                                                  $$ = insertNode(NULL, "If", $3, 0, 0);
+                                                                  $$ = insertNode(NULL, "If", $3, $1->line, $1->col);
                                                                   connectBrothers($3, $5);
                                                                   connectBrothers($5, insertNode(NULL, "Null", NULL, 0, 0));
+                                                                  /*freeToken($1);*/
                                                                 }
 
     | WHILE LPAR Expr RPAR StatementError                       { if ($5 == NULL){ /*SEMI*/
                                                                     $5 = insertNode(NULL, "Null", NULL, 0, 0);
                                                                   }
-                                                                  $$ = insertNode(NULL, "While", $3, 0, 0);
+                                                                  $$ = insertNode(NULL, "While", $3, $1->line, $1->col);
                                                                   connectBrothers($3, $5);
+                                                                  /*freeToken($1);*/
                                                                 }
     ;
 
@@ -242,41 +252,42 @@ optState: StatementError optState                               { if ($1!= NULL)
     | StatementError                                            { $$ = $1; }
     ;
 
-Expr: Expr ASSIGN Expr                                          { $$ = insertNode(NULL, "Store", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr COMMA Expr                                           { $$ = insertNode(NULL, "Comma", $1, 0, 0); connectBrothers($1, $3); }
+Expr: Expr ASSIGN Expr                                          { $$ = insertNode(NULL, "Store", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr COMMA Expr                                           { $$ = insertNode(NULL, "Comma", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
     | LPAR error RPAR                                           { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, 0, 0); }
     | ID LPAR error RPAR                                        { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, 0, 0); }
 
-    | Expr PLUS Expr                                            { $$ = insertNode(NULL, "Add", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr MINUS Expr                                           { $$ = insertNode(NULL, "Sub", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr MUL Expr                                             { $$ = insertNode(NULL, "Mul", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr DIV Expr                                             { $$ = insertNode(NULL, "Div", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr MOD Expr                                             { $$ = insertNode(NULL, "Mod", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr OR Expr                                              { $$ = insertNode(NULL, "Or", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr AND Expr                                             { $$ = insertNode(NULL, "And", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr BITWISEAND Expr                                      { $$ = insertNode(NULL, "BitWiseAnd", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr BITWISEOR Expr                                       { $$ = insertNode(NULL, "BitWiseOr", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr BITWISEXOR Expr                                      { $$ = insertNode(NULL, "BitWiseXor", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr EQ Expr                                              { $$ = insertNode(NULL, "Eq", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr NE Expr                                              { $$ = insertNode(NULL, "Ne", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr LE Expr                                              { $$ = insertNode(NULL, "Le", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr GE Expr                                              { $$ = insertNode(NULL, "Ge", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr LT Expr                                              { $$ = insertNode(NULL, "Lt", $1, 0, 0); connectBrothers($1, $3); }
-    | Expr GT Expr                                              { $$ = insertNode(NULL, "Gt", $1, 0, 0); connectBrothers($1, $3); }
+    | Expr PLUS Expr                                            { $$ = insertNode(NULL, "Add", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr MINUS Expr                                           { $$ = insertNode(NULL, "Sub", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr MUL Expr                                             { $$ = insertNode(NULL, "Mul", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr DIV Expr                                             { $$ = insertNode(NULL, "Div", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr MOD Expr                                             { $$ = insertNode(NULL, "Mod", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr OR Expr                                              { $$ = insertNode(NULL, "Or", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr AND Expr                                             { $$ = insertNode(NULL, "And", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr BITWISEAND Expr                                      { $$ = insertNode(NULL, "BitWiseAnd", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr BITWISEOR Expr                                       { $$ = insertNode(NULL, "BitWiseOr", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr BITWISEXOR Expr                                      { $$ = insertNode(NULL, "BitWiseXor", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr EQ Expr                                              { $$ = insertNode(NULL, "Eq", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr NE Expr                                              { $$ = insertNode(NULL, "Ne", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr LE Expr                                              { $$ = insertNode(NULL, "Le", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr GE Expr                                              { $$ = insertNode(NULL, "Ge", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr LT Expr                                              { $$ = insertNode(NULL, "Lt", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
+    | Expr GT Expr                                              { $$ = insertNode(NULL, "Gt", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
 
-    | PLUS Expr %prec NOT                                       { $$ = insertNode(NULL, "Plus", $2, 0, 0); }
-    | MINUS Expr %prec NOT                                      { $$ = insertNode(NULL, "Minus", $2, 0, 0); }
-    | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2, 0, 0); }
+    | PLUS Expr %prec NOT                                       { $$ = insertNode(NULL, "Plus", $2, $1->line, $1->col); freeToken($1);}
+    | MINUS Expr %prec NOT                                      { $$ = insertNode(NULL, "Minus", $2, $1->line, $1->col); freeToken($1);}
+    | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2, $1->line, $1->col); freeToken($1);}
 
-    | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col), 0, 0);}
+    | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col), 0, 0); freeToken($1);}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
                                                                   if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux, 0, 0); }
                                                                   else{$$ = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , $3); }
+                                                                  freeToken($1);
                                                                 }
-    | ID                                                        { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col); }
-    | INTLIT                                                    { $$ = insertNode($1->id, "IntLit", NULL, $1->line, $1->col); }
-    | CHRLIT                                                    { $$ = insertNode($1->id, "ChrLit", NULL, $1->line, $1->col); }
-    | REALLIT                                                   { $$ = insertNode($1->id, "RealLit", NULL, $1->line, $1->col); }
+    | ID                                                        { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col); freeToken($1);}
+    | INTLIT                                                    { $$ = insertNode($1->id, "IntLit", NULL, $1->line, $1->col); freeToken($1);}
+    | CHRLIT                                                    { $$ = insertNode($1->id, "ChrLit", NULL, $1->line, $1->col); freeToken($1);}
+    | REALLIT                                                   { $$ = insertNode($1->id, "RealLit", NULL, $1->line, $1->col); freeToken($1);}
     | LPAR Expr RPAR                                            { $$ = insertNode(NULL, NULL, $2, 0, 0); }
     ;
 

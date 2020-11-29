@@ -63,10 +63,12 @@ token* createToken(char *id, int line, int colunm){
 }
 
 void freeToken(token *aux){
-    if(aux->id != NULL){
+    if(aux != NULL){
+        if(aux->id != NULL){
         free(aux->id);
         aux->id = NULL;
     }
     free(aux);
     aux = NULL;
+    } 
 }

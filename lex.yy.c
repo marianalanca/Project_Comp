@@ -920,17 +920,17 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 45 "uccompiler.l"
-{/*duvida*/ if(flag==1) printf("INT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return INT; }
+{ if(flag==1) printf("INT\n"); column+=yyleng; return INT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 46 "uccompiler.l"
-{/*duvida*/ if(flag==1) printf("DOUBLE\n");  if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return DOUBLE; }
+{ if(flag==1) printf("DOUBLE\n"); column+=yyleng; return DOUBLE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 47 "uccompiler.l"
-{/*duvida*/ if(flag==1) printf("SHORT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return SHORT; }
+{ if(flag==1) printf("SHORT\n"); column+=yyleng; return SHORT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
@@ -975,7 +975,7 @@ YY_RULE_SETUP
 case 16:
 YY_RULE_SETUP
 #line 56 "uccompiler.l"
-{ if(flag==1) printf("COMMA\n"); column+=yyleng; return COMMA; }
+{ if(flag==1) printf("COMMA\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return COMMA; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP

@@ -11,6 +11,7 @@ int main(void) {
     i = i + 1;
   }
   int a;
+  int teste2;
   funcao(5, 6, 8, 2);
   return 0;
 }
