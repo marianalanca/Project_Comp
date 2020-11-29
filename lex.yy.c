@@ -2169,9 +2169,6 @@ int main(int argc, char **argv)
 {
   yyparse();
 
-  create_semantics(AST_root);
-  show_table();
-
   if (argc == 2)
   {
     if(strcmp(argv[1], "-e1")==0)
@@ -2193,6 +2190,11 @@ int main(int argc, char **argv)
     }
     else if(strcmp(argv[1], "-s")==0){
       flag=5; /*Posso alterar mais tarde*/
+      create_semantics(AST_root);
+      show_table();
+      if (errorFlag != -1){
+        print_tree(AST_root, 0);
+      }
     }
   }
   else{

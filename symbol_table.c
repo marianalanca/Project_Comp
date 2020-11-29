@@ -3,7 +3,6 @@
 table_element* create_table(char* tableName, char* tableType){ // se local é 1
 
 	table_element* newTable = (table_element*)malloc(sizeof(table_element));
-	table_element* aux = symtab_local;
 
 	newTable->tableName = (char*)strdup(tableName);
 	newTable->tableType = (char*)strdup(tableType);
@@ -14,14 +13,9 @@ table_element* create_table(char* tableName, char* tableType){ // se local é 1
 	return newTable;
 }
 
-// NOTA: NO CASO DE TIPO: fazer str[0] = tolower(str)
-
 void create_semantics(node* root){
-	char* aux_char;
-	node * actual_node,* aux, *aux1, *aux2, *aux3, *aux4, * program, * aux_program;
-	var_list * aux_var_list, *aux_variable;;
-	param_list* aux_param_list;
-	table_element* aux_table;
+	node * actual_node,* aux, *aux1, *aux2, * program, * aux_program;
+	var_list *aux_variable;
 	table_element* local_table;
 	int count_params;
 
@@ -110,7 +104,6 @@ void create_semantics(node* root){
 				local_table->variables = aux_variable;
 
 				while (aux1!=NULL){
-					// VERIFICAR SE JÁ EXISTE
 					if (aux1->son->brother!=NULL){
 
 						if (search_param_in_params(local_table->parameters, aux1->son->brother->id)!=NULL){
@@ -155,7 +148,6 @@ void create_semantics(node* root){
 
 	}
 }
-
 
 void create_local(table_element* newLocal){
 	table_element* auxiliar = symtab_local;
@@ -250,24 +242,28 @@ void show_table(){
 
 void show_global_table()
 {
- var_list *aux;
- param_list * aux1;
+	var_list *aux;
+	param_list * aux1;
 
-printf("===== Global Symbol Table =====\n");
-for(aux=symtab_global->variables; aux; aux=aux->next){
-	if (aux->parameters!=NULL){
-		printf("%s\t%s(%s", aux->id, aux->type, aux->parameters->type );
-		aux1 = aux->parameters->next;
-		while(aux1!=NULL){
-			printf(",%s", aux1->type);
-			aux1 = aux1->next;
+	printf("===== Global Symbol Table =====\n");
+	printf("putchar\tint(int)\ngetchar\tint(void)\n");
+
+	if (symtab_global!=NULL){
+		for(aux=symtab_global->variables; aux; aux=aux->next){
+			if (aux->parameters!=NULL){
+				printf("%s\t%s(%s", aux->id, aux->type, aux->parameters->type );
+				aux1 = aux->parameters->next;
+				while(aux1!=NULL){
+					printf(",%s", aux1->type);
+					aux1 = aux1->next;
+				}
+				printf(")\n");
+			} else {
+				printf("%s\t%s\n", aux->id, aux->type );
+			}
 		}
-		printf(")\n");
-	} else {
-		printf("%s\t%s\n", aux->id, aux->type );
+		printf("\n");
 	}
-}
-printf("\n");
 }
 
 var_list *search_var_in_table (table_element* symtab, char* str){
@@ -326,7 +322,6 @@ param_list *search_param_in_params (param_list* list, char* str){
 
 	return NULL;
 }
-
 
 void show_local_table(){
 	var_list *aux;
