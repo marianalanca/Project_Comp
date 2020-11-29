@@ -1,11 +1,16 @@
 #include "functions.h"
 
-node * insertNode(char * id, char * type, node * son) {
+//ATENÇAO: qd fazemos free no print_tree falta fazer free primeiro dos char*!!!
+
+node * insertNode(char * id, char * type, node * son, int line, int col) {
         node * aux = (node *)malloc(sizeof(node));
         aux->type = type;
         aux->id = id;
         aux->son = son;
         aux->brother = NULL;
+        aux->anoted = NULL;
+        aux->col = col;
+        aux->line = line;
 
         return aux;
 }
@@ -17,11 +22,10 @@ void connectBrothers(node* node1, node* brother){
 }
 
 void print_tree(node* node, int depth){
-
+    
     if (node != NULL){
         if (node->type!=NULL){
             int i;
-
 
             for (i = 0; i < depth; i++){
                 printf("..");
@@ -43,4 +47,26 @@ void print_tree(node* node, int depth){
 
         free(node);
     }
+}
+
+token* createToken(char *id, int line, int colunm){
+    token *new = (token*)malloc(sizeof(token));
+    if(id != NULL){
+        new->id = (char*)strdup(id);
+    }
+    else{
+        new->id = NULL;
+    }
+    new->line = line;
+    new->col = colunm;
+    return new;
+}
+
+void freeToken(token *aux){
+    if(aux->id != NULL){
+        free(aux->id);
+        aux->id = NULL;
+    }
+    free(aux);
+    aux = NULL;
 }

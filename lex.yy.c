@@ -900,77 +900,77 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 41 "uccompiler.l"
-{ if(flag==1) printf("CHAR\n"); column+=yyleng; return CHAR; }
+{ if(flag==1) printf("CHAR\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return CHAR; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 42 "uccompiler.l"
-{ if(flag==1) printf("ELSE\n"); column+=yyleng; return ELSE; }
+{ if(flag==1) printf("ELSE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return ELSE; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 43 "uccompiler.l"
-{ if(flag==1) printf("IF\n"); column+=yyleng; return IF; }
+{ if(flag==1) printf("IF\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return IF; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 44 "uccompiler.l"
-{ if(flag==1) printf("WHILE\n"); column+=yyleng; return WHILE; }
+{ if(flag==1) printf("WHILE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return WHILE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 45 "uccompiler.l"
-{ if(flag==1) printf("INT\n"); column+=yyleng; return INT; }
+{/*duvida*/ if(flag==1) printf("INT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return INT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 46 "uccompiler.l"
-{ if(flag==1) printf("DOUBLE\n"); column+=yyleng; return DOUBLE; }
+{/*duvida*/ if(flag==1) printf("DOUBLE\n");  if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return DOUBLE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 47 "uccompiler.l"
-{ if(flag==1) printf("SHORT\n"); column+=yyleng; return SHORT; }
+{/*duvida*/ if(flag==1) printf("SHORT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return SHORT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 48 "uccompiler.l"
-{ if(flag==1) printf("RETURN\n"); column+=yyleng; return RETURN; }
+{ if(flag==1) printf("RETURN\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return RETURN; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 49 "uccompiler.l"
-{ if(flag==1) printf("VOID\n"); column+=yyleng; return VOID; }
+{ if(flag==1) printf("VOID\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return VOID; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 50 "uccompiler.l"
-{ if(flag==1) printf("BITWISEAND\n"); column+=yyleng; return BITWISEAND; }
+{ if(flag==1) printf("BITWISEAND\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return BITWISEAND; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 51 "uccompiler.l"
-{ if(flag==1) printf("BITWISEOR\n"); column+=yyleng; return BITWISEOR; }
+{ if(flag==1) printf("BITWISEOR\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return BITWISEOR; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 52 "uccompiler.l"
-{ if(flag==1) printf("BITWISEXOR\n"); column+=yyleng; return BITWISEXOR; }
+{ if(flag==1) printf("BITWISEXOR\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return BITWISEXOR; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 53 "uccompiler.l"
-{ if(flag==1) printf("AND\n"); column+=yyleng; return AND; }
+{ if(flag==1) printf("AND\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return AND; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 54 "uccompiler.l"
-{ if(flag==1) printf("ASSIGN\n"); column+=yyleng; return ASSIGN; }
+{ if(flag==1) printf("ASSIGN\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return ASSIGN; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 55 "uccompiler.l"
-{ if(flag==1) printf("MUL\n"); column+=yyleng; return MUL; }
+{ if(flag==1) printf("MUL\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return MUL; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
@@ -980,22 +980,22 @@ YY_RULE_SETUP
 case 17:
 YY_RULE_SETUP
 #line 57 "uccompiler.l"
-{ if(flag==1) printf("DIV\n"); column+=yyleng; return DIV; }
+{ if(flag==1) printf("DIV\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return DIV; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 58 "uccompiler.l"
-{ if(flag==1) printf("EQ\n"); column+=yyleng; return EQ; }
+{ if(flag==1) printf("EQ\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return EQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 59 "uccompiler.l"
-{ if(flag==1) printf("GE\n"); column+=yyleng; return GE; }
+{ if(flag==1) printf("GE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return GE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 60 "uccompiler.l"
-{ if(flag==1) printf("GT\n"); column+=yyleng; return GT; }
+{ if(flag==1) printf("GT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return GT; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
@@ -1005,7 +1005,7 @@ YY_RULE_SETUP
 case 22:
 YY_RULE_SETUP
 #line 62 "uccompiler.l"
-{ if(flag==1) printf("LE\n"); column+=yyleng; return LE; }
+{ if(flag==1) printf("LE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; column+=yyleng; return LE; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -1015,37 +1015,37 @@ YY_RULE_SETUP
 case 24:
 YY_RULE_SETUP
 #line 64 "uccompiler.l"
-{ if(flag==1) printf("LT\n"); column+=yyleng; return LT; }
+{ if(flag==1) printf("LT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return LT; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 65 "uccompiler.l"
-{ if(flag==1) printf("MINUS\n"); column+=yyleng; return MINUS; }
+{ if(flag==1) printf("MINUS\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return MINUS; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 66 "uccompiler.l"
-{ if(flag==1) printf("MOD\n"); column+=yyleng; return MOD; }
+{ if(flag==1) printf("MOD\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return MOD; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 67 "uccompiler.l"
-{ if(flag==1) printf("NE\n"); column+=yyleng; return NE; }
+{ if(flag==1) printf("NE\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return NE; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 68 "uccompiler.l"
-{ if(flag==1) printf("NOT\n"); column+=yyleng; return NOT; }
+{ if(flag==1) printf("NOT\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return NOT; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 69 "uccompiler.l"
-{ if(flag==1) printf("OR\n"); column+=yyleng; return OR; }
+{ if(flag==1) printf("OR\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return OR; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 70 "uccompiler.l"
-{ if(flag==1) printf("PLUS\n"); column+=yyleng; return PLUS; }
+{ if(flag==1) printf("PLUS\n"); if(flag==5) yylval.id = createToken(NULL, line, column); column+=yyleng; return PLUS; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -1065,27 +1065,27 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 75 "uccompiler.l"
-{ if(flag==1) printf("RESERVED(%s)\n", yytext); yylval.id = strdup(yytext); column+=yyleng; return RESERVED; }
+{ if(flag==1) printf("RESERVED(%s)\n", yytext); yylval.id = createToken(yytext, line, column); column+=yyleng; return RESERVED; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 76 "uccompiler.l"
-{ if(flag==1) printf("ID(%s)\n", yytext); yylval.id = (char* ) strdup(yytext); column+=yyleng; return ID; }
+{ if(flag==1) printf("ID(%s)\n", yytext); yylval.id = createToken(yytext, line, column); column+=yyleng; return ID; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 77 "uccompiler.l"
-{ if(flag==1) printf("INTLIT(%s)\n", yytext); yylval.id = (char*) strdup(yytext); column+=yyleng; return INTLIT; }
+{ if(flag==1) printf("INTLIT(%s)\n", yytext); yylval.id = createToken(yytext, line, column); column+=yyleng; return INTLIT; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 78 "uccompiler.l"
-{ if(flag==1) printf("REALLIT(%s)\n", yytext); yylval.id = (char*) strdup(yytext); column+=yyleng; return REALLIT; }
+{ if(flag==1) printf("REALLIT(%s)\n", yytext); yylval.id = createToken(yytext, line, column); column+=yyleng; return REALLIT; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 79 "uccompiler.l"
-{ if(flag==1) printf("CHRLIT(%s)\n", yytext); yylval.id = (char*) strdup(yytext); column+=yyleng; return CHRLIT; }
+{ if(flag==1) printf("CHRLIT(%s)\n", yytext); yylval.id = createToken(yytext, line, column); column+=yyleng; return CHRLIT; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
@@ -2190,6 +2190,9 @@ int main(int argc, char **argv)
     }
     else if(strcmp(argv[1], "-e2")==0){
       flag= 3; /*erros sintaticos e lexicais*/
+    }
+    else if(strcmp(argv[1], "-s")==0){
+      flag=5; /*Posso alterar mais tarde*/
     }
   }
   else{

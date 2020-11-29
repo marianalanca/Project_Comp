@@ -8,12 +8,23 @@
 typedef struct _t1{
         char* id;
         char* type;
+        char *anoted;
+        int line; 
+        int col;
         struct _t1* son;
         struct _t1* brother;
     } node;
 
-node * insertNode(char * id, char * type, node * son);
+typedef struct _token{
+    char *id;
+    int line, col;
+}token;
+
+node * insertNode(char * id, char * type, node * son, int line, int col);
 void connectBrothers(node* node1, node* brother);
 void print_tree(node* node, int depth);
+
+//AST anotada
+token* createToken(char *id, int line, int colunm);
 
 #endif

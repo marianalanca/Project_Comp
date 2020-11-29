@@ -38,7 +38,7 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -137,7 +137,7 @@ union YYSTYPE
 {
 #line 23 "uccompiler.y"
 
-    char * id;
+    struct _token* id;
     struct _t1* node;
 
 #line 144 "y.tab.h"
