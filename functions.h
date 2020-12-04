@@ -26,6 +26,6 @@ void print_tree(node* node, int depth);
 
 //AST anotada
 token* createToken(char *id, int line, int colunm);
-void freeToken(token *aux);
+//void freeToken(token *aux);
 
 #endif

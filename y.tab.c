@@ -120,7 +120,7 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -2048,25 +2048,25 @@ yyreduce:
 
   case 68:
 #line 277 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Plus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); freeToken((yyvsp[-1].id));}
+                                                                { (yyval.node) = insertNode(NULL, "Plus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
 #line 2053 "y.tab.c"
     break;
 
   case 69:
 #line 278 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Minus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); freeToken((yyvsp[-1].id));}
+                                                                { (yyval.node) = insertNode(NULL, "Minus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
 #line 2059 "y.tab.c"
     break;
 
   case 70:
 #line 279 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Not", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); freeToken((yyvsp[-1].id));}
+                                                                { (yyval.node) = insertNode(NULL, "Not", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
 #line 2065 "y.tab.c"
     break;
 
   case 71:
 #line 281 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Call", insertNode((yyvsp[-2].id)->id, "Id", NULL, (yyvsp[-2].id)->line, (yyvsp[-2].id)->col), 0, 0); freeToken((yyvsp[-2].id));}
+                                                                { (yyval.node) = insertNode(NULL, "Call", insertNode((yyvsp[-2].id)->id, "Id", NULL, (yyvsp[-2].id)->line, (yyvsp[-2].id)->col), 0, 0); /*freeToken($1);*/}
 #line 2071 "y.tab.c"
     break;
 
@@ -2075,32 +2075,32 @@ yyreduce:
                                                                 { aux = insertNode((yyvsp[-3].id)->id, "Id", NULL, (yyvsp[-3].id)->line, (yyvsp[-3].id)->col);
                                                                   if ((yyvsp[-1].node) == NULL){ (yyval.node) = insertNode(NULL, "Call", aux, 0, 0); }
                                                                   else{(yyval.node) = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , (yyvsp[-1].node)); }
-                                                                  freeToken((yyvsp[-3].id));
+                                                                  /*freeToken($1);*/;
                                                                 }
 #line 2081 "y.tab.c"
     break;
 
   case 73:
 #line 287 "uccompiler.y"
-                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "Id", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); freeToken((yyvsp[0].id));}
+                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "Id", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
 #line 2087 "y.tab.c"
     break;
 
   case 74:
 #line 288 "uccompiler.y"
-                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "IntLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); freeToken((yyvsp[0].id));}
+                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "IntLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
 #line 2093 "y.tab.c"
     break;
 
   case 75:
 #line 289 "uccompiler.y"
-                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "ChrLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); freeToken((yyvsp[0].id));}
+                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "ChrLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
 #line 2099 "y.tab.c"
     break;
 
   case 76:
 #line 290 "uccompiler.y"
-                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "RealLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); freeToken((yyvsp[0].id));}
+                                                                { (yyval.node) = insertNode((yyvsp[0].id)->id, "RealLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
 #line 2105 "y.tab.c"
     break;
 

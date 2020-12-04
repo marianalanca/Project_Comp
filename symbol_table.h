@@ -52,6 +52,7 @@ void show_local_table();
 var_list *search_var_in_table (table_element* symtab, char* str);
 param_list *search_param_in_table (table_element* symtab, char* str);
 param_list *search_param_in_params (param_list* list, char* str);
+table_element *search_func_in_table (char* funcName);
 
 #endif
 
