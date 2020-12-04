@@ -39,17 +39,14 @@ void create_semantics(node* root){
 
 				aux = actual_node->son;
 				aux_variable = create_var(aux->brother->son->id, aux->type);
-
-				aux_variable->function = 1;
+				local_table = create_table(aux->brother->son->id, aux->type);
 
 				aux1 = aux->brother->son->brother->son;
 
 				while (aux1!=NULL){
 					count_params = 0;
 
-					/*if (strcasecmp(aux1->son->type, "Void") == 0){ // ERROR
-								printf("Line %d, col %d: Invalid use of void type in declaration\n", aux1->son->line, aux1->son->col);
-					} else */{
+					{
 						if (aux1->son->brother==NULL){
 							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
 						} else {
@@ -69,14 +66,9 @@ void create_semantics(node* root){
 
 				test_var = search_var_in_table(symtab_global, aux_variable->id);
 
-				/*if (test_var!=NULL){
-					printf("got %d,required %d\n", count_params, test_var->n_params);
-				} else {
-					printf("sou null\n");
-				}*/
-
 				if (test_var==NULL){
 					insert_global(aux_variable);
+					create_local(local_table);
 				} else if (test_var->function != 1) { // if already exists
 					if (test_var->n_params!=count_params){
 						/*printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)", 0, 0, aux_variable->id, count_params, test_var->n_params);*/
@@ -103,17 +95,9 @@ void create_semantics(node* root){
 				aux1 = aux->brother->son->brother->son;
 
 				while (aux1!=NULL){
-
-
 					count_params = 0;
 					if (aux1->son->brother==NULL){
-						/*if (strcasecmp(aux1->son->type, "Void") == 0){ // ERROR
-								printf("Line %d, col %d: Invalid use of void type in declaration\n", aux1->son->line, aux1->son->col);
-						} else */{
 							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
-						}
-
-
 					} else {
 						//verificar se existe
 						if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
@@ -133,13 +117,6 @@ void create_semantics(node* root){
 				aux_variable->n_params = count_params;
 
 				test_var = search_var_in_table(symtab_global, aux_variable->id);
-				test_table = search_func_in_table(aux_variable->id);
-
-				/*if (test_var!=NULL){
-					printf("got %d,required %d\n", count_params, test_var->n_params);
-				} else {
-					printf("sou null\n");
-				}*/
 
 				if (test_var==NULL){
 					insert_global(aux_variable);
@@ -227,7 +204,6 @@ void create_semantics(node* root){
 				}
 
 				// MUDAR
-				
 				/*if (test_var!=NULL){
 					printf("got %d,required %d\n", count_params, test_var->n_params);
 				} else {
