@@ -2193,7 +2193,7 @@ int main(int argc, char **argv)
       create_semantics(AST_root);
       show_table();
       if (errorFlag != -1){
-        print_tree(AST_root, 0);
+        //print_tree(AST_root, 0);
       }
     }
   }

@@ -41,6 +41,8 @@ void create_semantics(node* root){
 				aux_variable = create_var(aux->brother->son->id, aux->type);
 				local_table = create_table(aux->brother->son->id, aux->type);
 
+				aux_variable->function = 1;
+
 				aux1 = aux->brother->son->brother->son;
 
 				while (aux1!=NULL){
@@ -48,10 +50,14 @@ void create_semantics(node* root){
 
 					{
 						if (aux1->son->brother==NULL){
+							printf("%s\n", aux1->son->type);
 							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
 						} else {
 							//verificar se existe
-							if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
+							if (strcmp(aux1->son->type, "Void") == 0) {
+								printf("Line %d, col %d: Invalid use of void type in declaration\n", aux1->son->line, aux1->son->col);
+							} else if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
+								// já existe a variável
 							} else {
 								aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param(aux1->son->brother->id, aux1->son->type));
 							}
@@ -65,48 +71,69 @@ void create_semantics(node* root){
 
 
 				test_var = search_var_in_table(symtab_global, aux_variable->id);
-
 				if (test_var==NULL){
 					insert_global(aux_variable);
 					create_local(local_table);
-				} else if (test_var->function != 1) { // if already exists
-					if (test_var->n_params!=count_params){
-						/*printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)", 0, 0, aux_variable->id, count_params, test_var->n_params);*/
-					}
+				} else if (test_var->function == 1){
+					printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
 				}
-
 			}
 			else if (strcmp(actual_node->type, "Declaration") == 0) {
-				/*if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", aux1->son->line, aux1->son->col);
-				} else*/ {
+				if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
+					printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col);
+				} else {
 					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
-					if (search_var_in_table(symtab_global, actual_node->son->brother->id)==NULL){
-						insert_global(aux_variable);
+					if (strcmp(actual_node->son->type, "Void") == 0) {
+								printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->col, actual_node->son->line);
+					} else {
+						if (search_var_in_table(symtab_global, actual_node->son->brother->id)==NULL){
+							insert_global(aux_variable);
+						} else {
+							printf("Line %d, col %d: Symbol %s already defined\n", actual_node->son->brother->line, actual_node->son->brother->col, actual_node->son->brother->id);
+						}
 					}
 				}
 			}
 			else if (strcmp(actual_node->type, "FuncDeclaration") == 0) {
 				aux = actual_node->son;
+
 				aux_variable = create_var(aux->brother->son->id, aux->type);
 				local_table = create_table(aux->brother->son->id, aux->type); // adiciona à tabela local com variables a null
 
-				aux_variable->function = 0;
+				test_var = search_var_in_table(symtab_global, aux_variable->id);
+
+				if (test_var==NULL){
+					insert_global(aux_variable);
+					create_local(local_table);
+				} else { // if already exists
+					printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
+					/*if (test_var->n_params!=count_params){
+						printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)", 0, 0, aux_variable->id, count_params, test_var->n_params);
+					}*/
+				}
+
 				aux1 = aux->brother->son->brother->son;
+
+				// procurar se existe:
+				//	Se existir:
+				//		-> verificar se ->function = 1;
+				//			Se sim:
+				//				- dar erro porque já foi declarada
+				//			Se não: continuar
 
 				while (aux1!=NULL){
 					count_params = 0;
 					if (aux1->son->brother==NULL){
 							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
 					} else {
-						//verificar se existe
 						if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
 						} else {
-							/*printf("%s\n",aux1->son->type );
-							if (strcasecmp(aux1->son->type, "Void") == 0){ // ERROR
+							if (strcmp(aux1->son->type, "Void") == 0) {
 								printf("Line %d, col %d: Invalid use of void type in declaration\n", aux1->son->line, aux1->son->col);
-							}*/
-							aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param(aux1->son->brother->id, aux1->son->type));
+							} else if (search_param_in_params(aux_variable->parameters, aux1->son->brother->id)!=NULL){
+							} else {
+								aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param(aux1->son->brother->id, aux1->son->type));
+							}
 						}
 					}
 
@@ -115,17 +142,6 @@ void create_semantics(node* root){
 				}
 
 				aux_variable->n_params = count_params;
-
-				test_var = search_var_in_table(symtab_global, aux_variable->id);
-
-				if (test_var==NULL){
-					insert_global(aux_variable);
-					create_local(local_table);
-				} else { // if already exists
-					/*if (test_var->n_params!=count_params){
-						printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)", 0, 0, aux_variable->id, count_params, test_var->n_params);
-					}*/
-				}
 			}
 
 
