@@ -203,17 +203,20 @@ void create_semantics(node* root){
 					aux1 = aux->son;
 
 					while (aux1!=NULL){
-
+	
 						if (strcmp(aux1->type, "Declaration") == 0) {
 							aux2 = aux1->son;
 							aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
-						} else if(strcmp(aux1->type, "Store") == 0 && atoi(aux1->son->id)!=0) {
+						} /*else if(strcmp(aux1->type, "Store") == 0 && atoi(aux1->son->id)!=0) {
 							printf("Line %d, col %d: Lvalue required\n", aux1->son->line, aux1->son->col);
 						} // ver que, se for uma situação em que uma variável esteja a ser utilizada, se esta existe na tabela
 						else if (0) { // testar se for alguma das expressions
+						}*/
+						else{
+							if(aux2->type!=NULL){
+								anote_ast(symtab_global, local_table, aux1);
+							}
 						}
-
-
 						aux1 = aux1->brother;
 					}
 
@@ -351,13 +354,14 @@ void show_global_table()
 }
 
 var_list *search_var_in_table (table_element* symtab, char* str){
+	
 	table_element* aux_table;
 	var_list * aux_var_list;
 
 	aux_table = symtab;
 
 	while (aux_table!=NULL){
-		aux_var_list=aux_table->variables;
+		aux_var_list = aux_table->variables;
 		while (aux_var_list!=NULL)
 		{
 			if (strcmp(aux_var_list->id, str) == 0)
@@ -451,3 +455,539 @@ void show_local_table(){
 		current_table = current_table->next;
 	}
 }
+
+var_list *search_type_var(table_element *table_global, table_element *table_local, char *var_name){
+    var_list *aux = search_var_in_table(table_local, var_name);
+    if(aux != NULL){
+        return aux;
+    }
+    aux = search_var_in_table(table_global, var_name);
+    if(aux != NULL){
+        return aux;
+    }
+    return NULL;
+}
+
+void anote_ast(table_element *table_global, table_element *table_local, node *atual){
+	
+	//var_list  *aux;
+    char* aux;
+    param_list *aux_params, *final_params;
+    char* aux_params_type, final_params_type;
+    var_list *aux_vars;
+	param_list *aux_param;
+    int count_params, count_equals, count_all_equals, find_function;
+    node *aux1, *aux2, *aux3, *ant;
+
+    if(atual == NULL){ //arvore vazia
+
+        return;
+    }
+
+    if(strcmp(atual->type, "NULL") == 0){ //nós de erro
+        return;
+    }
+    else if(strcmp(atual->type, "Id") == 0){ //ID
+		printf("id\n");
+	
+        aux_vars = search_type_var(table_global, table_local, atual->id);
+		aux_param = search_param_in_table(table_local,atual->id);
+
+        if(aux_vars != NULL){
+            atual->anoted = aux_vars->id;
+        }
+		else if(aux_param != NULL){
+			atual->anoted = aux_param->id;
+		}
+        else{//erro 8 - Unknown symbol <token >
+            printf("Line %d, col %d: Cannot find symbol %s\n", atual->line, atual->col, atual->id);
+            atual->anoted = "undef";
+        }
+    }
+    else if(strcmp(atual->type, "If") == 0){
+		printf("if\n");
+
+        aux1 = atual->son;
+        anote_ast(table_global, table_local, aux1);
+        aux1 = aux1->brother;
+        
+        /*
+        aux2 = atual->son;
+        if(strcmp(aux2->anoted, "boolean")){
+            printf("Line %d, col %d: Incompatible type %s in if statement\n", aux2->line, aux2->col, aux2->anoted);
+        }*/
+		/*
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }*/
+    }
+    else if(strcmp(atual->type, "While") == 0){
+		printf("while\n");
+        
+        aux1 = atual->son;
+        anote_ast(table_global, table_local, aux1);
+        aux1 = aux1->brother;
+
+        /*
+        aux2 = atual->son;
+        if(strcmp(aux2->anoted, "boolean")){
+            printf("Line %d, col %d: Incompatible type %s in while statement\n", aux2->line, aux2->col, aux2->anoted);
+            atual->anoted = "undef";
+        }
+        else{
+            atual->anoted = "boolean";
+        }*/
+
+		/*
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }*/
+    }
+    else if(strcmp(atual->type, "Return") == 0){
+		printf("return\n");
+        
+		aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+
+		/*
+        aux2 = atual->son;
+        if(aux2 != NULL){
+            if(strcmp(table_local->variables->type, "void") == 0){ //Tem filhos, portanto nao pode ser void!
+                printf("Line %d, col %d: Incompatible type %s in return statement\n",  aux2->line, aux2->col, aux2->anoted);
+            }
+            else if(strcmp(table_local->variables->type, aux2->anoted) == 0){//Okay
+                return;
+            }
+            // /*
+            else if(strcmp(table_local->variables->type, "double") == 0){
+                if(strcmp(aux2->anoted, "int") && strcmp(aux2->anoted, "double")){//strcmp(aux2->anoted, "int")==0 || strcmp(aux2->anoted, "double")==0
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n",  aux2->line, aux2->col, aux2->anoted);
+                }
+            }
+            else{
+                printf("Line %d, col %d: Incompatible type %s in return statement\n",  aux2->line, aux2->col, aux2->anoted);
+            }
+        }*/
+        /*
+        else{
+            if(strcmp(table_local->variables->type, "void")){ //Se nao tem filhos deve ser void!
+                printf("Line %d, col %d: Incompatible type void in return statement\n",  atual->line, atual->col);
+            }//no nosso projeto este erro nao existe
+        }*/
+    }
+    else if(strcmp(atual->type, "Store") == 0){//Store
+		printf("store\n");
+		
+        aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+		
+        aux1 = atual->son;
+        aux2 = aux1->brother;
+
+        atual->anoted = aux1->anoted;
+
+		/*
+        if(strcmp(aux1->anoted, aux2->anoted) == 0 && strcmp(aux1->anoted, "undef") && strcmp(aux1->anoted, "")){
+            return;
+        }
+        else if(strcmp(aux1->anoted, "double") == 0 && strcmp(aux2->anoted, "int") == 0){
+            return;            
+        }
+        else{//erro 5
+            printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
+        }*/
+    }
+    else if(strcmp(atual->type, "Call") == 0){//Rever Call
+        printf("call\n");
+
+		//SEG FAULT AQUIIIIIII
+		
+		count_params = 0;
+        count_equals = 0;
+        count_all_equals = 0;
+        find_function = 0;
+		
+		aux1= atual->son;
+
+		if(aux1 != NULL){
+			printf("\nteste - %s\n\n", aux1->type);
+			aux1 = aux1->brother;
+			/*
+        	while(aux1 != NULL){
+            	if(aux1->type != NULL){
+               		count_params++;
+            	}
+            	anote_ast(table_global, table_local, aux1);
+            	aux1 = aux1->brother;
+        	}*/
+		}
+        
+		/*
+        aux_vars = table_global->variables;
+        while(aux_vars != NULL){
+            count_equals = 0;
+            count_all_equals = 0;
+            //e funcao, tem o msm numero de parametros e o msm nome
+            if(aux_vars->function == 1 && aux_vars->n_params == count_params && strcmp(aux_vars->id, atual->son->id) == 0){
+                aux_params_type = aux_vars->type;
+                aux1 = (atual->son)->brother;
+                while(aux1 != NULL){
+                    if(strcmp(aux1->type, "NULL")){
+                        if(strcmp(aux_params_type, aux1->anoted)==0){
+                            count_all_equals++;
+                            count_equals++;
+                        }
+                        else if(strcmp(aux1->anoted, "int") == 0 && strcmp(aux_params_type, "double")==0){
+                            count_equals++;
+                        }
+                        else{
+                            break;
+                        }
+                        aux_params = aux_params->next;
+                    }
+                    aux1 = aux1->brother;
+                }
+                if(count_all_equals == count_params){
+                    find_function = 1;
+                    aux = aux_vars->type;
+                    final_params_type = aux_vars->type;
+                    break;
+                }
+                else if(count_equals == count_params){
+                    aux = aux_vars->type;
+                    final_params_type = aux_vars->type;
+                    find_function++;
+                }
+            }
+            aux_vars = aux_vars->next;
+        }
+
+        if(find_function == 1){
+            atual->son->n_params = count_params;
+            if(final_params == NULL){
+                atual->son->params = NULL;
+            }
+            else{
+                atual->son->params = final_params;
+            }
+            atual->anoted = aux;
+        }
+        else if(find_function > 1){
+            printf("Line %d, col %d: Reference to method %s(", atual->son->line, atual->son->col, atual->son->id);     
+            aux1 = (atual->son)->brother;
+            while(aux1 != NULL){
+                if(strcmp(aux1->type, "NULL")){
+                    printf("%s", aux1->anoted);
+                    if(aux1->brother != NULL){
+                        printf(",");
+                    }
+                }
+                aux1 = aux1->brother;
+            }
+            printf(") is ambiguous\n");
+            atual->anoted = "undef";
+            atual->son->anoted = "undef";
+        }
+        else{
+            atual->son->anoted = "undef";
+            atual->son->params = NULL;
+            atual->anoted = "undef";
+            //erro 8 - Unknown symbol <token >
+            printf("Line %d, col %d: Cannot find symbol %s(", atual->son->line, atual->son->col, atual->son->id);     
+            aux1 = (atual->son)->brother;
+            while(aux1 != NULL){
+                if(strcmp(aux1->type, "NULL")){
+                    printf("%s", aux1->anoted);
+                    if(count_params != 1){
+                        printf(",");
+                    }
+                    count_params--;
+                }
+                aux1 = aux1->brother;
+            }
+            printf(")\n");
+        }*/
+    }
+    else if(strcmp(atual->type, "And") == 0 || strcmp(atual->type, "Or") == 0){
+        printf("and-or\n");
+		
+		aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+		/*
+        aux2 = atual->son;
+        aux3 = aux2->brother;*/
+        /*
+        if(strcmp(aux2->anoted, "boolean") && strcmp(atual->type, "And") == 0){
+            printf("Line %d, col %d: Operator && cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
+        }
+        else if(strcmp(aux2->anoted, "boolean") && strcmp(atual->type, "Or") == 0){
+            printf("Line %d, col %d: Operator || cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
+        }
+        else if(strcmp(aux3->anoted, "boolean") && strcmp(atual->type, "And") == 0){
+            printf("Line %d, col %d: Operator && cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
+        }
+        else if(strcmp(aux3->anoted, "boolean") && strcmp(atual->type, "Or") == 0){
+            printf("Line %d, col %d: Operator || cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
+        }*/
+
+        //atual->anoted = "boolean";
+    }
+    else if(strcmp(atual->type, "Eq") == 0 || strcmp(atual->type, "Gt") == 0 || strcmp(atual->type, "Ge") == 0
+        || strcmp(atual->type, "Le") == 0 || strcmp(atual->type, "Lt") == 0 || strcmp(atual->type, "Ne") == 0){
+        printf("cenas1\n");
+	
+        aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+
+        /*
+        aux2 = atual->son;
+        aux3 = aux2->brother;
+
+        atual->anoted = "boolean";
+
+        if(strcmp(atual->type, "Eq") == 0){
+            aux = "==";
+        }
+        else if(strcmp(atual->type, "Gt") == 0){
+            aux = ">";
+        }
+        else if(strcmp(atual->type, "Geq") == 0){
+            aux = ">=";
+        }
+        else if(strcmp(atual->type, "Leq") == 0){
+            aux = "<=";
+        }
+        else if(strcmp(atual->type, "Lt") == 0){
+            aux = "<";
+        }
+        else if(strcmp(atual->type, "Neq") == 0){
+            aux = "!=";
+        }
+
+        if(strcmp(atual->type, "Eq") == 0 || strcmp(atual->type, "Neq") == 0){
+            if(strcmp(aux2->anoted, "boolean") == 0 && strcmp(aux3->anoted, "boolean") == 0){
+                return;
+            }
+        }
+
+        if(strcmp(aux2->anoted, "int") && strcmp(aux2->anoted, "double")){
+            printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+        }
+        else if(strcmp(aux3->anoted, "double") && strcmp(aux3->anoted, "int")){
+            printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+        }*/
+    }
+    else if(strcmp(atual->type, "Add") == 0 || strcmp(atual->type, "Sub") == 0 || strcmp(atual->type, "Mul") == 0
+        || strcmp(atual->type, "Div") == 0 || strcmp(atual->type, "Mod") == 0){
+		printf("cenas2\n");
+		
+        aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+		/*
+        aux2 = atual->son;
+        aux3 = aux2->brother;
+
+        if(strcmp(atual->type, "Add") == 0){
+            aux = "+";
+        }
+        else if(strcmp(atual->type, "Sub") == 0){
+            aux = "-";
+        }
+        else if(strcmp(atual->type, "Mul") == 0){
+            aux = "*";
+        }
+        else if(strcmp(atual->type, "Div") == 0){
+            aux = "/";
+        }
+        else{
+            aux = "%";
+        }*/
+		/*
+        if(strcmp(aux2->anoted, "int")==0){
+            if(strcmp(aux3->anoted, "int")==0){
+                atual->anoted = "int";
+            }
+            else if(strcmp(aux3->anoted, "double")==0){
+                atual->anoted = "double";
+            }
+            else if(strcmp(aux3->anoted, "short")==0){
+                atual->anoted = "int";
+            }
+            else{
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                atual->anoted = "undef";
+            }
+        }
+        else if(strcmp(aux2->anoted, "double")==0){
+            if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0){
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                //atual->anoted = "undef";
+            }
+            else{
+                atual->anoted = "double";
+            }
+        }
+        else if(strcmp(aux2->anoted, "double")==0){
+             if(strcmp(aux3->anoted, "int")==0){
+                atual->anoted = "int";
+            }
+            else if(strcmp(aux3->anoted, "double")==0){
+                atual->anoted = "double";
+            }
+            else if(strcmp(aux3->anoted, "short")==0){
+                atual->anoted = "short";
+            }
+            else{
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                //atual->anoted = "undef";
+            }
+        }
+        else{
+            printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+            //atual->anoted = "undef";
+        }*/
+    }
+    else if(strcmp(atual->type, "Plus") == 0 || strcmp(atual->type, "Minus") == 0){
+        printf("plus-minus\n");
+		
+		aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+		/*
+        aux2 = atual->son;
+        atual->anoted = aux2->anoted;
+        if(strcmp(aux2->anoted, "int") == 0 || strcmp(aux2->anoted, "short") == 0 || strcmp(aux2->anoted, "double") == 0){
+            atual->anoted = aux2->anoted;
+        }
+        else{
+            //atual->anoted = "undef";
+            if(strcmp(atual->type, "Plus") == 0){
+                printf("Line %d, col %d: Operator + cannot be applied to type %s\n", atual->line, atual->col, aux2->anoted);
+            }
+            else{
+                printf("Line %d, col %d: Operator - cannot be applied to type %s\n", atual->line, atual->col, aux2->anoted);
+            }
+        }*/
+    }
+    else if(strcmp(atual->type, "Not") == 0){
+        printf("not\n");
+		
+		aux1 = atual->son;
+        while(aux1 != NULL){
+            anote_ast(table_global, table_local, aux1);
+            aux1 = aux1->brother;
+        }
+		/*
+        aux2 = atual->son;
+        
+        if(strcmp(aux2->anoted, "boolean")){
+            printf("Line %d, col %d: Operator ! cannot be applied to type %s\n", atual->line, atual->col, aux2->anoted);
+        }*/
+
+        //atual->anoted = "boolean";
+    }
+    else if(strcmp(atual->type, "IntLit") == 0){ 
+		printf("intlit\n");
+        atual->anoted = "int";
+    }
+    else if(strcmp(atual->type, "ChrLit") == 0){ 
+		printf("chrlit\n");
+        atual->anoted = "char";
+    }
+    else if(strcmp(atual->type, "RealLit") == 0){
+        printf("reallit\n");
+		atual->anoted = "double";
+    }
+	
+}
+
+int itsExpression(char *nodeType){
+    if(strcmp(nodeType, "Store") == 0 || strcmp(nodeType, "Or") == 0 || strcmp(nodeType, "And") == 0 || strcmp(nodeType, "BitWiseAnd") == 0
+        || strcmp(nodeType, "BitWiseOr") == 0 || strcmp(nodeType, "BitWiseXor") == 0 || strcmp(nodeType, "Eq") == 0 
+        || strcmp(nodeType, "Ne") == 0 || strcmp(nodeType, "Lt") == 0 || strcmp(nodeType, "Ge") == 0 
+        || strcmp(nodeType, "Add") == 0 || strcmp(nodeType, "Sub") == 0 || strcmp(nodeType, "Mul") == 0 
+        || strcmp(nodeType, "Div") == 0 || strcmp(nodeType, "Mod") == 0 || strcmp(nodeType, "Not") == 0 
+        || strcmp(nodeType, "Minus") == 0 || strcmp(nodeType, "Plus") == 0 || strcmp(nodeType, "Comma") == 0 
+        || strcmp(nodeType, "Call") == 0 || strcmp(nodeType, "Id") == 0 || strcmp(nodeType, "IntLit") == 0 
+        || strcmp(nodeType, "CharLit") == 0 || strcmp(nodeType, "RealLit") == 0 || strcmp(nodeType, "Gt") == 0 || strcmp(nodeType, "Le") == 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void printAnotedAST(node *atual, int n){
+    int i;
+    param_list *aux;
+
+    if(atual == NULL){
+        return;
+    }
+
+    if(atual->type == NULL){ //caso o nó for Null (error) imprimimos o irmão
+        printAnotedAST(atual->brother, n);
+        return;
+    }
+    else{
+        for(i=0; i<n; i++){
+            printf("..");
+        }
+
+        if(atual->id != NULL){ //ID/INTLIT/CHRLIT/REALLIT    
+            if(atual->n_params >= 0 && itsExpression(atual->type)){
+                printf("%s(%s) - (", atual->type, atual->id);
+                aux = atual->params;
+                while(aux != NULL){
+                    printf("%s", aux->type);
+                    if(aux->next != NULL){
+                        printf(",");
+                    }
+                    aux = aux->next;
+                }
+                printf(")");
+            }
+            else if(atual->anoted != NULL && itsExpression(atual->type)){
+                printf("%s(%s) - %s",atual->type, atual->id, atual->anoted);
+            }
+            else{
+                printf("%s(%s)",atual->type, atual->id);
+            }
+        }
+        else{
+            if(atual->anoted != NULL && itsExpression(atual->type) == 1){
+                printf("%s - %s",atual->type, atual->anoted);
+            }
+            else{
+                printf("%s",atual->type);
+            }
+        }
+
+        //printf(" %d %d", atual->line, atual->colunm);
+
+        printf("\n");
+    }
+    
+    printAnotedAST(atual->son, n+1);
+    printAnotedAST(atual->brother, n);
+}
+

@@ -5,7 +5,7 @@
 
 %{
     #include "functions.h"
-    #include "symbol_table.h"
+    //#include "symbol_table.h"
 
     extern int flag;
     int errorFlag = 0;

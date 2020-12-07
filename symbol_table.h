@@ -1,12 +1,11 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
 
-#include "symbol_table.h"
 #include<stdlib.h>
 #include<string.h>
 #include<stdio.h>
-#include "functions.h"
 #include <ctype.h>
+#include "functions.h"
 
 typedef struct _params{
 	char* id;
@@ -53,6 +52,9 @@ var_list *search_var_in_table (table_element* symtab, char* str);
 param_list *search_param_in_table (table_element* symtab, char* str);
 param_list *search_param_in_params (param_list* list, char* str);
 table_element *search_func_in_table (char* funcName);
+
+void anote_ast(table_element* table_global, table_element* table_local, node* atual);
+void printAnotedAST(node* node, int depth);
 
 #endif
 

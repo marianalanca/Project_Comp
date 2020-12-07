@@ -11,9 +11,11 @@ typedef struct _t1{
         char *anoted;
         int line; 
         int col;
+        int n_params;
+        struct _params *params;
         struct _t1* son;
         struct _t1* brother;
-    } node;
+}node;
 
 typedef struct _token{
     char *id;
@@ -26,6 +28,7 @@ void print_tree(node* node, int depth);
 
 //AST anotada
 token* createToken(char *id, int line, int colunm);
-//void freeToken(token *aux);
+void freeToken(token *aux);
+
 
 #endif
