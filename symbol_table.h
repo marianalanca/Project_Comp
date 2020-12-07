@@ -26,7 +26,7 @@ typedef struct _vars{
 
 typedef struct _symbol_table{
 	char* tableName;
-	char* tableType; 
+	char* tableType;
 	struct _vars* variables;
 	struct _params* parameters; // lista ligada dos parâmetros que estão incluídos -> será necessário imprimir os tipos
 	struct _symbol_table *next; // no caso de ser local

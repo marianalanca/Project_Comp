@@ -12,7 +12,7 @@ node * insertNode(char * id, char * type, node * son, int line, int col) {
         aux->col = col;
         aux->line = line;
         aux->params = NULL;
-        aux->n_params = 0;
+        aux->n_params = -1;
 
         return aux;
 }
