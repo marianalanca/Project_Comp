@@ -520,7 +520,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         return;
     }
     else if(strcmp(atual->type, "Id") == 0){ //ID
-		//printf("id - certo\n");
+		//printf("id - quase certo\n");
 
         aux_vars = search_type_var(table_global, table_local, atual->id);
 		aux_param = search_param_in_table(table_local,atual->id);
@@ -623,7 +623,6 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         aux2 = aux1->brother;
 
         atual->anoted = aux1->anoted;
-        printf("store - %s\n", atual->anoted);
 
         if(strcmp(aux1->anoted, aux2->anoted) == 0 && strcmp(aux1->anoted, "undef") && strcmp(aux1->anoted, "")){
             return;
@@ -649,16 +648,14 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         aux1 = atual->son;
         while(aux1 != NULL){
             anote_ast(table_global, table_local, aux1);
+            atual->anoted = aux1->anoted; //Duvida
             aux1 = aux1->brother;
         }
     }
     else if(strcmp(atual->type, "Call") == 0){//Rever Call
-        //printf("call - acho que ja nao ha seg fault aqui\n");
+        //printf("call - ainda falta\n");
 		
 		count_params = 0;
-        //count_equals = 0;
-        //count_all_equals = 0;
-        //find_function = 0;
         
         if(atual->son != NULL && atual->son->id != NULL){
 
@@ -836,12 +833,13 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         //atual->anoted = "boolean";
     }
     else if(strcmp(atual->type, "BitWiseAnd") == 0 || strcmp(atual->type, "BitWiseOr") == 0 || strcmp(atual->type, "BitWiseXor") == 0){
-        printf("bitwise\n");
+        //printf("bitwise\n");
         aux1 = atual->son;
         while(aux1 != NULL){
             anote_ast(table_global, table_local, aux1);
             aux1 = aux1->brother;
         }
+        atual->anoted = "int";
     }
     else if(strcmp(atual->type, "Eq") == 0 || strcmp(atual->type, "Gt") == 0 || strcmp(atual->type, "Ge") == 0
         || strcmp(atual->type, "Le") == 0 || strcmp(atual->type, "Lt") == 0 || strcmp(atual->type, "Ne") == 0){
@@ -852,12 +850,11 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             anote_ast(table_global, table_local, aux1);
             aux1 = aux1->brother;
         }
-        
+
+        atual->anoted = "int";
         /*
         aux2 = atual->son;
         aux3 = aux2->brother;
-
-        atual->anoted = "boolean";
 
         if(strcmp(atual->type, "Eq") == 0){
             aux = "==";
@@ -1018,6 +1015,8 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             anote_ast(table_global, table_local, aux1);
             aux1 = aux1->brother;
         }
+
+        atual->anoted = "int";
 		/*
         aux2 = atual->son;
         
@@ -1025,7 +1024,6 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             printf("Line %d, col %d: Operator ! cannot be applied to type %s\n", atual->line, atual->col, aux2->anoted);
         }*/
 
-        //atual->anoted = "boolean";
     }
     else if(strcmp(atual->type, "IntLit") == 0){ 
         atual->anoted = "int";

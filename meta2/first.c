@@ -14,8 +14,7 @@ int main(void) {
     putchar(i);
     i = i + 1;
   }
-  short a = a + 1;
-  a = 7;
+  short a, b;
   funcao(funcao2(10), 6, 8, 2);
   return 0;
 }
