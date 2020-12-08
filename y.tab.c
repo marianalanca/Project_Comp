@@ -114,10 +114,7 @@
 # define YYERROR_VERBOSE 0
 #endif
 
-/* Use api.header.include to #include this header
-   instead of duplicating it here.  */
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -222,7 +219,7 @@ union YYSTYPE
     struct _token* id;
     struct _t1* node;
 
-#line 226 "y.tab.c"
+#line 223 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -235,7 +232,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+
 
 
 
@@ -1570,7 +1567,7 @@ yyreduce:
   case 2:
 #line 77 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Program", (yyvsp[0].node), 0, 0); AST_root = (yyval.node); }
-#line 1574 "y.tab.c"
+#line 1571 "y.tab.c"
     break;
 
   case 3:
@@ -1578,7 +1575,7 @@ yyreduce:
                                                                 { if ((yyvsp[0].node) != NULL) connectBrothers((yyvsp[-1].node), (yyvsp[0].node));
                                                                     (yyval.node) = (yyvsp[-1].node);
                                                                 }
-#line 1582 "y.tab.c"
+#line 1579 "y.tab.c"
     break;
 
   case 4:
@@ -1586,7 +1583,7 @@ yyreduce:
                                                                 { if ((yyvsp[0].node) != NULL) connectBrothers((yyvsp[-1].node), (yyvsp[0].node));
                                                                     (yyval.node) = (yyvsp[-1].node);
                                                                 }
-#line 1590 "y.tab.c"
+#line 1587 "y.tab.c"
     break;
 
   case 5:
@@ -1594,19 +1591,19 @@ yyreduce:
                                                                 { if ((yyvsp[0].node) != NULL) connectBrothers((yyvsp[-1].node), (yyvsp[0].node));
                                                                     (yyval.node) = (yyvsp[-1].node);
                                                                 }
-#line 1598 "y.tab.c"
+#line 1595 "y.tab.c"
     break;
 
   case 6:
 #line 93 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1604 "y.tab.c"
+#line 1601 "y.tab.c"
     break;
 
   case 7:
 #line 94 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1610 "y.tab.c"
+#line 1607 "y.tab.c"
     break;
 
   case 8:
@@ -1615,13 +1612,13 @@ yyreduce:
                                                                   connectBrothers((yyvsp[-2].node), (yyvsp[-1].node));
                                                                   connectBrothers((yyvsp[-1].node), (yyvsp[0].node));
                                                                 }
-#line 1619 "y.tab.c"
+#line 1616 "y.tab.c"
     break;
 
   case 9:
 #line 103 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "FuncBody", (yyvsp[-1].node), 0, 0); }
-#line 1625 "y.tab.c"
+#line 1622 "y.tab.c"
     break;
 
   case 10:
@@ -1634,25 +1631,25 @@ yyreduce:
                                                                         (yyval.node) = (yyvsp[0].node);
                                                                     }
                                                                 }
-#line 1638 "y.tab.c"
+#line 1635 "y.tab.c"
     break;
 
   case 11:
 #line 114 "uccompiler.y"
                                                                 { if ((yyvsp[0].node) != NULL) connectBrothers((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 1644 "y.tab.c"
+#line 1641 "y.tab.c"
     break;
 
   case 12:
 #line 117 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1650 "y.tab.c"
+#line 1647 "y.tab.c"
     break;
 
   case 13:
 #line 118 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1656 "y.tab.c"
+#line 1653 "y.tab.c"
     break;
 
   case 14:
@@ -1660,7 +1657,7 @@ yyreduce:
                                                                 { (yyval.node) = insertNode(NULL, "FuncDeclaration", (yyvsp[-2].node), 0, 0);
                                                                   connectBrothers((yyvsp[-2].node), (yyvsp[-1].node));
                                                                 }
-#line 1664 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
   case 15:
@@ -1670,7 +1667,7 @@ yyreduce:
                                                                   (yyval.node) = insertNode(NULL, NULL, aux, 0, 0);
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1674 "y.tab.c"
+#line 1671 "y.tab.c"
     break;
 
   case 16:
@@ -1678,32 +1675,32 @@ yyreduce:
                                                                 { (yyval.node) = (yyvsp[-2].node);
                                                                   connectBrothers((yyvsp[-2].node), (yyvsp[0].node));
                                                                 }
-#line 1682 "y.tab.c"
+#line 1679 "y.tab.c"
     break;
 
   case 17:
 #line 136 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1688 "y.tab.c"
+#line 1685 "y.tab.c"
     break;
 
   case 18:
 #line 139 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "ParamDeclaration", (yyvsp[-1].node), 0, 0); if ( (yyvsp[0].node) != NULL) connectBrothers ((yyvsp[-1].node), (yyvsp[0].node)); }
-#line 1694 "y.tab.c"
+#line 1691 "y.tab.c"
     break;
 
   case 19:
 #line 142 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id)->id, "Id", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col);
                                                                   /*freeToken($1);*/ }
-#line 1701 "y.tab.c"
+#line 1698 "y.tab.c"
     break;
 
   case 20:
 #line 144 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1707 "y.tab.c"
+#line 1704 "y.tab.c"
     break;
 
   case 21:
@@ -1720,13 +1717,13 @@ yyreduce:
                                                                       }
                                                                   }
                                                                 }
-#line 1724 "y.tab.c"
+#line 1721 "y.tab.c"
     break;
 
   case 22:
 #line 159 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, NULL, NULL, 0, 0); errorFlag=-1;}
-#line 1730 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
   case 23:
@@ -1739,43 +1736,43 @@ yyreduce:
                                                                       (yyval.node) = aux;
                                                                   }
                                                                 }
-#line 1743 "y.tab.c"
+#line 1740 "y.tab.c"
     break;
 
   case 24:
 #line 172 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1749 "y.tab.c"
+#line 1746 "y.tab.c"
     break;
 
   case 25:
 #line 175 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Char", NULL, 0, 0); }
-#line 1755 "y.tab.c"
+#line 1752 "y.tab.c"
     break;
 
   case 26:
 #line 176 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Int", NULL, 0, 0); }
-#line 1761 "y.tab.c"
+#line 1758 "y.tab.c"
     break;
 
   case 27:
 #line 177 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Void", NULL, 0, 0); }
-#line 1767 "y.tab.c"
+#line 1764 "y.tab.c"
     break;
 
   case 28:
 #line 178 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Short", NULL, 0, 0); }
-#line 1773 "y.tab.c"
+#line 1770 "y.tab.c"
     break;
 
   case 29:
 #line 179 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Double", NULL, 0, 0); }
-#line 1779 "y.tab.c"
+#line 1776 "y.tab.c"
     break;
 
   case 30:
@@ -1787,43 +1784,43 @@ yyreduce:
                                                                   (yyval.node) =aux;
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1791 "y.tab.c"
+#line 1788 "y.tab.c"
     break;
 
   case 31:
 #line 191 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1797 "y.tab.c"
+#line 1794 "y.tab.c"
     break;
 
   case 32:
 #line 192 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1803 "y.tab.c"
+#line 1800 "y.tab.c"
     break;
 
   case 33:
 #line 195 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1809 "y.tab.c"
+#line 1806 "y.tab.c"
     break;
 
   case 34:
 #line 196 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1815 "y.tab.c"
+#line 1812 "y.tab.c"
     break;
 
   case 35:
 #line 197 "uccompiler.y"
                                                                 { errorFlag = -1; (yyval.node) = insertNode(NULL, NULL, NULL, 0, 0); }
-#line 1821 "y.tab.c"
+#line 1818 "y.tab.c"
     break;
 
   case 36:
 #line 198 "uccompiler.y"
                                                                 { if((yyvsp[-1].node)!=NULL && (yyvsp[-1].node)->brother!=NULL) (yyval.node) = insertNode(NULL, "StatList", (yyvsp[-1].node), 0, 0); else (yyval.node) = (yyvsp[-1].node); }
-#line 1827 "y.tab.c"
+#line 1824 "y.tab.c"
     break;
 
   case 37:
@@ -1831,7 +1828,7 @@ yyreduce:
                                                                 { (yyval.node) = insertNode(NULL, "Return", (yyvsp[-1].node), (yyvsp[-2].id)->line, (yyvsp[-2].id)->col);
                                                                   /*freeToken($1); */
                                                                 }
-#line 1835 "y.tab.c"
+#line 1832 "y.tab.c"
     break;
 
   case 38:
@@ -1839,7 +1836,7 @@ yyreduce:
                                                                 { (yyval.node) = insertNode(NULL, "Return", insertNode(NULL, "Null", NULL, 0, 0), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); 
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1843 "y.tab.c"
+#line 1840 "y.tab.c"
     break;
 
   case 39:
@@ -1855,7 +1852,7 @@ yyreduce:
                                                                   connectBrothers((yyvsp[-4].node), (yyvsp[-2].node));
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1859 "y.tab.c"
+#line 1856 "y.tab.c"
     break;
 
   case 40:
@@ -1868,7 +1865,7 @@ yyreduce:
                                                                   connectBrothers((yyvsp[0].node), insertNode(NULL, "Null", NULL, 0, 0));
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1872 "y.tab.c"
+#line 1869 "y.tab.c"
     break;
 
   case 41:
@@ -1880,31 +1877,31 @@ yyreduce:
                                                                   connectBrothers((yyvsp[-2].node), (yyvsp[0].node));
                                                                   /*freeToken($1);*/
                                                                 }
-#line 1884 "y.tab.c"
+#line 1881 "y.tab.c"
     break;
 
   case 42:
 #line 236 "uccompiler.y"
                                                                 { errorFlag = -1; (yyval.node) = insertNode(NULL, NULL, NULL, 0, 0); }
-#line 1890 "y.tab.c"
+#line 1887 "y.tab.c"
     break;
 
   case 43:
 #line 237 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1896 "y.tab.c"
+#line 1893 "y.tab.c"
     break;
 
   case 44:
 #line 240 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[-1].node); }
-#line 1902 "y.tab.c"
+#line 1899 "y.tab.c"
     break;
 
   case 45:
 #line 241 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 1908 "y.tab.c"
+#line 1905 "y.tab.c"
     break;
 
   case 46:
@@ -1917,157 +1914,157 @@ yyreduce:
                                                                     (yyval.node) = (yyvsp[0].node);
                                                                   }
                                                                 }
-#line 1921 "y.tab.c"
+#line 1918 "y.tab.c"
     break;
 
   case 47:
 #line 252 "uccompiler.y"
                                                                 { (yyval.node) = (yyvsp[0].node); }
-#line 1927 "y.tab.c"
+#line 1924 "y.tab.c"
     break;
 
   case 48:
 #line 255 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Store", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1933 "y.tab.c"
+#line 1930 "y.tab.c"
     break;
 
   case 49:
 #line 256 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Comma", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1939 "y.tab.c"
+#line 1936 "y.tab.c"
     break;
 
   case 50:
 #line 257 "uccompiler.y"
                                                                 { errorFlag = -1; (yyval.node) = insertNode(NULL, NULL, NULL, 0, 0); }
-#line 1945 "y.tab.c"
+#line 1942 "y.tab.c"
     break;
 
   case 51:
 #line 258 "uccompiler.y"
                                                                 { errorFlag = -1; (yyval.node) = insertNode(NULL, NULL, NULL, 0, 0); }
-#line 1951 "y.tab.c"
+#line 1948 "y.tab.c"
     break;
 
   case 52:
 #line 260 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Add", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1957 "y.tab.c"
+#line 1954 "y.tab.c"
     break;
 
   case 53:
 #line 261 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Sub", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1963 "y.tab.c"
+#line 1960 "y.tab.c"
     break;
 
   case 54:
 #line 262 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Mul", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1969 "y.tab.c"
+#line 1966 "y.tab.c"
     break;
 
   case 55:
 #line 263 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Div", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1975 "y.tab.c"
+#line 1972 "y.tab.c"
     break;
 
   case 56:
 #line 264 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Mod", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1981 "y.tab.c"
+#line 1978 "y.tab.c"
     break;
 
   case 57:
 #line 265 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Or", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1987 "y.tab.c"
+#line 1984 "y.tab.c"
     break;
 
   case 58:
 #line 266 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "And", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1993 "y.tab.c"
+#line 1990 "y.tab.c"
     break;
 
   case 59:
 #line 267 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "BitWiseAnd", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 1999 "y.tab.c"
+#line 1996 "y.tab.c"
     break;
 
   case 60:
 #line 268 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "BitWiseOr", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2005 "y.tab.c"
+#line 2002 "y.tab.c"
     break;
 
   case 61:
 #line 269 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "BitWiseXor", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2011 "y.tab.c"
+#line 2008 "y.tab.c"
     break;
 
   case 62:
 #line 270 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Eq", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2017 "y.tab.c"
+#line 2014 "y.tab.c"
     break;
 
   case 63:
 #line 271 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Ne", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2023 "y.tab.c"
+#line 2020 "y.tab.c"
     break;
 
   case 64:
 #line 272 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Le", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2029 "y.tab.c"
+#line 2026 "y.tab.c"
     break;
 
   case 65:
 #line 273 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Ge", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2035 "y.tab.c"
+#line 2032 "y.tab.c"
     break;
 
   case 66:
 #line 274 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Lt", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2041 "y.tab.c"
+#line 2038 "y.tab.c"
     break;
 
   case 67:
 #line 275 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Gt", (yyvsp[-2].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); connectBrothers((yyvsp[-2].node), (yyvsp[0].node)); /*freeToken($2);*/}
-#line 2047 "y.tab.c"
+#line 2044 "y.tab.c"
     break;
 
   case 68:
 #line 277 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Plus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
-#line 2053 "y.tab.c"
+#line 2050 "y.tab.c"
     break;
 
   case 69:
 #line 278 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Minus", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
-#line 2059 "y.tab.c"
+#line 2056 "y.tab.c"
     break;
 
   case 70:
 #line 279 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Not", (yyvsp[0].node), (yyvsp[-1].id)->line, (yyvsp[-1].id)->col); /*freeToken($1);*/}
-#line 2065 "y.tab.c"
+#line 2062 "y.tab.c"
     break;
 
   case 71:
 #line 281 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, "Call", insertNode((yyvsp[-2].id)->id, "Id", NULL, (yyvsp[-2].id)->line, (yyvsp[-2].id)->col), 0, 0); /*freeToken($1);*/}
-#line 2071 "y.tab.c"
+#line 2068 "y.tab.c"
     break;
 
   case 72:
@@ -2077,59 +2074,59 @@ yyreduce:
                                                                   else{(yyval.node) = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , (yyvsp[-1].node)); }
                                                                   /*freeToken($1);*/;
                                                                 }
-#line 2081 "y.tab.c"
+#line 2078 "y.tab.c"
     break;
 
   case 73:
 #line 287 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id)->id, "Id", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
-#line 2087 "y.tab.c"
+#line 2084 "y.tab.c"
     break;
 
   case 74:
 #line 288 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id)->id, "IntLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
-#line 2093 "y.tab.c"
+#line 2090 "y.tab.c"
     break;
 
   case 75:
 #line 289 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id)->id, "ChrLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
-#line 2099 "y.tab.c"
+#line 2096 "y.tab.c"
     break;
 
   case 76:
 #line 290 "uccompiler.y"
                                                                 { (yyval.node) = insertNode((yyvsp[0].id)->id, "RealLit", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); /*freeToken($1);*/}
-#line 2105 "y.tab.c"
+#line 2102 "y.tab.c"
     break;
 
   case 77:
 #line 291 "uccompiler.y"
                                                                 { (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node), 0, 0); }
-#line 2111 "y.tab.c"
+#line 2108 "y.tab.c"
     break;
 
   case 78:
 #line 294 "uccompiler.y"
                                                                 { if ((yyvsp[0].node)!= NULL) connectBrothers( (yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node), 0, 0); }
-#line 2117 "y.tab.c"
+#line 2114 "y.tab.c"
     break;
 
   case 79:
 #line 297 "uccompiler.y"
                                                                 { if ((yyvsp[-2].node) != NULL) {connectBrothers( (yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); } else { (yyval.node) = (yyvsp[0].node); }  }
-#line 2123 "y.tab.c"
+#line 2120 "y.tab.c"
     break;
 
   case 80:
 #line 298 "uccompiler.y"
                                                                 { (yyval.node) = NULL; }
-#line 2129 "y.tab.c"
+#line 2126 "y.tab.c"
     break;
 
 
-#line 2133 "y.tab.c"
+#line 2130 "y.tab.c"
 
       default: break;
     }

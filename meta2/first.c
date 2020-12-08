@@ -15,6 +15,9 @@ int main(void) {
     i = i + 1;
   }
   short a, b;
+  if(a == b, a<b, a>b){
+    //teste
+  }
   funcao(funcao2(10), 6, 8, 2);
   return 0;
 }
