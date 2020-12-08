@@ -36,6 +36,7 @@ extern table_element* symtab_global;
 extern table_element* symtab_local;
 
 void create_local(table_element* newLocal);
+void clean_params(param_list* params);
 void create_semantics(node* root);
 table_element* create_table(char* tableName, char* tableType);
 void insert_global(var_list* newVar);

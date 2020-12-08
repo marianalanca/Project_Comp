@@ -69,7 +69,7 @@
 #line 6 "uccompiler.y"
 
     #include "functions.h"
-    //#include "symbol_table.h"
+    #include "symbol_table.h"
 
     extern int flag;
     int errorFlag = 0;
@@ -117,7 +117,7 @@
 
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;

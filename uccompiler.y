@@ -5,7 +5,7 @@
 
 %{
     #include "functions.h"
-    //#include "symbol_table.h"
+    #include "symbol_table.h"
 
     extern int flag;
     int errorFlag = 0;
@@ -174,7 +174,7 @@ optDeclaration: optDeclaration COMMA Declarator                 { aux = insertNo
 
 TypeSpec: CHAR                                                  { $$ = insertNode(NULL, "Char", NULL, 0, 0); }
     | INT                                                       { $$ = insertNode(NULL, "Int", NULL, 0, 0); }
-    | VOID                                                      { $$ = insertNode(NULL, "Void", NULL, 0, 0); }
+    | VOID                                                      { $$ = insertNode(NULL, "Void", NULL, $1->line, $1->col); }
     | SHORT                                                     { $$ = insertNode(NULL, "Short", NULL, 0, 0); }
     | DOUBLE                                                    { $$ = insertNode(NULL, "Double", NULL, 0, 0); }
     ;
