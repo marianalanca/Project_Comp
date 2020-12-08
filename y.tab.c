@@ -117,7 +117,7 @@
 
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -1759,7 +1759,7 @@ yyreduce:
 
   case 27:
 #line 177 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Void", NULL, 0, 0); }
+                                                                { (yyval.node) = insertNode(NULL, "Void", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); }
 #line 1764 "y.tab.c"
     break;
 
