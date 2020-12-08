@@ -69,7 +69,7 @@
 #line 6 "uccompiler.y"
 
     #include "functions.h"
-    //#include "symbol_table.h"
+    #include "symbol_table.h"
 
     extern int flag;
     int errorFlag = 0;
@@ -120,7 +120,7 @@
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -1762,7 +1762,7 @@ yyreduce:
 
   case 27:
 #line 177 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Void", NULL, 0, 0); }
+                                                                { (yyval.node) = insertNode(NULL, "Void", NULL, (yyvsp[0].id)->line, (yyvsp[0].id)->col); }
 #line 1767 "y.tab.c"
     break;
 

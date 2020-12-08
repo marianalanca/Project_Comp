@@ -103,29 +103,33 @@ void yyerror (char *s)
 
 int main(int argc, char **argv)
 {
-  yyparse();
 
   if (argc == 2)
   {
     if(strcmp(argv[1], "-e1")==0)
     {
       flag = 0; /*Só analise lexical - erros*/
+      yyparse();
     }
     else if(strcmp(argv[1], "-l")==0)
     {
       flag = 1; /*Só analise lexical - erros e tokens*/
+      yyparse();
     }
     else if(strcmp(argv[1], "-t")==0){
       flag = 2; /*parsing tree*/
+      yyparse();
       if (errorFlag != -1){
         print_tree(AST_root, 0);
       }
     }
     else if(strcmp(argv[1], "-e2")==0){
       flag= 3; /*erros sintaticos e lexicais*/
+      yyparse();
     }
     else if(strcmp(argv[1], "-s")==0){
       flag=5; /*Posso alterar mais tarde*/
+      yyparse();
       create_semantics(AST_root);
       show_table();
       if (errorFlag != -1){
