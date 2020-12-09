@@ -93,7 +93,7 @@ void create_semantics(node* root){
 			}
 			else if (strcmp(actual_node->type, "Declaration") == 0) {
 				if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col);
+					printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col + 5);
 				} else {
 					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
 					if (search_var_in_table(symtab_global, actual_node->son->brother->id)==NULL){
@@ -202,31 +202,23 @@ void create_semantics(node* root){
 					aux1 = aux->son;
 
 					while (aux1!=NULL){
-	
-						if (strcmp(aux1->type, "Declaration") == 0) {
-							aux2 = aux1->son;
-							aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
-                        } /*else if(strcmp(aux1->type, "Store") == 0 && atoi(aux1->son->id)!=0) {
-							printf("Line %d, col %d: Lvalue required\n", aux1->son->line, aux1->son->col);
-						} // ver que, se for uma situação em que uma variável esteja a ser utilizada, se esta existe na tabela
-						else if (0) { // testar se for alguma das expressions
-						}*/
-						
                         if(aux1->type!=NULL){
                             if(strcmp(aux1->type, "Declaration")==0){
+                                aux2 = aux1->son;
+							    aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+
                                 aux2 = aux1->son->brother->brother;
                                 while(aux2 != NULL){
                                     if( aux2 != NULL && aux2->type != NULL){
-                                        anote_ast(symtab_global, local_table, aux2); 
+                                        anote_ast(symtab_global, local_table, aux2);
                                     }
                                     aux2 = aux2->brother;
-                                }    
+                                }
                             }
                             else{
                                 anote_ast(symtab_global, local_table, aux1);
                             }
                         }
-						
 						aux1 = aux1->brother;
 					}
 
