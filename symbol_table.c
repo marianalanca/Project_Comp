@@ -77,29 +77,29 @@ void create_semantics(node* root){
 				aux_variable->n_params = count_params;
 
 				if (void_flag_line && void_flag_col && count_params>1){
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
+					//printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
 				} else {
 					if (test_var==NULL){
 						insert_global(aux_variable);
 						create_local(local_table);
 					} else if (test_var->function == 1){
 						if (test_var->n_params!=count_params){
-							printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)\n", 0, 0, aux_variable->id, count_params, test_var->n_params);
+							//printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)\n", 0, 0, aux_variable->id, count_params, test_var->n_params);
 						} else {
-							printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
+							//printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
 						}
 					}
 				}
 			}
 			else if (strcmp(actual_node->type, "Declaration") == 0) {
 				if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col + 5);
+					//printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col + 5);
 				} else {
 					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
 					if (search_var_in_table(symtab_global, actual_node->son->brother->id)==NULL){
 						insert_global(aux_variable);
 					} else {
-						printf("Line %d, col %d: Symbol %s already defined\n", actual_node->son->brother->line, actual_node->son->brother->col, actual_node->son->brother->id);
+						//printf("Line %d, col %d: Symbol %s already defined\n", actual_node->son->brother->line, actual_node->son->brother->col, actual_node->son->brother->id);
 					}
 				}
 			}
@@ -134,16 +134,16 @@ void create_semantics(node* root){
 				aux_variable->n_params = count_params;
 
 				if (void_flag_line && void_flag_col && count_params>1){
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
+					//printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
 				} else {
 					if (test_var==NULL){
 						insert_global(aux_variable);
 						create_local(local_table);
 					} else {
 						if (test_var->n_params!=count_params){
-							printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)\n", 0, 0, aux_variable->id, count_params, test_var->n_params);
+							//printf("Line %d, col %d: Wrong number of arguments to function %s ( got %d,required %d)\n", 0, 0, aux_variable->id, count_params, test_var->n_params);
 						} else {
-							printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
+							//printf("Line %d, col %d: Symbol %s already defined\n", aux->brother->son->line, aux->brother->son->col, aux->brother->son->id);
 						}
 					}
 				}
@@ -472,12 +472,12 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
     var_list *aux_vars;
 
-	param_list *aux_param, *final_params;
+	param_list *aux_param;
 
     //int count_params;
     //int count_equals, count_all_equals, find_function;
 
-    node *aux1, *aux2, *aux3, *ant;
+    node *aux1, *aux2, *aux3;
 
     table_element * aux_func;
 
@@ -514,7 +514,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 			atual->anoted = aux_param->type;
 		}
         else{//erro 8 - Unknown symbol <token >
-            printf("Line %d, col %d: Cannot find symbol %s\n", atual->line, atual->col, atual->id);
+            //printf("Line %d, col %d: Cannot find symbol %s\n", atual->line, atual->col, atual->id);
             atual->anoted = "undef";
         }
     }
@@ -613,7 +613,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             return;
         }
         else{//erro 5
-            printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", atual->line, atual->col, aux1->anoted, aux2->anoted);
+            //printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", atual->line, atual->col, aux1->anoted, aux2->anoted);
         }
     }
     else if(strcmp(atual->type, "Comma") == 0){
@@ -840,13 +840,13 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 atual->anoted = "int"; //duvida??
             }
             else{
-                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
                 atual->anoted = "undef";
             }
         }
         else if(strcmp(aux2->anoted, "double")==0){
             if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0){
-                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
                 atual->anoted = "undef";//duvida
             }
             else{
@@ -864,7 +864,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 atual->anoted = "short";
             }
             else{
-                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+                //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
                 atual->anoted = "undef"; //duvida
             }
         }
@@ -878,7 +878,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             }
         }
         else{
-            printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+            //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
             atual->anoted = "undef";
         }
         
@@ -909,10 +909,10 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         else{
             atual->anoted = "undef"; //duvida
             if(strcmp(atual->type, "Plus") == 0){
-                printf("Line %d, col %d: Operator + cannot be applied to type %s\n", atual->line, atual->col, aux1->anoted);
+                //printf("Line %d, col %d: Operator + cannot be applied to type %s\n", atual->line, atual->col, aux1->anoted);
             }
             else{
-                printf("Line %d, col %d: Operator - cannot be applied to type %s\n", atual->line, atual->col, aux1->anoted);
+                //printf("Line %d, col %d: Operator - cannot be applied to type %s\n", atual->line, atual->col, aux1->anoted);
             }
         }
     }
