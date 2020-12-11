@@ -32,17 +32,6 @@ void create_semantics(node* root){
 
 		symtab_global = create_table("Global", "Global");
 
-        //aux_variable = create_var("putchar", "int");
-        //aux_variable->function = 1;
-        //insert_global(aux_variable);
-        //aux_variable->n_params =1;
-        //add_to_paramList(aux_variable->parameters, create_param("", "int"));
-        //local_table = create_table("putchar", "int");
-        //create_local(local_table);
-
-
-        //insert_global(create_var("getchar", "int"));
-
 		while (aux_program!=NULL)
 		{
 			actual_node = aux_program;
@@ -102,6 +91,21 @@ void create_semantics(node* root){
 						//printf("Line %d, col %d: Symbol %s already defined\n", actual_node->son->brother->line, actual_node->son->brother->col, actual_node->son->brother->id);
 					}
 				}
+               
+                //CONFIRMAR ISTO - DUVIDA - MAS ACHO Q ESTA BEM
+                aux2 = actual_node->son->brother;
+                if(aux2 != NULL){
+                    aux2= aux2->brother;
+                    
+                    while(aux2 != NULL){
+                        if( aux2->type != NULL){
+                            anote_ast(symtab_global, symtab_global, aux2);
+                        }
+                        aux2 = aux2->brother;
+                    }
+                }
+                aux2 = NULL;
+            
 			}
 			else if (strcmp(actual_node->type, "FuncDeclaration") == 0) {
 				void_flag_col = 0;
@@ -466,19 +470,13 @@ var_list *search_type_var(table_element *table_global, table_element *table_loca
 int count_params;
 
 void anote_ast(table_element *table_global, table_element *table_local, node *atual){
-	//var_list  *aux;
+
     char* aux = NULL;
-    //char* aux_params_type, final_params_type;
 
     var_list *aux_vars;
-
 	param_list *aux_param;
 
-    //int count_params;
-    //int count_equals, count_all_equals, find_function;
-
     node *aux1, *aux2, *aux3;
-
     table_element * aux_func;
 
     if(atual == NULL){ //arvore vazia
@@ -487,6 +485,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
     if(atual->type == NULL){
         aux1 = atual->son;
+
         while(aux1 != NULL){
             if(aux1->type != NULL){
                 count_params++;
@@ -597,19 +596,16 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         }
 
 		
-        if(strcmp(aux1->anoted, aux2->anoted) == 0 && strcmp(aux1->anoted, "undef") && strcmp(aux1->anoted, "")){
+        if( strcmp(aux1->anoted, aux2->anoted) == 0 && strcmp(aux1->anoted, "undef") && strcmp(aux1->anoted, "")){
             return;
         }
-        else if(strcmp(aux1->anoted, "double") == 0 && strcmp(aux2->anoted, "int") == 0){
+        else if( strcmp(aux1->anoted, "double") == 0 && (strcmp(aux2->anoted, "int") == 0 || strcmp(aux2->anoted, "short") == 0 || strcmp(aux2->anoted, "char") == 0)){
             return; //REVER CONDICOES ELSE IF (AS 3)     
         }
-        else if(strcmp(aux1->anoted, "double") == 0 && strcmp(aux2->anoted, "short") == 0){
+        else if( strcmp(aux1->anoted, "int") == 0 && (strcmp(aux2->anoted, "short") == 0 || strcmp(aux2->anoted, "char") == 0)){
             return;
         }
-        else if(strcmp(aux1->anoted, "int") == 0 && strcmp(aux2->anoted, "short") == 0){
-            return;
-        }
-        else if(strcmp(aux2->anoted, "char") == 0){
+        else if( strcmp(aux1->anoted, "char") == 0 && (strcmp(aux2->anoted, "int") == 0 || strcmp(aux2->anoted, "short") == 0)){
             return;
         }
         else{//erro 5
@@ -690,10 +686,31 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         if(atual->son != NULL){
             atual->son->n_params = count_params;
             aux_func = search_func_in_table(atual->son->id);
-            if(aux_func != NULL){ //a funcao nao existe
+            if(aux_func != NULL){ 
+
                 atual->son->params = aux_func->parameters;
-            } 
-            atual->anoted = atual->son->anoted; //duvida
+                atual->anoted = aux_func->tableType;
+                atual->anoted[0] = tolower(atual->anoted[0]);
+
+                atual->son->anoted = atual->anoted; //duvida
+
+                /*
+                if(aux_func->variables == NULL){
+                    printf("%s %d\n", atual->son->id, count_params);
+                }
+                else{
+                    printf("%s %d %s %d\n", atual->son->id, count_params, aux_func->variables->id, aux_func->variables->n_params);
+                }*/
+                
+                if(count_params != aux_func->variables->n_params){
+                    //erro? - duvida
+                }
+                
+            }
+            else{ //a funcao nao existe
+                atual->anoted = "undef"; //duvida?
+                atual->son->anoted = "undef";
+            }  
         }
     }
     else if(strcmp(atual->type, "And") == 0 || strcmp(atual->type, "Or") == 0){
@@ -786,8 +803,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
     else if(strcmp(atual->type, "Add") == 0 || strcmp(atual->type, "Sub") == 0 || strcmp(atual->type, "Mul") == 0
         || strcmp(atual->type, "Div") == 0 || strcmp(atual->type, "Mod") == 0){
 		//printf("contas\n");
-		
-        
+		   
         aux1 = atual->son;
         while(aux1 != NULL){
             anote_ast(table_global, table_local, aux1);
@@ -796,6 +812,26 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 		
         aux2 = atual->son;
         aux3 = aux2->brother;
+
+        
+        if(aux2->anoted == NULL){
+            if(aux2->type == NULL){
+                aux2 = aux2->son; //duvida
+            }
+            else{
+                aux2->anoted = "undef";
+            }
+        }//DUVIDA
+
+        if(aux3->anoted == NULL){
+            if(aux3->type == NULL){
+                aux3 = aux3->son;  //duvida
+            }
+            else{
+                aux3->anoted = "undef";
+            }
+        }//DUVIDA
+        
 
         if(strcmp(atual->type, "Add") == 0){
             aux = (char*) malloc (sizeof(char)* strlen("+"));
@@ -814,18 +850,17 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             strcpy(aux, "/");
         }
         else{
-            aux = (char*) malloc (sizeof(char)* strlen("%"));
-            strcpy(aux, "%");
+            //Mod
+            if(strcmp(aux2->anoted, "undef") ==0 || strcmp(aux3->anoted, "undef")==0 ){
+                //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+            }
+            else if(strcmp(aux2->anoted, "double") ==0 || strcmp(aux3->anoted, "double") ==0){
+                //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+            }
+            atual->anoted = "int";
+            return;
         }
 		
-        if(aux2->anoted == NULL){
-            aux2->anoted = "undef";
-        }//DUVIDA
-
-        if(aux3->anoted == NULL){
-            aux3->anoted = "undef";
-        }//DUVIDA
-        
         if(strcmp(aux2->anoted, "int")==0){
             if(strcmp(aux3->anoted, "int")==0){
                 atual->anoted = "int";
@@ -837,7 +872,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 atual->anoted = "int";
             }
             else if(strcmp(aux3->anoted, "char")==0){
-                atual->anoted = "int"; //duvida??
+                atual->anoted = "int";
             }
             else{
                 //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
@@ -845,7 +880,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             }
         }
         else if(strcmp(aux2->anoted, "double")==0){
-            if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0){
+            if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0 && strcmp(aux3->anoted, "char")!=0){
                 //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
                 atual->anoted = "undef";//duvida
             }
@@ -862,6 +897,9 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             }
             else if(strcmp(aux3->anoted, "short")==0){
                 atual->anoted = "short";
+            }
+            else if(strcmp(aux3->anoted, "char")==0){
+                atual->anoted = "short"; //DUVIDAAA
             }
             else{
                 //printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
@@ -993,22 +1031,22 @@ void printAnotedAST(node *node, int depth){
 
         printf("%s",node->type);
 
-        if(node->id != NULL){ //ID/INTLIT/CHRLIT/REALLIT    
-            if(node->n_params >=0 && itsExpression(node->type) == 1){
-                printf("(%s) - %s(", node->id, node->anoted);
-                aux = node->params;
-                while(aux != NULL){
-                    printf("%s", aux->type);
-                    if(aux->next != NULL){
-                        printf(",");
-                    }
-                    aux = aux->next;
-                }
-                printf(")");
-            }
-            else if(node->anoted != NULL && itsExpression(node->type) == 1){
+        if(node->id != NULL){ //ID/INTLIT/CHRLIT/REALLIT
+            if(node->anoted != NULL && itsExpression(node->type) == 1){
                 printf("(%s) - %s", node->id, node->anoted);
-            }
+                if(node->n_params >=0 && strcmp(node->anoted, "undef") != 0){
+                    printf("(");
+                    aux = node->params;
+                    while(aux != NULL){
+                        printf("%s", aux->type);
+                        if(aux->next != NULL){
+                            printf(",");
+                        }
+                        aux = aux->next;
+                    }
+                    printf(")");
+                }
+            }    
             else{
                 printf("(%s)", node->id);
             }

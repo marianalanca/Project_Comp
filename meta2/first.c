@@ -14,10 +14,7 @@ int main(void) {
     putchar(i);
     i = i + 1;
   }
-  short a, b;
-  if(a == b, a<b, a>b){
-    //teste
-  }
+  int a = 2*(1+3);
   funcao(funcao2(10), 6, 8, 2);
   return 0;
 }
