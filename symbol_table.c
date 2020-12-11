@@ -701,10 +701,10 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 else{
                     printf("%s %d %s %d\n", atual->son->id, count_params, aux_func->variables->id, aux_func->variables->n_params);
                 }*/
-                
+                /*
                 if(count_params != aux_func->variables->n_params){
                     //erro? - duvida
-                }
+                }*/
                 
             }
             else{ //a funcao nao existe
