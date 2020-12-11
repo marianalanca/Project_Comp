@@ -614,11 +614,17 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
     }
     else if(strcmp(atual->type, "Comma") == 0){
         //printf("Comma\n");
-        
+
         aux1 = atual->son;
         while(aux1 != NULL){
             anote_ast(table_global, table_local, aux1);
-            atual->anoted = aux1->anoted; //Duvida
+            if(aux1->anoted != NULL){
+                atual->anoted = aux1->anoted;
+            }
+            else if(aux1->son != NULL){
+                atual->anoted = aux1->son->anoted;
+            } //DUVIDA - CONFIRMAR ISTO!
+            //a ideia e se a notacao for null vemos o filho
             aux1 = aux1->brother;
         }
     }
