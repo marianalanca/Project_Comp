@@ -1,0 +1,57 @@
+Line 13, col 5: Operator = cannot be applied to types char, double
+Line 15, col 5: Operator = cannot be applied to types short, int
+Line 16, col 5: Operator = cannot be applied to types short, double
+Line 18, col 5: Operator = cannot be applied to types int, double
+Line 19, col 5: Conflicting types ( got <double>, expected <int>)
+Line 23, col 5: Conflicting types ( got <double>, expected <int>)
+Line 26, col 5: Conflicting types ( got <double>, expected <int>)
+Line 28, col 5: Conflicting types ( got <double>, expected <int>)
+Line 29, col 5: Conflicting types ( got <double>, expected <int>)
+Line 33, col 5: Conflicting types ( got <double>, expected <int>)
+Line 36, col 5: Conflicting types ( got <double>, expected <int>)
+Line 38, col 5: Conflicting types ( got <double>, expected <int>)
+Line 39, col 5: Conflicting types ( got <double>, expected <int>)
+Line 43, col 5: Conflicting types ( got <double>, expected <int>)
+Line 46, col 5: Conflicting types ( got <double>, expected <int>)
+Line 48, col 5: Conflicting types ( got <double>, expected <int>)
+Line 49, col 5: Conflicting types ( got <double>, expected <int>)
+Line 53, col 5: Conflicting types ( got <double>, expected <int>)
+Line 56, col 5: Conflicting types ( got <double>, expected <int>)
+Line 58, col 5: Conflicting types ( got <double>, expected <int>)
+Line 59, col 5: Conflicting types ( got <double>, expected <int>)
+Line 73, col 5: Conflicting types ( got <double>, expected <int>)
+Line 76, col 5: Conflicting types ( got <double>, expected <int>)
+Line 78, col 5: Conflicting types ( got <double>, expected <int>)
+Line 79, col 5: Conflicting types ( got <double>, expected <int>)
+Line 163, col 5: Operator & cannot be applied to types char, double
+Line 166, col 5: Operator & cannot be applied to types short, double
+Line 168, col 5: Operator & cannot be applied to types int, double
+Line 169, col 5: Operator & cannot be applied to types double, double
+Line 173, col 5: Operator | cannot be applied to types char, double
+Line 176, col 5: Operator | cannot be applied to types short, double
+Line 178, col 5: Operator | cannot be applied to types int, double
+Line 179, col 5: Operator | cannot be applied to types double, double
+Line 183, col 5: Operator ^ cannot be applied to types char, double
+Line 186, col 5: Operator ^ cannot be applied to types short, double
+Line 188, col 5: Operator ^ cannot be applied to types int, double
+Line 189, col 5: Operator ^ cannot be applied to types double, double
+Line 193, col 4: Conflicting types ( got <double>, expected <int>)
+Line 197, col 4: Conflicting types ( got <double>, expected <int>)
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+f1	int(double)
+main	int(void,void)
+
+===== Function f1 Symbol Table =====
+return	int
+a	double	param
+
+===== Function main Symbol Table =====
+return	int
+a	char
+b	short
+c	int
+d	double
+d	int
+
