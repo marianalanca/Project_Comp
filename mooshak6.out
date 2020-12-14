@@ -1,0 +1,16 @@
+Line 6, col 7: Unknown symbol p
+Line 6, col 6: Operator , cannot be applied to types int, undef
+Line 6, col 9: Unknown symbol argc
+Line 6, col 8: Operator , cannot be applied to types undef, undef
+Line 7, col 5: Unknown symbol argc
+Line 7, col 9: Operator , cannot be applied to types undef, int
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+f	int(int)
+g	char(char)
+main	int(void)
+
+===== Function main Symbol Table =====
+return	int
+
