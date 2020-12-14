@@ -1,0 +1,13 @@
+Line 6, col 7: Unknown symbol p
+Line 6, col 9: Unknown symbol argc
+Line 7, col 5: Unknown symbol argc
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+f	int(int)
+g	char(char)
+main	int(void,void)
+
+===== Function main Symbol Table =====
+return	int
+

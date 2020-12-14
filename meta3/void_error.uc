@@ -1,6 +1,3 @@
-int func(int a);
-int func (char b);
-int func(int a, char b);
 
 /*
 int a1 (int a){}

@@ -9,7 +9,7 @@ typedef struct _t1{
         char* id;
         char* type;
         char *anoted;
-        int line; 
+        int line;
         int col;
         int n_params;
         struct _params *params;
