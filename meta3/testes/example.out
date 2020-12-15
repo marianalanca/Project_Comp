@@ -1,0 +1,433 @@
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+main	int(void)
+blah	char(int)
+ola	int(char)
+he_llo	char(int)
+z_	char(int)
+_	int(char)
+zdfe23	char(void)
+zf23	int(int)
+z323	int(int,char,char)
+zfsy3	char(int,short,char,double,int,short,double,char,char,int)
+zfsy4	void(int,int,int,int,int,short,short,short,short,char,int,char)
+zfsy5	void(int,int,int,int,int,short,short,short,short,char,int,char,double,double,char)
+zfffg3	char(int,double,char,short,int)
+zytrf3	int(char)
+zfsrty3	char(short)
+
+===== Function main Symbol Table =====
+return	int
+
+===== Function blah Symbol Table =====
+return	char
+q	int	param
+
+===== Function zfsy3 Symbol Table =====
+return	char
+a	int	param
+A1	short	param
+A2	char	param
+A3	double	param
+B1	int	param
+B2	short	param
+B3	double	param
+B4	char	param
+c1	char	param
+c2	int	param
+
+===== Function zfsy4 Symbol Table =====
+return	void
+a	int	param
+b	int	param
+c	int	param
+d	int	param
+e	int	param
+f	short	param
+g	short	param
+h	short	param
+i	short	param
+j	char	param
+k	int	param
+l	char	param
+
+===== Function zfsy5 Symbol Table =====
+return	void
+a	int	param
+b	int	param
+c	int	param
+d	int	param
+e	int	param
+f	short	param
+g	short	param
+h	short	param
+i	short	param
+j	char	param
+k	int	param
+l	char	param
+m	double	param
+n	double	param
+o	char	param
+
+===== Function zytrf3 Symbol Table =====
+return	int
+y56789	char	param
+
+Program
+..FuncDeclaration
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDefinition
+....Char
+....Id(blah)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(q)
+....FuncBody
+..FuncDeclaration
+....Int
+....Id(ola)
+....ParamList
+......ParamDeclaration
+........Char
+..FuncDeclaration
+....Char
+....Id(he_llo)
+....ParamList
+......ParamDeclaration
+........Int
+..FuncDeclaration
+....Char
+....Id(z_)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(x)
+..FuncDeclaration
+....Int
+....Id(_)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(y)
+..FuncDeclaration
+....Char
+....Id(zdfe23)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Int
+....Id(zf23)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(x)
+..FuncDeclaration
+....Int
+....Id(z323)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(x)
+......ParamDeclaration
+........Char
+........Id(y)
+......ParamDeclaration
+........Char
+........Id(z)
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+..FuncDeclaration
+....Char
+....Id(blah)
+....ParamList
+......ParamDeclaration
+........Int
+..FuncDeclaration
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDefinition
+....Char
+....Id(zfsy3)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Short
+........Id(A1)
+......ParamDeclaration
+........Char
+........Id(A2)
+......ParamDeclaration
+........Double
+........Id(A3)
+......ParamDeclaration
+........Int
+........Id(B1)
+......ParamDeclaration
+........Short
+........Id(B2)
+......ParamDeclaration
+........Double
+........Id(B3)
+......ParamDeclaration
+........Char
+........Id(B4)
+......ParamDeclaration
+........Char
+........Id(c1)
+......ParamDeclaration
+........Int
+........Id(c2)
+....FuncBody
+..FuncDeclaration
+....Void
+....Id(zfsy4)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Char
+..FuncDeclaration
+....Void
+....Id(zfsy5)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Int
+........Id(b)
+......ParamDeclaration
+........Int
+........Id(c)
+......ParamDeclaration
+........Int
+........Id(d)
+......ParamDeclaration
+........Int
+........Id(e)
+......ParamDeclaration
+........Short
+........Id(f)
+......ParamDeclaration
+........Short
+........Id(g)
+......ParamDeclaration
+........Short
+........Id(h)
+......ParamDeclaration
+........Short
+........Id(i)
+......ParamDeclaration
+........Char
+........Id(j)
+......ParamDeclaration
+........Int
+........Id(k)
+......ParamDeclaration
+........Char
+........Id(l)
+......ParamDeclaration
+........Double
+........Id(m)
+......ParamDeclaration
+........Double
+........Id(n)
+......ParamDeclaration
+........Char
+........Id(o)
+..FuncDeclaration
+....Char
+....Id(zfffg3)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(y)
+......ParamDeclaration
+........Double
+........Id(qw)
+......ParamDeclaration
+........Char
+........Id(o)
+......ParamDeclaration
+........Short
+........Id(r)
+......ParamDeclaration
+........Int
+........Id(abc)
+..FuncDefinition
+....Void
+....Id(zfsy4)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Int
+........Id(b)
+......ParamDeclaration
+........Int
+........Id(c)
+......ParamDeclaration
+........Int
+........Id(d)
+......ParamDeclaration
+........Int
+........Id(e)
+......ParamDeclaration
+........Short
+........Id(f)
+......ParamDeclaration
+........Short
+........Id(g)
+......ParamDeclaration
+........Short
+........Id(h)
+......ParamDeclaration
+........Short
+........Id(i)
+......ParamDeclaration
+........Char
+........Id(j)
+......ParamDeclaration
+........Int
+........Id(k)
+......ParamDeclaration
+........Char
+........Id(l)
+....FuncBody
+..FuncDefinition
+....Int
+....Id(zytrf3)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(y56789)
+....FuncBody
+..FuncDeclaration
+....Char
+....Id(zfsrty3)
+....ParamList
+......ParamDeclaration
+........Short
+........Id(y)
+..FuncDeclaration
+....Char
+....Id(zfsy3)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Short
+........Id(A1)
+......ParamDeclaration
+........Char
+........Id(A2)
+......ParamDeclaration
+........Double
+........Id(A3)
+......ParamDeclaration
+........Int
+........Id(B1)
+......ParamDeclaration
+........Short
+........Id(B2)
+......ParamDeclaration
+........Double
+........Id(B3)
+......ParamDeclaration
+........Char
+........Id(B4)
+......ParamDeclaration
+........Char
+........Id(c1)
+......ParamDeclaration
+........Int
+........Id(c2)
+..FuncDefinition
+....Void
+....Id(zfsy5)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Int
+........Id(b)
+......ParamDeclaration
+........Int
+........Id(c)
+......ParamDeclaration
+........Int
+........Id(d)
+......ParamDeclaration
+........Int
+........Id(e)
+......ParamDeclaration
+........Short
+........Id(f)
+......ParamDeclaration
+........Short
+........Id(g)
+......ParamDeclaration
+........Short
+........Id(h)
+......ParamDeclaration
+........Short
+........Id(i)
+......ParamDeclaration
+........Char
+........Id(j)
+......ParamDeclaration
+........Int
+........Id(k)
+......ParamDeclaration
+........Char
+........Id(l)
+......ParamDeclaration
+........Double
+........Id(m)
+......ParamDeclaration
+........Double
+........Id(n)
+......ParamDeclaration
+........Char
+........Id(o)
+....FuncBody

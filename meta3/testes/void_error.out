@@ -1,0 +1,4 @@
+Line 19, col 9: syntax error: 
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)

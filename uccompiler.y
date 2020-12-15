@@ -280,8 +280,8 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
 
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col), 0, 0); /*freeToken($1);*/}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
-                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); }
-                                                                  else{$$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); connectBrothers(aux , $3); }
+                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux, 0, 0); }
+                                                                  else{$$ = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , $3); }
                                                                   /*freeToken($1);*/;
                                                                 }
     | ID                                                        { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col); /*freeToken($1);*/}
@@ -291,7 +291,7 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | LPAR Expr RPAR                                            { $$ = insertNode(NULL, NULL, $2, 0, 0); }
     ;
 
-optExpCExp: Expr optCExp                                        { if ($2!= NULL) connectBrothers( $1, $2); $$ = insertNode(NULL, NULL, $1,  $1->line, $1->col); }
+optExpCExp: Expr optCExp                                        { if ($2!= NULL) connectBrothers( $1, $2); $$ = insertNode(NULL, NULL, $1, 0, 0); }
     ;
 
 optCExp: optCExp COMMA Expr                                     { if ($1 != NULL) {connectBrothers( $1, $3); $$ = $1; } else { $$ = $3; }  }

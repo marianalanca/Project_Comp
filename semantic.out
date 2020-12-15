@@ -1,9 +1,0 @@
-Line 2, col 5: Lvalue required
-===== Global Symbol Table =====
-putchar	int(int)
-getchar	int(void)
-f	int(void,void)
-
-===== Function f Symbol Table =====
-return	int
-

@@ -2073,8 +2073,8 @@ yyreduce:
   case 72:
 #line 282 "uccompiler.y"
                                                                 { aux = insertNode((yyvsp[-3].id)->id, "Id", NULL, (yyvsp[-3].id)->line, (yyvsp[-3].id)->col);
-                                                                  if ((yyvsp[-1].node) == NULL){ (yyval.node) = insertNode(NULL, "Call", aux,  (yyvsp[-3].id)->line, (yyvsp[-3].id)->col); }
-                                                                  else{(yyval.node) = insertNode(NULL, "Call", aux,  (yyvsp[-3].id)->line, (yyvsp[-3].id)->col); connectBrothers(aux , (yyvsp[-1].node)); }
+                                                                  if ((yyvsp[-1].node) == NULL){ (yyval.node) = insertNode(NULL, "Call", aux, 0, 0); }
+                                                                  else{(yyval.node) = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , (yyvsp[-1].node)); }
                                                                   /*freeToken($1);*/;
                                                                 }
 #line 2081 "y.tab.c"
@@ -2112,7 +2112,7 @@ yyreduce:
 
   case 78:
 #line 294 "uccompiler.y"
-                                                                { if ((yyvsp[0].node)!= NULL) connectBrothers( (yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node),  (yyvsp[-1].node)->line, (yyvsp[-1].node)->col); }
+                                                                { if ((yyvsp[0].node)!= NULL) connectBrothers( (yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node), 0, 0); }
 #line 2117 "y.tab.c"
     break;
 

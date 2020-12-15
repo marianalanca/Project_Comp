@@ -1,0 +1,7 @@
+Mooshak5
+erros
+miscellaneous
+
+ver mooshak5
+funções -> às vezes lê tipo mal;
+parâmetros ->

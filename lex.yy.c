@@ -2184,7 +2184,7 @@ int main(int argc, char **argv)
       flag = 2; /*parsing tree*/
       yyparse();
       if (errorFlag != -1){
-        //print_tree(AST_root, 0);
+        print_tree(AST_root, 0);
       }
     }
     else if(strcmp(argv[1], "-e2")==0){
@@ -2198,7 +2198,7 @@ int main(int argc, char **argv)
       show_table();
       if (errorFlag != -1){
         //print_tree(AST_root, 0);
-        //printAnotedAST(AST_root, 0);
+        printAnotedAST(AST_root, 0);
       }
     }
   }
