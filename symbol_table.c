@@ -741,6 +741,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
         if(atual->son != NULL && atual->son->id != NULL){
 
+
             //Fazer protecoes!!!!!!!!!!!!!!!!!
 
             if(strcmp(atual->son->id, "getchar")==0){
@@ -805,7 +806,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
                 //printf("DEBUG: func %s: param (%d) type: %s\n", table_local->tableName, table_local->n_params, aux_param->type);
                 //printf("DEBUG: got: %s\n", aux1->son->anoted);
-                printf("DEBUG: %d %d\n", aux1->son->line, aux1->son->col);
+                //printf("DEBUG: %d %d\n", aux1->son->line, aux1->son->col);
 
                 if ((strcmp(aux1->son->anoted, "undef")==0 || strcmp(aux_param->type, "undef")==0)
                     || ((strcmp(aux1->son->anoted, "double") == 0 && strcmp(aux_param->type, "double") != 0)
@@ -822,6 +823,9 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         if(atual->son != NULL){
             aux_vars = search_var_teste(table_global, table_global, atual->son->id);
             aux_func = search_func_in_table(atual->son->id);
+
+            //printf("DEBUG #741: %s params: %d", aux_func->tableName, aux_func->n_params);
+
             if(aux_func != NULL){
                 if(aux_vars != NULL){
                     atual->son->params = aux_vars->parameters;

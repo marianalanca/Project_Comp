@@ -14,39 +14,3 @@ main	int(void)
 ===== Function main Symbol Table =====
 return	int
 
-Program
-..FuncDeclaration
-....Int
-....Id(f)
-....ParamList
-......ParamDeclaration
-........Int
-..FuncDeclaration
-....Char
-....Id(g)
-....ParamList
-......ParamDeclaration
-........Char
-..FuncDefinition
-....Int
-....Id(main)
-....ParamList
-......ParamDeclaration
-........Void
-....FuncBody
-......Comma - undef
-........Comma - undef
-..........Id(f) - int(int)
-..........Id(p) - undef
-........Id(argc) - undef
-......Comma - int
-........Id(argc) - undef
-........Id(f) - int(int)
-......Comma - char
-........Id(f) - int(int)
-........Id(g) - char(char)
-......Comma - int
-........IntLit(0) - int
-........Comma - int
-..........ChrLit('c') - int
-..........Id(f) - int(int)

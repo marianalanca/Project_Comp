@@ -2198,7 +2198,7 @@ int main(int argc, char **argv)
       show_table();
       if (errorFlag != -1){
         //print_tree(AST_root, 0);
-        printAnotedAST(AST_root, 0);
+        //printAnotedAST(AST_root, 0);
       }
     }
   }
