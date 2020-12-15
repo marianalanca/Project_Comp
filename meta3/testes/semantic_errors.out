@@ -1,12 +1,32 @@
 Line 1, col 16: Invalid use of void type in declaration
+Line 13, col 6: Symbol f already defined
+DEBUG: 7 7
 Line 7, col 7: Conflicting types (got double, expected short)
 Line 8, col 5: Lvalue required
+DEBUG: 9 8
+DEBUG: 10 11
 Line 10, col 14: Operator && cannot be applied to types int, double
 Line 10, col 7: Operator = cannot be applied to types double, int
+Line 15, col 12: Unknown symbol y
+DEBUG: 18 7
+DEBUG: 19 11
 Line 19, col 9: Wrong number of arguments to function s (got 1, required 2)
+DEBUG: 0 0
 Line 0, col 0: Conflicting types (got void, expected int)
 Line 19, col 5: Wrong number of arguments to function dbl (got 1, required 2)
+Line 20, col 10: Unknown symbol und3f
+Line 20, col 7: Operator >= cannot be applied to types double, undef
+Line 20, col 18: Unknown symbol und3f
+Line 20, col 16: Operator | cannot be applied to types int, undef
+Line 20, col 27: Unknown symbol und3f
+Line 20, col 35: Unknown symbol und3f
+Line 20, col 33: Operator % cannot be applied to types undef, undef
+Line 21, col 5: Unknown symbol und3f
+Line 21, col 13: Unknown symbol und3f
+Line 21, col 11: Operator + cannot be applied to types undef, undef
+DEBUG: 22 11
 Line 22, col 9: Wrong number of arguments to function s (got 1, required 2)
+Line 22, col 14: Operator + cannot be applied to types void, int
 Line 22, col 7: Operator = cannot be applied to types double, undef
 Line 23, col 8: Conflicting types (got double, expected int)
 Line 27, col 12: Conflicting types (got double, expected void)

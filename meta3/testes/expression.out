@@ -18,6 +18,10 @@ Line 52, col 5: Conflicting types (got double, expected int)
 Line 55, col 5: Conflicting types (got double, expected int)
 Line 57, col 5: Conflicting types (got double, expected int)
 Line 58, col 5: Conflicting types (got double, expected int)
+Line 62, col 5: Operator % cannot be applied to types char, double
+Line 65, col 5: Operator % cannot be applied to types short, double
+Line 67, col 5: Operator % cannot be applied to types int, double
+Line 68, col 5: Operator % cannot be applied to types double, double
 Line 72, col 5: Conflicting types (got double, expected int)
 Line 75, col 5: Conflicting types (got double, expected int)
 Line 77, col 5: Conflicting types (got double, expected int)
@@ -30,10 +34,25 @@ Line 92, col 5: Operator && cannot be applied to types char, double
 Line 95, col 5: Operator && cannot be applied to types short, double
 Line 97, col 5: Operator && cannot be applied to types int, double
 Line 98, col 5: Operator && cannot be applied to types double, double
+Line 162, col 5: Operator & cannot be applied to types char, double
+Line 165, col 5: Operator & cannot be applied to types short, double
+Line 167, col 5: Operator & cannot be applied to types int, double
+Line 168, col 5: Operator & cannot be applied to types double, double
+Line 172, col 5: Operator | cannot be applied to types char, double
+Line 175, col 5: Operator | cannot be applied to types short, double
+Line 177, col 5: Operator | cannot be applied to types int, double
+Line 178, col 5: Operator | cannot be applied to types double, double
+Line 182, col 5: Operator ^ cannot be applied to types char, double
+Line 185, col 5: Operator ^ cannot be applied to types short, double
+Line 187, col 5: Operator ^ cannot be applied to types int, double
+Line 188, col 5: Operator ^ cannot be applied to types double, double
 Line 192, col 4: Conflicting types (got double, expected int)
 Line 196, col 4: Conflicting types (got double, expected int)
+DEBUG: 201 7
 Line 201, col 7: Conflicting types (got char, expected void)
+DEBUG: 202 7
 Line 202, col 7: Conflicting types (got short, expected void)
+DEBUG: 203 7
 Line 203, col 7: Conflicting types (got char, expected void)
 Line 203, col 4: Wrong number of arguments to function f1 (got 2, required 1)
 ===== Global Symbol Table =====

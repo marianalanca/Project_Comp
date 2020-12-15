@@ -27,7 +27,7 @@ Line 0, col 0: Unknown symbol pow
 Line 51, col 13: Operator = cannot be applied to types undef, undef
 Line 52, col 7: Operator = cannot be applied to types undef, undef
 Line 52, col 35: Operator = cannot be applied to types undef, undef
-hey Line 53, col 27: Conflicting types (got undef, expected int)
+Line 53, col 27: Conflicting types (got undef, expected int)
 Line 53, col 11: Operator = cannot be applied to types undef, int
 Line 54, col 13: Operator = cannot be applied to types undef, int
 Line 59, col 21: Operator = cannot be applied to types undef, undef
@@ -50,7 +50,7 @@ Line 103, col 15: Operator = cannot be applied to types undef, int
 Line 0, col 0: Unknown symbol pow
 Line 104, col 10: Operator = cannot be applied to types int, undef
 Line 105, col 11: Operator = cannot be applied to types undef, undef
-hey Line 118, col 11: Conflicting types (got int, expected void)
+Line 118, col 11: Conflicting types (got int, expected void)
 Line 118, col 5: Wrong number of arguments to function func (got 6, required 1)
 Line 122, col 15: Operator = cannot be applied to types undef, undef
 Line 0, col 0: Unknown symbol sqrt
@@ -59,10 +59,10 @@ Line 124, col 13: Operator = cannot be applied to types undef, undef
 Line 125, col 16: Operator = cannot be applied to types undef, undef
 Line 126, col 10: Operator = cannot be applied to types undef, undef
 Line 132, col 31: Operator = cannot be applied to types undef, undef
-hey Line 135, col 22: Conflicting types (got double, expected void)
+Line 135, col 22: Conflicting types (got double, expected void)
 Line 135, col 17: Wrong number of arguments to function func (got 3, required 1)
 Line 129, col 20: Conflicting types (got undef, expected int)
-hey Line 138, col 45: Conflicting types (got int, expected void)
+Line 138, col 45: Conflicting types (got int, expected void)
 Line 148, col 22: Operator = cannot be applied to types undef, undef
 Line 149, col 13: Operator = cannot be applied to types undef, undef
 Line 150, col 8: Operator = cannot be applied to types undef, undef
@@ -72,7 +72,7 @@ Line 155, col 13: Operator = cannot be applied to types undef, undef
 Line 156, col 8: Operator = cannot be applied to types undef, undef
 Line 0, col 0: Unknown symbol sqrt
 Line 157, col 12: Operator = cannot be applied to types undef, undef
-hey Line 173, col 32: Conflicting types (got undef, expected void)
+Line 173, col 32: Conflicting types (got undef, expected void)
 Line 173, col 16: Operator = cannot be applied to types undef, int
 Line 175, col 19: Operator = cannot be applied to types undef, undef
 Line 176, col 16: Operator = cannot be applied to types undef, undef
