@@ -94,7 +94,7 @@ optFuncAndDec: FunctionsAndDeclarations                         { $$ = $1; }
     | /*epsilon*/                                               { $$ = NULL; }
     ;
 
-FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody    { $$ = insertNode(NULL, "FuncDefinition", $1, 0, 0);
+FunctionDefinition: TypeSpec FunctionDeclarator FunctionBody    { $$ = insertNode(NULL, "FuncDefinition", $1, $1->line, $1->col);
                                                                   connectBrothers($1, $2);
                                                                   connectBrothers($2, $3);
                                                                 }
@@ -118,13 +118,13 @@ optDecAndState: DeclarationsAndStatements                       { $$ = $1; }
     | /*epsilon*/                                               { $$ = NULL; }
     ;
 
-FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           { $$ = insertNode(NULL, "FuncDeclaration", $1, 0, 0);
+FunctionDeclaration: TypeSpec FunctionDeclarator SEMI           { $$ = insertNode(NULL, "FuncDeclaration", $1, $1->line, $1->col);
                                                                   connectBrothers($1, $2);
                                                                 }
     ;
 
 FunctionDeclarator: ID LPAR ParameterList RPAR                  { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
-                                                                  connectBrothers(aux, insertNode(NULL, "ParamList", $3, 0, 0));
+                                                                  connectBrothers(aux, insertNode(NULL, "ParamList", $3, $3->line, $3->col));
                                                                   $$ = insertNode(NULL, NULL, aux, 0, 0);
                                                                   /*freeToken($1);*/
                                                                 }
@@ -136,7 +136,7 @@ ParameterList: ParameterList COMMA ParameterDeclaration         { $$ = $1;
     | ParameterDeclaration                                      { $$ = $1; }
     ;
 
-ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1, 0, 0); if ( $2 != NULL) connectBrothers ($1, $2); }
+ParameterDeclaration: TypeSpec optParamDec                      { $$ = insertNode(NULL, "ParamDeclaration", $1, $1->line, $1->col); if ( $2 != NULL) connectBrothers ($1, $2); }
     ;
 
 optParamDec: ID                                                 { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col);
@@ -255,7 +255,7 @@ optState: StatementError optState                               { if ($1!= NULL)
 Expr: Expr ASSIGN Expr                                          { $$ = insertNode(NULL, "Store", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
     | Expr COMMA Expr                                           { $$ = insertNode(NULL, "Comma", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
     | LPAR error RPAR                                           { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, 0, 0); }
-    | ID LPAR error RPAR                                        { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, 0, 0); }
+    | ID LPAR error RPAR                                        { errorFlag = -1; $$ = insertNode(NULL, NULL, NULL, $1->line, $1->col); }
 
     | Expr PLUS Expr                                            { $$ = insertNode(NULL, "Add", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
     | Expr MINUS Expr                                           { $$ = insertNode(NULL, "Sub", $1, $2->line, $2->col); connectBrothers($1, $3); /*freeToken($2);*/}
@@ -280,8 +280,8 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
 
     | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col), 0, 0); /*freeToken($1);*/}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
-                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux, 0, 0); }
-                                                                  else{$$ = insertNode(NULL, "Call", aux, 0, 0); connectBrothers(aux , $3); }
+                                                                  if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); }
+                                                                  else{$$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); connectBrothers(aux , $3); }
                                                                   /*freeToken($1);*/;
                                                                 }
     | ID                                                        { $$ = insertNode($1->id, "Id", NULL, $1->line, $1->col); /*freeToken($1);*/}
