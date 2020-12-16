@@ -1,9 +1,12 @@
 Line 6, col 7: Unknown symbol p
-Line 6, col 6: Operator , cannot be applied to types int, undef
+Line 6, col 6: Operator , cannot be applied to types int(int), undef
 Line 6, col 9: Unknown symbol argc
 Line 6, col 8: Operator , cannot be applied to types undef, undef
 Line 7, col 5: Unknown symbol argc
-Line 7, col 9: Operator , cannot be applied to types undef, int
+Line 7, col 9: Operator , cannot be applied to types undef, int(int)
+Line 8, col 6: Operator , cannot be applied to types int(int), char(char)
+Line 9, col 11: Operator , cannot be applied to types int, int(int)
+Line 9, col 6: Operator , cannot be applied to types int, undef
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)
@@ -39,14 +42,14 @@ Program
 ..........Id(f) - int(int)
 ..........Id(p) - undef
 ........Id(argc) - undef
-......Comma - int
+......Comma - undef
 ........Id(argc) - undef
 ........Id(f) - int(int)
-......Comma - char
+......Comma - undef
 ........Id(f) - int(int)
 ........Id(g) - char(char)
-......Comma - int
+......Comma - undef
 ........IntLit(0) - int
-........Comma - int
+........Comma - undef
 ..........ChrLit('c') - int
 ..........Id(f) - int(int)

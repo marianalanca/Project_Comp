@@ -1,3 +1,6 @@
+Line 12, col 5: Operator = cannot be applied to types char, double
+Line 15, col 5: Operator = cannot be applied to types short, double
+Line 17, col 5: Operator = cannot be applied to types int, double
 Line 18, col 5: Conflicting types (got double, expected int)
 Line 22, col 5: Conflicting types (got double, expected int)
 Line 25, col 5: Conflicting types (got double, expected int)
@@ -46,9 +49,6 @@ Line 188, col 5: Operator ^ cannot be applied to types double, double
 Line 192, col 4: Conflicting types (got double, expected int)
 Line 196, col 4: Conflicting types (got double, expected int)
 Line 200, col 4: Wrong number of arguments to function f1 (got 0, required 1)
-Line 201, col 7: Conflicting types (got char, expected double)
-Line 202, col 7: Conflicting types (got short, expected double)
-Line 203, col 7: Conflicting types (got char, expected double)
 Line 203, col 4: Wrong number of arguments to function f1 (got 2, required 1)
 ===== Global Symbol Table =====
 putchar	int(int)

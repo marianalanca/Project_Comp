@@ -162,8 +162,6 @@ void create_semantics(node* root){
                     test_var = search_var_in_table(symtab_global, actual_node->son->brother->id);
 					if (test_var==NULL){
 						insert_global(aux_variable);
-					} else if (strcmp(test_var->type, aux_variable->type)==0){
-                        printf("Line %d, col %d: Symbol %s already defined\n", actual_node->son->brother->line, actual_node->son->brother->col, actual_node->son->brother->id);
 					}
 				}
 			}
@@ -579,7 +577,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
     }
     else if(strcmp(atual->type, "Id") == 0){ //ID
 		//printf("id\n");
-        
+
         aux_vars = search_var_teste(table_global, table_local, atual->id);
 		aux_param = search_param_in_params (table_local->parameters, atual->id);
         aux_func = search_func_in_table(atual->id);
@@ -699,7 +697,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         }
 
         if(strcmp(aux2->anoted, "undef")==0 || strcmp(aux1->anoted, "undef")==0 ||
-            strcmp(aux2->anoted, "void")==0 || strcmp(aux1->anoted, "void")==0){
+            strcmp(aux2->anoted, "void")==0 || strcmp(aux1->anoted, "void")==0 || (strcmp(aux2->anoted, "double")==0 && strcmp(aux1->anoted, "double")!=0)){
                 printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", atual->line, atual->col, aux1->anoted, aux2->anoted);
         } else {
             return;
@@ -726,9 +724,32 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         while (aux3->anoted==NULL){
             aux3 = aux3->son;
         }
+        if (aux2->params!= NULL || aux3->params!=NULL){
+            printf("Line %d, col %d: Operator , cannot be applied to types ", atual->line, atual->col);
+            printf("%s", aux2->anoted);
+            if (aux2->params!=NULL){
+                printf("(");
+                aux_param = aux2->params;
+                while(aux_param->next!=NULL){
+                    printf("%s, ", aux_param->type);
+                    aux_param = aux_param->next;
+                }
+                printf("%s)", aux_param->type);
+            }
+            printf(", %s", aux3->anoted);
+            if (aux3->params!=NULL){
+                printf("(");
+                aux_param = aux3->params;
+                while(aux_param->next!=NULL){
+                    printf("%s, ", aux_param->type);
+                    aux_param = aux_param->next;
+                }
+                printf("%s)", aux_param->type);
+            }
+            printf("\n");
+            atual->anoted = "undef";
 
-        if(strcmp(aux2->anoted, "undef")==0 || strcmp(aux3->anoted, "undef")==0){
-            // procurar se aux2 ou aux3 é uma função
+        } else if(strcmp(aux2->anoted, "undef")==0 || strcmp(aux3->anoted, "undef")==0){
             printf("Line %d, col %d: Operator , cannot be applied to types %s, %s\n", atual->line, atual->col, aux2->anoted, aux3->anoted);
         }
     }
@@ -836,8 +857,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 //printf("DEBUG: %d %d\n", aux1->son->line, aux1->son->col);
                 if (strcmp(atual->anoted, "undef") != 0){
                     if ((strcmp(aux1->son->anoted, "undef")==0 || strcmp(aux_param->type, "undef")==0)
-                        || ((strcmp(aux1->son->anoted, "double") == 0 && strcmp(aux_param->type, "double") != 0)
-                        || (strcmp(aux_param->type, "double") == 0 && strcmp(aux1->son->anoted , "double") != 0))
+                        || ((strcmp(aux1->son->anoted, "double") == 0 && strcmp(aux_param->type, "double") != 0))
                         || ((strcmp(aux1->son->anoted, "void") == 0 && strcmp(aux_param->type, "void") != 0)
                         || (strcmp(aux_param->type, "void") == 0 && strcmp(aux1->son->anoted , "void") != 0))){
                             printf("Line %d, col %d: Conflicting types (got %s, expected %s)\n", aux1->son->line, aux1->son->col, aux1->son->anoted, aux_param->type);
@@ -1027,7 +1047,9 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
         //DUVIDA
         if (strcmp(aux, "%") == 0) {
-            if((strcmp(aux2->anoted, "double")==0 || strcmp(aux3->anoted, "double")==0 || strcmp(aux2->anoted, "undef")==0 || strcmp(aux3->anoted, "undef")==0 || strcmp(aux2->anoted, "void")==0 || strcmp(aux3->anoted, "void")==0)){
+            if(strcmp(aux2->anoted, "undef")==0 || strcmp(aux3->anoted, "undef")==0 || 
+                strcmp(aux2->anoted, "void")==0 || strcmp(aux3->anoted, "void")==0  ||
+                strcmp(aux2->anoted, "double")==0 || strcmp(aux3->anoted, "double")==0){
                 printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
             }
             atual->anoted = "int";
@@ -1051,7 +1073,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 }
             }
             else if(strcmp(aux2->anoted, "double")==0){
-                if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0){
+                if(strcmp(aux3->anoted, "int")!=0 && strcmp(aux3->anoted, "short")!=0 && strcmp(aux3->anoted, "double")!=0 && strcmp(aux3->anoted, "char")!=0){
                     printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
                     atual->anoted = "undef";//duvida
                 }

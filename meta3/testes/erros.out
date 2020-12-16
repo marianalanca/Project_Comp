@@ -3,9 +3,6 @@ Line 5, col 6: Invalid use of void type in declaration
 Line 7, col 6: Invalid use of void type in declaration
 Line 0, col 5: Invalid use of void type in declaration
 Line 8, col 10: Invalid use of void type in declaration
-Line 135, col 5: Symbol a already defined
-Line 281, col 5: Symbol i already defined
-Line 281, col 8: Symbol j already defined
 Line 7, col 13: Unknown symbol as
 Line 7, col 17: Unknown symbol aasd
 Line 7, col 15: Operator - cannot be applied to types undef, undef
@@ -67,6 +64,7 @@ Line 324, col 13: Operator < cannot be applied to types int, undef
 Line 0, col 0: Unknown symbol nao_existe
 Line 326, col 9: Operator % cannot be applied to types double, undef
 Line 336, col 9: Operator ^ cannot be applied to types double, int
+Line 344, col 7: Operator = cannot be applied to types int, double
 Line 345, col 15: Unknown symbol e
 ===== Global Symbol Table =====
 putchar	int(int)
