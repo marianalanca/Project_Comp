@@ -231,6 +231,7 @@ void create_semantics(node* root){
 
                         local_table->variables = aux_variable;
                         local_table->exists = 1;
+                        test_table->exists = 1;
 
                         count_params = 0;
 
@@ -255,7 +256,9 @@ void create_semantics(node* root){
                                 if(aux1->type!=NULL){
                                     if(strcmp(aux1->type, "Declaration")==0){
                                         aux2 = aux1->son;
-                                        aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+                                        if (search_var_in_variables(aux_variable, aux2->brother->id) == NULL && search_param_in_params(local_table->parameters, aux2->brother->id) == 0){ // procura var na funcao e nos parametros
+                                            aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+                                        }
                                     }
                                 }
                                 aux1 = aux1->brother;
@@ -398,7 +401,7 @@ void show_local_table(){
 
 	while (current_table!=NULL)
 	{
-		if (current_table->variables!= NULL){
+		if (current_table->variables!=NULL){
 			printf("===== Function %s Symbol Table =====\n", current_table->tableName);
 
 			aux = current_table->variables;
@@ -423,22 +426,30 @@ void show_local_table(){
 }
 
 var_list *search_var_in_table (table_element* symtab, char* str){
-	
+
 	table_element* aux_table;
-	var_list * aux_var_list;
+	var_list * aux_var;
 
 	aux_table = symtab;
 
 	while (aux_table!=NULL){
-		aux_var_list = aux_table->variables;
-		while (aux_var_list!=NULL)
-		{
-			if (strcmp(aux_var_list->id, str) == 0)
-				return aux_var_list;
-			aux_var_list = aux_var_list->next;
-		}
-
+        aux_var = search_var_in_variables(aux_table->variables, str);
+		if (aux_var!=NULL) {
+            return aux_var;
+        }
 		aux_table=aux_table->next;
+	}
+	return NULL;
+}
+
+var_list *search_var_in_variables (var_list* list, char* str){
+
+	var_list * aux_var_list = list;
+
+	while (aux_var_list!=NULL){
+        if (strcmp(aux_var_list->id, str) == 0)
+            return aux_var_list;
+        aux_var_list = aux_var_list->next;
 	}
 
 	return NULL;
@@ -656,7 +667,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             }
         }
         else{
-            // ????????????????
+            // ERROR
             if(strcmp(table_local->variables->type, "void")){
                 printf("Line %d, col %d: Incompatible type void in return statement\n",  atual->line, atual->col);
             }
@@ -982,6 +993,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         if(strcmp(aux2->anoted, "undef")==0 || strcmp(aux3->anoted, "undef")==0 || 
             strcmp(aux2->anoted, "void")==0 || strcmp(aux3->anoted, "void")==0){
             printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", atual->line, atual->col, aux, aux2->anoted, aux3->anoted);
+            
         } else {
             return;
         }

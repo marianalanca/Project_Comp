@@ -148,7 +148,6 @@ return	int
 return	int
 a	char
 b	int
-a	char
 
 ===== Function ctoi Symbol Table =====
 return	int
@@ -188,13 +187,9 @@ return	char
 s	short
 i	int
 d	double
-d	double
 e	double
 a	int
-a	int
 b	double
-b	double
-a	double
 
 ===== Function df Symbol Table =====
 return	double
@@ -206,15 +201,7 @@ ch1	char
 a	char
 b	short
 c	int
-d	double
 x	double
-a	int
-b	int
-c	int
-d	short
-c	char
-a	short
-c	char
 
 Program
 ..FuncDeclaration
