@@ -5,7 +5,9 @@ Line 9, col 5: Operator - cannot be applied to type void
 Line 10, col 14: Operator && cannot be applied to types int, double
 Line 13, col 6: Symbol f already defined
 Line 15, col 12: Unknown symbol y
+Line 18, col 5: Wrong number of arguments to function s (got 2, required 1)
 Line 19, col 9: Conflicting types (got void, expected int)
+Line 19, col 5: Wrong number of arguments to function dbl (got 1, required 2)
 Line 20, col 10: Unknown symbol und3f
 Line 20, col 7: Operator >= cannot be applied to types double, undef
 Line 20, col 18: Unknown symbol und3f
@@ -18,8 +20,6 @@ Line 21, col 13: Unknown symbol und3f
 Line 21, col 11: Operator + cannot be applied to types undef, undef
 Line 22, col 14: Operator + cannot be applied to types void, int
 Line 22, col 7: Operator = cannot be applied to types double, undef
-Line 23, col 8: Conflicting types (got double, expected int)
-Line 27, col 12: Conflicting types (got double, expected void)
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)
@@ -28,7 +28,6 @@ d	double
 f	int(short)
 x	double
 dbl	double(int,double)
-ret	void(void)
 
 ===== Function f Symbol Table =====
 return	int
@@ -38,9 +37,6 @@ i	short	param
 return	double
 i	int	param
 d	double	param
-
-===== Function ret Symbol Table =====
-return	void
 
 Program
 ..FuncDeclaration
@@ -135,16 +131,3 @@ Program
 ............Id(s) - void(int)
 ............Id(i) - int
 ..........IntLit(1) - int
-......If
-........Id(x) - double
-........Null
-........Null
-..FuncDefinition
-....Void
-....Id(ret)
-....ParamList
-......ParamDeclaration
-........Void
-....FuncBody
-......Return
-........Id(d) - double

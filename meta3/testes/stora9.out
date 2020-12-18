@@ -1,0 +1,52 @@
+Line 12, col 12: Conflicting types (got double, expected void)
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a0	int
+a1	short
+c0	char
+b1	double
+v	void(void)
+g0	void(void)
+
+===== Function g0 Symbol Table =====
+return	void
+
+Program
+..Declaration
+....Int
+....Id(a0)
+..Declaration
+....Short
+....Id(a1)
+..Declaration
+....Char
+....Id(c0)
+..Declaration
+....Double
+....Id(b1)
+..FuncDeclaration
+....Void
+....Id(v)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDefinition
+....Void
+....Id(g0)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Return
+........Id(a0) - int
+......Return
+........Id(a1) - short
+......Return
+........Id(c0) - char
+......Return
+........Id(b1) - double
+......Return
+........Id(v) - void(void)
+......Return
+........Null

@@ -1,0 +1,240 @@
+Line 1, col 6: Invalid use of void type in declaration
+Line 9, col 9: Invalid use of void type in declaration
+Line 10, col 9: Invalid use of void type in declaration
+Line 11, col 15: Invalid use of void type in declaration
+Line 14, col 9: Invalid use of void type in declaration
+Line 15, col 9: Invalid use of void type in declaration
+Line 16, col 9: Invalid use of void type in declaration
+Line 17, col 17: Invalid use of void type in declaration
+Line 18, col 18: Invalid use of void type in declaration
+Line 21, col 10: Invalid use of void type in declaration
+Line 22, col 10: Invalid use of void type in declaration
+Line 23, col 9: Invalid use of void type in declaration
+Line 24, col 17: Invalid use of void type in declaration
+Line 25, col 18: Invalid use of void type in declaration
+Line 27, col 45: Symbol p already defined
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a	int
+f1	void(void)
+f2	void(void)
+f5	void(void)
+f11	void(void)
+f20	void(char,char,int)
+
+===== Function f1 Symbol Table =====
+return	void
+
+===== Function f2 Symbol Table =====
+return	void
+
+===== Function f11 Symbol Table =====
+return	void
+
+===== Function f20 Symbol Table =====
+return	void
+x	char	param
+y	char	param
+z	int	param
+p	void
+
+Program
+..Declaration
+....Void
+....Id(a)
+..Declaration
+....Int
+....Id(a)
+..FuncDeclaration
+....Void
+....Id(f1)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDefinition
+....Void
+....Id(f2)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f1)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+..FuncDeclaration
+....Void
+....Id(f2)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Void
+....Id(f2)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Void
+....Id(f3)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Int
+..FuncDeclaration
+....Void
+....Id(f4)
+....ParamList
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Int
+..FuncDeclaration
+....Void
+....Id(f5)
+....ParamList
+......ParamDeclaration
+........Void
+........Id(x)
+..FuncDeclaration
+....Void
+....Id(f6)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Void
+........Id(y)
+..FuncDeclaration
+....Void
+....Id(f7)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Int
+........Id(x)
+..FuncDeclaration
+....Void
+....Id(f8)
+....ParamList
+......ParamDeclaration
+........Void
+........Id(x)
+......ParamDeclaration
+........Int
+........Id(y)
+..FuncDeclaration
+....Void
+....Id(f9)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(x)
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Void
+....Id(f10)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(x)
+......ParamDeclaration
+........Void
+........Id(y)
+......ParamDeclaration
+........Int
+........Id(z)
+..FuncDefinition
+....Void
+....Id(f11)
+....ParamList
+......ParamDeclaration
+........Void
+........Id(x)
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f12)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Void
+........Id(y)
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f13)
+....ParamList
+......ParamDeclaration
+........Void
+......ParamDeclaration
+........Int
+........Id(x)
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f8)
+....ParamList
+......ParamDeclaration
+........Void
+........Id(x)
+......ParamDeclaration
+........Int
+........Id(y)
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f9)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(x)
+......ParamDeclaration
+........Void
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f10)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(x)
+......ParamDeclaration
+........Void
+........Id(y)
+......ParamDeclaration
+........Int
+........Id(z)
+....FuncBody
+..FuncDefinition
+....Void
+....Id(f20)
+....ParamList
+......ParamDeclaration
+........Char
+........Id(x)
+......ParamDeclaration
+........Char
+........Id(y)
+......ParamDeclaration
+........Int
+........Id(z)
+....FuncBody
+......Declaration
+........Void
+........Id(p)
+......Declaration
+........Int
+........Id(p)

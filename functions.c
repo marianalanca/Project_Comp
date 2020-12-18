@@ -24,7 +24,7 @@ void connectBrothers(node* node1, node* brother){
 }
 
 void print_tree(node* node, int depth){
-    
+
     if (node != NULL){
         if (node->type!=NULL){
             int i;

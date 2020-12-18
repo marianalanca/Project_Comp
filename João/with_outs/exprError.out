@@ -48,6 +48,8 @@ Line 187, col 5: Operator ^ cannot be applied to types int, double
 Line 188, col 5: Operator ^ cannot be applied to types double, double
 Line 192, col 4: Conflicting types (got double, expected int)
 Line 196, col 4: Conflicting types (got double, expected int)
+Line 200, col 4: Wrong number of arguments to function f1 (got 0, required 1)
+Line 203, col 4: Wrong number of arguments to function f1 (got 2, required 1)
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)

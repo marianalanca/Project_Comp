@@ -1,0 +1,804 @@
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+main	int(void)
+
+===== Function main Symbol Table =====
+return	int
+A0	int
+A1	int
+A2	int
+A3	int
+A4	int
+B1	short
+B2	short
+B3	short
+B4	short
+C0	char
+C1	char
+C2	char
+C3	char
+C4	char
+D1	double
+D2	double
+D3	double
+D4	double
+X0	double
+X2	double
+X3	double
+X4	double
+Y1	double
+Y2	double
+Y3	double
+Y4	double
+Z0	double
+Z2	double
+Z3	double
+Z4	double
+
+Program
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Declaration
+........Int
+........Id(A0)
+......Declaration
+........Int
+........Id(A1)
+......Declaration
+........Int
+........Id(A2)
+......Declaration
+........Int
+........Id(A3)
+......Declaration
+........Int
+........Id(A4)
+......Declaration
+........Short
+........Id(B1)
+......Declaration
+........Short
+........Id(B2)
+......Declaration
+........Short
+........Id(B3)
+......Declaration
+........Short
+........Id(B4)
+......Declaration
+........Char
+........Id(C0)
+......Declaration
+........Char
+........Id(C1)
+......Declaration
+........Char
+........Id(C2)
+......Declaration
+........Char
+........Id(C3)
+......Declaration
+........Char
+........Id(C4)
+......Declaration
+........Double
+........Id(D1)
+......Declaration
+........Double
+........Id(D2)
+......Declaration
+........Double
+........Id(D3)
+......Declaration
+........Double
+........Id(D4)
+......Declaration
+........Double
+........Id(X0)
+......Declaration
+........Double
+........Id(X2)
+......Declaration
+........Double
+........Id(X3)
+......Declaration
+........Double
+........Id(X4)
+......Declaration
+........Double
+........Id(Y1)
+......Declaration
+........Double
+........Id(Y2)
+......Declaration
+........Double
+........Id(Y3)
+......Declaration
+........Double
+........Id(Y4)
+......Declaration
+........Double
+........Id(Z0)
+......Declaration
+........Double
+........Id(Z2)
+......Declaration
+........Double
+........Id(Z3)
+......Declaration
+........Double
+........Id(Z4)
+......Not - int
+........Add - int
+..........Id(A0) - int
+..........Id(C0) - char
+......Not - int
+........Id(A1) - int
+......Not - int
+........Id(A2) - int
+......Not - int
+........Id(B1) - short
+......Not - int
+........Id(B2) - short
+......Not - int
+........Id(C0) - char
+......Not - int
+........Not - int
+..........Id(C1) - char
+......Not - int
+........Not - int
+..........Not - int
+............Id(C2) - char
+......Plus - int
+........Add - int
+..........Id(A0) - int
+..........Id(C0) - char
+......Plus - char
+........Id(C0) - char
+......Minus - int
+........Add - int
+..........Id(A0) - int
+..........Id(C0) - char
+......Minus - char
+........Id(C0) - char
+......Add - int
+........Add - int
+..........Add - int
+............Mul - int
+..............Id(A0) - int
+..............Id(A0) - int
+............Mul - int
+..............Id(A0) - int
+..............Id(C0) - char
+..........Mul - int
+............Id(C0) - char
+............Id(A0) - int
+........Mul - char
+..........Id(C0) - char
+..........Id(C0) - char
+......Add - int
+........Add - int
+..........Add - int
+............Div - int
+..............Id(A0) - int
+..............Id(A0) - int
+............Div - int
+..............Id(A0) - int
+..............Id(C0) - char
+..........Div - int
+............Id(C0) - char
+............Id(A0) - int
+........Div - char
+..........Id(C0) - char
+..........Id(C0) - char
+......Add - int
+........Add - int
+..........Add - int
+............Mod - int
+..............Id(A0) - int
+..............Id(A0) - int
+............Mod - int
+..............Id(A0) - int
+..............Id(C0) - char
+..........Mod - int
+............Id(C0) - char
+............Id(A0) - int
+........Mod - int
+..........Id(C0) - char
+..........Id(C0) - char
+......Or - int
+........Or - int
+..........Id(C0) - char
+..........Id(A0) - int
+........Id(C0) - char
+......And - int
+........And - int
+..........Id(C0) - char
+..........Id(A0) - int
+........Id(C0) - char
+......Or - int
+........And - int
+..........Eq - int
+............Id(A0) - int
+............Add - int
+..............Id(A0) - int
+..............IntLit(0) - int
+..........Eq - int
+............Add - int
+..............IntLit(1) - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Eq - int
+............Id(C0) - char
+............Id(A0) - int
+..........Eq - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........And - int
+..........Ne - int
+............Id(A0) - int
+............Add - int
+..............Id(A0) - int
+..............IntLit(0) - int
+..........Ne - int
+............Add - int
+..............IntLit(1) - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Ne - int
+............Id(C0) - char
+............Id(A0) - int
+..........Ne - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........And - int
+..........Le - int
+............Id(A0) - int
+............Add - int
+..............Id(A0) - int
+..............IntLit(1) - int
+..........Le - int
+............Add - int
+..............IntLit(0) - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Le - int
+............Id(C0) - char
+............Id(A0) - int
+..........Le - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........And - int
+..........Ge - int
+............Id(A0) - int
+............Plus - int
+..............Id(A0) - int
+..........Ge - int
+............Minus - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Ge - int
+............Id(C0) - char
+............Id(A0) - int
+..........Ge - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........And - int
+..........Lt - int
+............Id(A0) - int
+............Minus - int
+..............Id(A0) - int
+..........Lt - int
+............Plus - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Lt - int
+............Id(C0) - char
+............Id(A0) - int
+..........Lt - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........And - int
+..........Gt - int
+............Id(A0) - int
+............Plus - int
+..............Id(A0) - int
+..........Gt - int
+............Minus - int
+..............Id(A0) - int
+............Id(C0) - char
+........And - int
+..........Gt - int
+............Id(C0) - char
+............Id(A0) - int
+..........Gt - int
+............Id(C0) - char
+............Id(C0) - char
+......Or - int
+........Or - int
+..........Id(C1) - char
+..........Id(A1) - int
+........Id(C2) - char
+......And - int
+........And - int
+..........Id(A1) - int
+..........Id(C2) - char
+........Id(A3) - int
+......Or - int
+........And - int
+..........Eq - int
+............Id(A1) - int
+............Add - int
+..............Id(A1) - int
+..............IntLit(0) - int
+..........Eq - int
+............Add - int
+..............IntLit(1) - int
+..............Id(A1) - int
+............Id(X0) - double
+........And - int
+..........Eq - int
+............Id(X0) - double
+............Id(A1) - int
+..........Eq - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Ne - int
+............Id(A1) - int
+............Add - int
+..............Id(A1) - int
+..............IntLit(0) - int
+..........Ne - int
+............Add - int
+..............IntLit(1) - int
+..............Id(A1) - int
+............Id(X0) - double
+........And - int
+..........Ne - int
+............Id(X0) - double
+............Id(A1) - int
+..........Ne - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Le - int
+............Id(A1) - int
+............Add - int
+..............Id(A1) - int
+..............IntLit(1) - int
+..........Le - int
+............Add - int
+..............IntLit(0) - int
+..............Id(A1) - int
+............Id(X0) - double
+........And - int
+..........Le - int
+............Id(X0) - double
+............Id(A1) - int
+..........Le - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Ge - int
+............Id(A1) - int
+............Add - int
+..............IntLit(0) - int
+..............Id(A1) - int
+..........Ge - int
+............Add - int
+..............IntLit(0) - int
+..............Id(A1) - int
+............Id(X0) - double
+........And - int
+..........Ge - int
+............Id(X0) - double
+............Id(A1) - int
+..........Ge - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Lt - int
+............Id(A1) - int
+............Sub - int
+..............Id(A1) - int
+..............IntLit(1) - int
+..........Lt - int
+............Sub - int
+..............Id(A1) - int
+..............IntLit(1) - int
+............Id(X0) - double
+........And - int
+..........Lt - int
+............Id(X0) - double
+............Id(A1) - int
+..........Lt - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Gt - int
+............Id(A1) - int
+............Add - int
+..............IntLit(1) - int
+..............Id(A1) - int
+..........Gt - int
+............Add - int
+..............Id(A1) - int
+..............IntLit(1) - int
+............Id(X0) - double
+........And - int
+..........Gt - int
+............Id(X0) - double
+............Id(A1) - int
+..........Gt - int
+............Id(X0) - double
+............Id(X0) - double
+......Or - int
+........And - int
+..........Eq - int
+............Id(B2) - short
+............Add - int
+..............Id(B2) - short
+..............IntLit(0) - int
+..........Eq - int
+............Add - int
+..............IntLit(1) - int
+..............Id(B2) - short
+............Id(Y1) - double
+........And - int
+..........Eq - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Eq - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Ne - int
+............Id(B2) - short
+............Add - int
+..............Id(B2) - short
+..............IntLit(0) - int
+..........Ne - int
+............Add - int
+..............IntLit(1) - int
+..............Id(B2) - short
+............Id(Y1) - double
+........And - int
+..........Ne - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Ne - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Le - int
+............Id(B2) - short
+............Add - int
+..............Id(B2) - short
+..............IntLit(1) - int
+..........Le - int
+............Add - int
+..............IntLit(0) - int
+..............Id(B2) - short
+............Id(Y1) - double
+........And - int
+..........Le - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Le - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Ge - int
+............Id(B2) - short
+............Add - int
+..............IntLit(0) - int
+..............Id(B2) - short
+..........Ge - int
+............Add - int
+..............IntLit(0) - int
+..............Id(B2) - short
+............Id(Y1) - double
+........And - int
+..........Ge - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Ge - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Lt - int
+............Id(B2) - short
+............Sub - int
+..............Id(B2) - short
+..............IntLit(1) - int
+..........Lt - int
+............Sub - int
+..............Id(B2) - short
+..............IntLit(1) - int
+............Id(Y1) - double
+........And - int
+..........Lt - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Lt - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Gt - int
+............Id(B2) - short
+............Add - int
+..............IntLit(1) - int
+..............Id(B2) - short
+..........Gt - int
+............Add - int
+..............Id(B2) - short
+..............IntLit(1) - int
+............Id(Y1) - double
+........And - int
+..........Gt - int
+............Id(Y1) - double
+............Id(B2) - short
+..........Gt - int
+............Id(Y1) - double
+............Id(Y1) - double
+......Or - int
+........And - int
+..........Eq - int
+............Id(C1) - char
+............Add - int
+..............Id(C1) - char
+..............IntLit(0) - int
+..........Eq - int
+............Add - int
+..............IntLit(1) - int
+..............Id(C1) - char
+............Id(Z0) - double
+........And - int
+..........Eq - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Eq - int
+............Id(Z0) - double
+............Id(Z0) - double
+......Or - int
+........And - int
+..........Ne - int
+............Id(C1) - char
+............Add - int
+..............Id(C1) - char
+..............IntLit(0) - int
+..........Ne - int
+............Add - int
+..............IntLit(1) - int
+..............Id(C1) - char
+............Id(Z0) - double
+........And - int
+..........Ne - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Ne - int
+............Id(Z0) - double
+............Id(Z0) - double
+......Or - int
+........And - int
+..........Le - int
+............Id(C1) - char
+............Add - int
+..............Id(C1) - char
+..............IntLit(1) - int
+..........Le - int
+............Add - int
+..............IntLit(0) - int
+..............Id(C1) - char
+............Id(Z0) - double
+........And - int
+..........Le - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Le - int
+............Id(Z0) - double
+............Id(Z0) - double
+......Or - int
+........And - int
+..........Ge - int
+............Id(C1) - char
+............Add - int
+..............IntLit(0) - int
+..............Id(C1) - char
+..........Ge - int
+............Add - int
+..............IntLit(0) - int
+..............Id(C1) - char
+............Id(Z0) - double
+........And - int
+..........Ge - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Ge - int
+............Id(Z0) - double
+............Id(Z0) - double
+......Or - int
+........And - int
+..........Lt - int
+............Id(C1) - char
+............Sub - int
+..............Id(C1) - char
+..............IntLit(1) - int
+..........Lt - int
+............Sub - int
+..............Id(C1) - char
+..............IntLit(1) - int
+............Id(Z0) - double
+........And - int
+..........Lt - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Lt - int
+............Id(Z0) - double
+............Id(Z0) - double
+......Or - int
+........And - int
+..........Gt - int
+............Id(C1) - char
+............Add - int
+..............IntLit(1) - int
+..............Id(C1) - char
+..........Gt - int
+............Add - int
+..............Id(C1) - char
+..............IntLit(1) - int
+............Id(Z0) - double
+........And - int
+..........Gt - int
+............Id(Z0) - double
+............Id(C1) - char
+..........Gt - int
+............Id(Z0) - double
+............Id(Z0) - double
+......And - int
+........Or - int
+..........Eq - int
+............Id(A1) - int
+............Id(B1) - short
+..........Ne - int
+............Id(A2) - int
+............Id(B1) - short
+........Or - int
+..........Eq - int
+............Id(B1) - short
+............Id(A2) - int
+..........Ne - int
+............Id(B1) - short
+............Id(A1) - int
+......And - int
+........Or - int
+..........Eq - int
+............Id(C1) - char
+............Id(B1) - short
+..........Ne - int
+............Id(C2) - char
+............Id(B1) - short
+........Or - int
+..........Eq - int
+............Id(B1) - short
+............Id(C2) - char
+..........Ne - int
+............Id(B1) - short
+............Id(C1) - char
+......And - int
+........Or - int
+..........Eq - int
+............Id(B2) - short
+............Id(B1) - short
+..........Ne - int
+............Id(B3) - short
+............Id(B1) - short
+........Or - int
+..........Eq - int
+............Id(B1) - short
+............Id(B3) - short
+..........Ne - int
+............Id(B1) - short
+............Id(B2) - short
+......And - int
+........Or - int
+..........Eq - int
+............Id(A1) - int
+............IntLit(0) - int
+..........Ne - int
+............Id(A2) - int
+............IntLit(0) - int
+........Or - int
+..........Eq - int
+............IntLit(0) - int
+............Id(A2) - int
+..........Ne - int
+............IntLit(0) - int
+............Id(A1) - int
+......And - int
+........Or - int
+..........Eq - int
+............Id(C1) - char
+............IntLit(0) - int
+..........Ne - int
+............Id(C2) - char
+............IntLit(0) - int
+........Or - int
+..........Eq - int
+............IntLit(0) - int
+............Id(C2) - char
+..........Ne - int
+............IntLit(0) - int
+............Id(C1) - char
+......And - int
+........Or - int
+..........Eq - int
+............Id(B2) - short
+............IntLit(0) - int
+..........Ne - int
+............Id(B3) - short
+............IntLit(0) - int
+........Or - int
+..........Eq - int
+............IntLit(0) - int
+............Id(B3) - short
+..........Ne - int
+............IntLit(0) - int
+............Id(B2) - short
+......Add - double
+........Add - double
+..........Add - double
+............Mul - double
+..............Id(A0) - int
+..............Id(Z0) - double
+............Mul - double
+..............Id(A0) - int
+..............Id(Y1) - double
+..........Mul - char
+............Id(C0) - char
+............Id(C0) - char
+........Mul - short
+..........Id(B1) - short
+..........Id(C0) - char
+......Add - double
+........Add - double
+..........Add - double
+............Div - int
+..............Id(A0) - int
+..............Id(A0) - int
+............Div - double
+..............Id(B1) - short
+..............Id(Z0) - double
+..........Div - int
+............Id(B1) - short
+............Id(A1) - int
+........Div - char
+..........Id(C0) - char
+..........Id(C0) - char

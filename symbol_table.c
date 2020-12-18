@@ -5,7 +5,9 @@ table_element* create_table(char* tableName, char* tableType){ // se local é 1
 	table_element* newTable = (table_element*)malloc(sizeof(table_element));
 
 	newTable->tableName = (char*)strdup(tableName);
-	newTable->tableType = (char*)strdup(tableType);
+    newTable->tableType = (char*)strdup(tableType);
+	newTable->tableType[0] = tolower(tableType[0]);
+
 	newTable->variables = NULL;
 	newTable->parameters = NULL;
 	newTable->next = NULL; // no caso de ser global, fica sempre NULL
@@ -13,89 +15,12 @@ table_element* create_table(char* tableName, char* tableType){ // se local é 1
 	return newTable;
 }
 
-void percorre_ast(node* root){
-    node * program, * aux_program, *actual_node, *aux, *aux1, *aux2;
-    table_element* local_table;
-
-    program = root;
-
-    if (program == NULL){
-		return; // termina se vazia
-	}
-
-    if( strcmp(program->type, "Program") == 0 ){ // se for um program
-
-		aux_program = program->son;
-
-        while (aux_program!=NULL)
-        {
-
-            actual_node = aux_program;
-
-            if (strcmp(actual_node->type, "Declaration") == 0) {
-                aux = actual_node->son->brother;
-                if(aux != NULL){
-                    aux= aux->brother;
-
-                    while(aux != NULL){
-                        if( aux->type != NULL){
-                            anote_ast(symtab_global, symtab_global, aux);
-                        }
-                        aux = aux->brother;
-                    }
-                }
-                aux = NULL;
-
-            }
-            else if (strcmp(actual_node->type, "FuncDefinition") == 0) {
-
-                aux = actual_node->son;
-
-                local_table = search_func_in_table(aux->brother->son->id);
-
-                aux = aux->brother->brother;//FuncBody
-
-                if (strcmp(aux->type, "FuncBody") == 0){
-					aux1 = aux->son;
-
-					while (aux1!=NULL){
-                        if(aux1->type!=NULL){
-                            if(strcmp(aux1->type, "Declaration")==0){
-
-                                aux2 = aux1->son->brother->brother;
-
-                                while(aux2 != NULL){
-                                    if( aux2 != NULL && aux2->type != NULL){
-                                        anote_ast(symtab_global, local_table, aux2);
-                                    }
-                                    aux2 = aux2->brother;
-                                }
-                            }
-                            else{
-                                anote_ast(symtab_global, local_table, aux1);
-                            }
-                        }
-						aux1 = aux1->brother;
-					}
-
-				}
-            }
-
-            aux_program = aux_program->brother;
-                
-        }
-        
-    }
-
-    
-}
-
 void create_semantics(node* root){
 	node * actual_node,* aux, *aux1, *aux2, * program, * aux_program;
 	var_list *aux_variable, *test_var;
 	table_element* local_table, *test_table;
 	int count_params;
-	int void_flag_col, void_flag_line;
+	int void_flag_col, void_flag_line, void_flag_first;
 
 	program = root;
 
@@ -127,12 +52,14 @@ void create_semantics(node* root){
 				aux_variable->function = 1;
 
 				aux1 = aux->brother->son->brother->son;
+                void_flag_first = 0;
 
 				while (aux1!=NULL){
 
-					if (strcmp(aux1->son->type, "Void") == 0) {
+					if (strcmp(aux1->son->type, "Void") == 0 && void_flag_first == 0) {
 						void_flag_line =  aux1->son->line;
 						void_flag_col = aux1->son->col;
+                        void_flag_first = 1;
 					}
                     else if (strcmp(aux1->son->type, "Void") == 0) {
                         local_table->parameters = add_to_paramList(local_table->parameters, create_param("", aux1->son->type));
@@ -153,71 +80,9 @@ void create_semantics(node* root){
 						create_local(local_table);
 					}
 				}
-			}
-			else if (strcmp(actual_node->type, "Declaration") == 0) {
-				if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col + 5);
-				} else {
-					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
-                    test_var = search_var_in_table(symtab_global, actual_node->son->brother->id);
-					if (test_var==NULL){
-						insert_global(aux_variable);
-					}
-				}
-			}
-			else if (strcmp(actual_node->type, "FuncDeclaration") == 0) {
-				void_flag_col = 0;
-				void_flag_line = 0;
-				count_params = 0;
 
-				aux = actual_node->son;
-
-				aux_variable = create_var(aux->brother->son->id, aux->type);
-				local_table = create_table(aux->brother->son->id, aux->type); // adiciona à tabela local com variables a null
-
-				test_var = search_var_in_table(symtab_global, aux_variable->id);
-
-				aux1 = aux->brother->son->brother->son;
-
-				aux_variable->function = 0;
-
-				while (aux1!=NULL){
-
-					if (strcmp(aux1->son->type, "Void") == 0) {
-						void_flag_line =  aux1->son->line;
-						void_flag_col = aux1->son->col;
-					}
-					aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
-
-					aux1 = aux1->brother;
-					count_params++;
-				}
-
-
-				aux_variable->n_params = count_params;
-
-				if (void_flag_line && void_flag_col && count_params>1){
-					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
-				} else {
-					if (test_var==NULL){
-						insert_global(aux_variable);
-						create_local(local_table);
-					}
-				}
-			}
-
-
-			aux_program = aux_program->brother;
-		}
-
-		aux_program = program->son;
-
-		while (aux_program!=NULL)
-		{
-			actual_node = aux_program;
-
-			if ( strcmp(actual_node->type, "FuncDefinition") == 0 ) { // se for do tipo FuncDefinition
-				aux = actual_node->son; //TYPE
+                //TESTEEEEEEEEEEEEEEEEEEE
+                aux = actual_node->son; //TYPE
 				local_table = create_table(aux->brother->son->id, aux->type);
 				test_table = search_func_in_table(local_table->tableName);
 
@@ -258,22 +123,117 @@ void create_semantics(node* root){
                                         aux2 = aux1->son;
                                         if (search_var_in_variables(aux_variable, aux2->brother->id) == NULL && search_param_in_params(local_table->parameters, aux2->brother->id) == 0){ // procura var na funcao e nos parametros
                                             aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+                                        } else {
+                                            printf("Line %d, col %d: Symbol %s already defined\n",aux2->brother->line, aux2->brother->col,  aux2->brother->id);
                                         }
                                     }
                                 }
                                 aux1 = aux1->brother;
                             }
 
+                            //teste - duvida
+
+                            aux1 = aux->son;
+
+                            while (aux1!=NULL){
+                                if(aux1->type!=NULL){
+                                    if(strcmp(aux1->type, "Declaration")==0){
+
+                                        aux2 = aux1->son->brother->brother;
+
+                                        while(aux2 != NULL){
+                                            if( aux2 != NULL && aux2->type != NULL){
+                                                anote_ast(symtab_global, local_table, aux2);
+                                            }
+                                            aux2 = aux2->brother;
+                                        }
+                                    }
+                                    else{
+                                        anote_ast(symtab_global, local_table, aux1);
+                                    }
+                                }
+                                aux1 = aux1->brother;
+                            }
                         }
                     }
 				}
+
+
 			}
+			else if (strcmp(actual_node->type, "Declaration") == 0) {
+				if (strcasecmp(actual_node->son->type, "Void") == 0 ){ // ERROR
+                if (actual_node->son->col == 1){
+                        printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col + 5);
+                    } else {
+                        printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col);
+                    }
+				} else {
+					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
+                    test_var = search_var_in_table(symtab_global, actual_node->son->brother->id);
+					if (test_var==NULL){
+						insert_global(aux_variable);
+					}
+				}
+                // teste - duvida
+                aux = actual_node->son->brother;
+                if(aux != NULL){
+                    aux= aux->brother;
+
+                    while(aux != NULL){
+                        if( aux->type != NULL){
+                            anote_ast(symtab_global, symtab_global, aux);
+                        }
+                        aux = aux->brother;
+                    }
+                }
+                aux = NULL;
+			}
+			else if (strcmp(actual_node->type, "FuncDeclaration") == 0) {
+				void_flag_col = 0;
+				void_flag_line = 0;
+				count_params = 0;
+
+				aux = actual_node->son;
+
+				aux_variable = create_var(aux->brother->son->id, aux->type);
+				local_table = create_table(aux->brother->son->id, aux->type); // adiciona à tabela local com variables a null
+
+				test_var = search_var_in_table(symtab_global, aux_variable->id);
+
+				aux1 = aux->brother->son->brother->son;
+
+				aux_variable->function = 0;
+                void_flag_first = 0;
+
+				while (aux1!=NULL){
+
+					if (strcmp(aux1->son->type, "Void") == 0 && void_flag_first == 0) {
+						void_flag_line =  aux1->son->line;
+						void_flag_col = aux1->son->col;
+                        void_flag_first = 1;
+					}
+					aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
+
+					aux1 = aux1->brother;
+					count_params++;
+				}
+
+
+				aux_variable->n_params = count_params;
+
+				if (void_flag_line && void_flag_col && count_params>1){
+					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
+				} else {
+					if (test_var==NULL){
+						insert_global(aux_variable);
+						create_local(local_table);
+					}
+				}
+			}
+
 
 			aux_program = aux_program->brother;
 		}
-
-        percorre_ast(root);
-
 	}
 }
 
@@ -551,11 +511,12 @@ var_list *search_var_teste(table_element *table_global, table_element *table_loc
 
 int count_params;
 
+
 void anote_ast(table_element *table_global, table_element *table_local, node *atual){
 
     char* aux = NULL;
 
-    var_list *aux_vars = NULL;
+    var_list *aux_vars = NULL, *aux_vars_local = NULL;
 	param_list *aux_param = NULL;
 
     node *aux1, *aux2, *aux3;
@@ -684,6 +645,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
         aux1 = atual->son;
         aux2 = aux1->brother;
+
         while (aux1->anoted==NULL){
             aux1 = aux1->son;
         }
@@ -735,6 +697,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
         while (aux3->anoted==NULL){
             aux3 = aux3->son;
         }
+        
         if (aux2->params!= NULL || aux3->params!=NULL){
             printf("Line %d, col %d: Operator , cannot be applied to types ", atual->line, atual->col);
             printf("%s", aux2->anoted);
@@ -830,6 +793,8 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             aux_vars = search_var_teste(table_global, table_global, atual->son->id);
             aux_func = search_func_in_table(atual->son->id);
 
+            aux_vars_local = search_var_in_variables(table_local->variables, atual->son->id);
+
             //printf("DEBUG #741: %s params: %d", aux_func->tableName, aux_func->n_params);
 
             if(aux_func != NULL){
@@ -839,53 +804,61 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 atual->anoted = aux_func->tableType;
                 atual->anoted[0] = tolower(atual->anoted[0]);
 
-                atual->son->anoted = atual->anoted; //duvida
+                atual->son->anoted = atual->anoted;
+            }
+            else if(aux_vars_local!=NULL){ //muita muita duvida!!!
+                atual->n_params = -1;
+                atual->anoted = aux_vars_local->type;
+                atual->son->anoted = aux_vars_local->type;
             }
             else{ //a funcao nao existe
-                atual->anoted = "undef"; //duvida?
+                atual->anoted = "undef"; 
                 atual->son->anoted = "undef";
                 // procura nas variáveis globais -> se existir, é porque é variável logo está mal; se não, não existe
                 if (search_var_in_table(symtab_global, atual->son->id) != NULL){ // se não existe na local, mas existe na global, é porque não é função, mas variável
                     printf("Line %d, col %d: Symbol %s is not a function\n", atual->line, atual->col, atual->son->id);
-                } else { // se não se encontrou em nenhum lado
-                    printf("Line %d, col %d: Unknown symbol %s\n", atual->line, atual->col, atual->son->id);
                 }
             }
 
 
-        aux1 = (atual->son)->brother;
+            aux1 = (atual->son)->brother;
 
-        if (aux_vars!=NULL && aux_func!=NULL)
-            aux_param = aux_vars->parameters;
+            if (aux_vars!=NULL && aux_func!=NULL)
+                aux_param = aux_vars->parameters;
 
-        while(aux1 != NULL){
-            anote_ast(table_global, table_local, aux1); //duvida
+            while(aux1 != NULL){
+                anote_ast(table_global, table_local, aux1); //duvida
 
-            if (aux_param!=NULL){
+                if (aux_param!=NULL){
 
-                //printf("DEBUG: func %s: param (%d) type: %s\n", table_local->tableName, table_local->n_params, aux_param->type);
-                //printf("DEBUG: got: %s\n", aux1->son->anoted);
-                //printf("DEBUG: %d %d\n", aux1->son->line, aux1->son->col);
-                if (strcmp(atual->anoted, "undef") != 0){
-                    if ((strcmp(aux1->son->anoted, "undef")==0 || strcmp(aux_param->type, "undef")==0)
-                        || ((strcmp(aux1->son->anoted, "double") == 0 && strcmp(aux_param->type, "double") != 0))
-                        || ((strcmp(aux1->son->anoted, "void") == 0 && strcmp(aux_param->type, "void") != 0)
-                        || (strcmp(aux_param->type, "void") == 0 && strcmp(aux1->son->anoted , "void") != 0))){
-                            printf("Line %d, col %d: Conflicting types (got %s, expected %s)\n", aux1->son->line, aux1->son->col, aux1->son->anoted, aux_param->type);
+                    //printf("DEBUG: func %s: param (%d) type: %s\n", table_local->tableName, table_local->n_params, aux_param->type);
+                    //printf("DEBUG: got: %s\n", aux1->son->anoted);
+                    //printf("DEBUG: %d %d\n", aux1->son->line, aux1->son->col);
+                    if (strcmp(atual->anoted, "undef") != 0){
+                        if ((strcmp(aux1->son->anoted, "undef")==0 || strcmp(aux_param->type, "undef")==0)
+                            || ((strcmp(aux1->son->anoted, "double") == 0 && strcmp(aux_param->type, "double") != 0))
+                            || ((strcmp(aux1->son->anoted, "void") == 0 && strcmp(aux_param->type, "void") != 0)
+                            || (strcmp(aux_param->type, "void") == 0 && strcmp(aux1->son->anoted , "void") != 0))){
+                                printf("Line %d, col %d: Conflicting types (got %s, expected %s)\n", aux1->son->line, aux1->son->col, aux1->son->anoted, aux_param->type);
+                        }
                     }
                 }
+                aux1 = aux1->brother;
+                if (aux_vars!=NULL && aux_func!=NULL)
+                    aux_param = aux_param->next;
             }
-            aux1 = aux1->brother;
-            if (aux_vars!=NULL && aux_func!=NULL)
-                aux_param = aux_param->next;
-        }
 
-        if (aux_func!=NULL){
             atual->son->n_params = count_params; //verificar numero de parametros
-            if ((atual->son->n_params == 0 && strcmp(aux_vars->parameters->type, "void") == 0)){}
-                else if (atual->son->n_params != aux_vars->n_params){ // ERROR
-                    printf("Line %d, col %d: Wrong number of arguments to function %s (got %d, required %d)\n", atual->son->line, atual->son->col, aux_func->tableName, atual->son->n_params, aux_vars->n_params);
-                }
+            if (aux_func!=NULL){
+                if ((atual->son->n_params == 0 && strcmp(aux_vars->parameters->type, "void") == 0)){}
+                    /*else if (atual->son->n_params != aux_vars->n_params){ // ERROR
+                        printf("emtrei\n");
+                        printf("Line %d, col %d: Wrong number of arguments to function %s (got %d, required %d)\n", atual->son->line, atual->son->col, aux_func->tableName, atual->son->n_params, aux_vars->n_params);
+                    }*/
+            } else {
+                printf("entrei2\n");
+                printf("Line %d, col %d: Unknown symbol %s\n", atual->line, atual->col, atual->son->id);
+                printf("Line %d, col %d: Wrong number of arguments to function %s (got %d, required 0)\n", atual->line, atual->col, atual->son->id, atual->son->n_params);
             }
         }
         
@@ -1209,12 +1182,12 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
 
 int expression(char *type){
     if(strcmp(type, "Store") == 0 || strcmp(type, "Or") == 0 || strcmp(type, "And") == 0 || strcmp(type, "BitWiseAnd") == 0
-        || strcmp(type, "BitWiseOr") == 0 || strcmp(type, "BitWiseXor") == 0 || strcmp(type, "Eq") == 0 
-        || strcmp(type, "Ne") == 0 || strcmp(type, "Lt") == 0 || strcmp(type, "Ge") == 0 
-        || strcmp(type, "Add") == 0 || strcmp(type, "Sub") == 0 || strcmp(type, "Mul") == 0 
-        || strcmp(type, "Div") == 0 || strcmp(type, "Mod") == 0 || strcmp(type, "Not") == 0 
-        || strcmp(type, "Minus") == 0 || strcmp(type, "Plus") == 0 || strcmp(type, "Comma") == 0 
-        || strcmp(type, "Call") == 0 || strcmp(type, "Id") == 0 || strcmp(type, "IntLit") == 0 
+        || strcmp(type, "BitWiseOr") == 0 || strcmp(type, "BitWiseXor") == 0 || strcmp(type, "Eq") == 0
+        || strcmp(type, "Ne") == 0 || strcmp(type, "Lt") == 0 || strcmp(type, "Ge") == 0
+        || strcmp(type, "Add") == 0 || strcmp(type, "Sub") == 0 || strcmp(type, "Mul") == 0
+        || strcmp(type, "Div") == 0 || strcmp(type, "Mod") == 0 || strcmp(type, "Not") == 0
+        || strcmp(type, "Minus") == 0 || strcmp(type, "Plus") == 0 || strcmp(type, "Comma") == 0
+        || strcmp(type, "Call") == 0 || strcmp(type, "Id") == 0 || strcmp(type, "IntLit") == 0
         || strcmp(type, "ChrLit") == 0 || strcmp(type, "RealLit") == 0 || strcmp(type, "Gt") == 0 || strcmp(type, "Le") == 0){
         return 1;
     }

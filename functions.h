@@ -6,15 +6,15 @@
 #include <string.h>
 
 typedef struct _t1{
-        char* id;
-        char* type;
-        char *anoted;
-        int line; 
-        int col;
-        int n_params;
-        struct _params *params;
-        struct _t1* son;
-        struct _t1* brother;
+    char* id;
+    char* type;
+    char *anoted;
+    int line;
+    int col;
+    int n_params;
+    struct _params *params;
+    struct _t1* son;
+    struct _t1* brother;
 }node;
 
 typedef struct _token{

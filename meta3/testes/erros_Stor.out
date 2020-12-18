@@ -18,8 +18,6 @@ Line 21, col 13: Unknown symbol und3f
 Line 21, col 11: Operator + cannot be applied to types undef, undef
 Line 22, col 14: Operator + cannot be applied to types void, int
 Line 22, col 7: Operator = cannot be applied to types double, undef
-Line 23, col 8: Conflicting types (got double, expected int)
-Line 27, col 12: Conflicting types (got double, expected void)
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)
@@ -28,7 +26,6 @@ d	double
 f	int(short)
 x	double
 dbl	double(int,double)
-ret	void(void)
 
 ===== Function f Symbol Table =====
 return	int
@@ -38,9 +35,6 @@ i	short	param
 return	double
 i	int	param
 d	double	param
-
-===== Function ret Symbol Table =====
-return	void
 
 Program
 ..FuncDeclaration
@@ -135,16 +129,3 @@ Program
 ............Id(s) - void(int)
 ............Id(i) - int
 ..........IntLit(1) - int
-......If
-........Id(x) - double
-........Null
-........Null
-..FuncDefinition
-....Void
-....Id(ret)
-....ParamList
-......ParamDeclaration
-........Void
-....FuncBody
-......Return
-........Id(d) - double
