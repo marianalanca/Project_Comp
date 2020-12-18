@@ -1,4 +1,8 @@
+Line 9, col 12: Conflicting types (got int, expected void)
+Line 10, col 12: Conflicting types (got short, expected void)
+Line 11, col 12: Conflicting types (got char, expected void)
 Line 12, col 12: Conflicting types (got double, expected void)
+Line 13, col 12: Conflicting types (got void(void), expected void)
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)

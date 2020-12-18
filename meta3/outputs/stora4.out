@@ -1,5 +1,11 @@
+Line 9, col 7: Operator + cannot be applied to types int(void), int(void)
+Line 10, col 8: Operator + cannot be applied to types int, int(void)
+Line 11, col 12: Operator + cannot be applied to types short, int(void)
+Line 13, col 14: Operator + cannot be applied to types double, int(void)
+Line 14, col 8: Operator + cannot be applied to types double, int(void)
+Line 14, col 12: Operator + cannot be applied to types undef, int(void)
 Line 15, col 9: Unknown symbol h
-Line 15, col 7: Operator + cannot be applied to types int, undef
+Line 15, col 7: Operator + cannot be applied to types int(void), undef
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)
@@ -107,13 +113,13 @@ Program
 ......ParamDeclaration
 ........Void
 ....FuncBody
-......Add - int
+......Add - undef
 ........Id(f) - int(void)
 ........Id(main) - int(void)
-......Add - int
+......Add - undef
 ........Id(A1) - int
 ........Id(f) - int(void)
-......Add - int
+......Add - undef
 ........Add - short
 ..........Id(B1) - short
 ..........Id(B2) - short
@@ -122,14 +128,14 @@ Program
 ........Call - int
 ..........Id(f) - int(void)
 ........Id(B1) - short
-......Add - double
+......Add - undef
 ........Add - double
 ..........Id(D1) - double
 ..........Call - int
 ............Id(f) - int(void)
 ........Id(main) - int(void)
-......Add - double
-........Add - double
+......Add - undef
+........Add - undef
 ..........Id(D1) - double
 ..........Id(f) - int(void)
 ........Id(main) - int(void)

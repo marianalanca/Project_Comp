@@ -21,6 +21,7 @@ void create_semantics(node* root){
 	table_element* local_table, *test_table;
 	int count_params;
 	int void_flag_col, void_flag_line, void_flag_first;
+    int error_flag_col, error_flag_line;
 
 	program = root;
 
@@ -42,6 +43,9 @@ void create_semantics(node* root){
 				void_flag_col = 0;
 				void_flag_line = 0;
 				count_params = 0;
+                error_flag_line = 0;
+                error_flag_col = 0;
+                void_flag_first = 0;
 
 				aux = actual_node->son;
 				aux_variable = create_var(aux->brother->son->id, aux->type);
@@ -64,6 +68,12 @@ void create_semantics(node* root){
                     else if (strcmp(aux1->son->type, "Void") == 0) {
                         local_table->parameters = add_to_paramList(local_table->parameters, create_param("", aux1->son->type));
                     }
+
+                    if (aux1->son->brother!=NULL && strcmp(aux1->son->type, "Void") == 0){
+                        error_flag_line =  aux1->son->line;
+						error_flag_col = aux1->son->col;
+                    }
+
 					aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
 
 					aux1 = aux1->brother;
@@ -74,7 +84,9 @@ void create_semantics(node* root){
 
 				if (void_flag_line && void_flag_col && count_params>1){
 					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
-				} else {
+				} else if (error_flag_col && error_flag_line){
+                    printf("Line %d, col %d: Invalid use of void type in declaration\n", error_flag_line, error_flag_col);
+                } else {
 					if (test_var==NULL){
 						insert_global(aux_variable);
 						create_local(local_table);
@@ -122,7 +134,12 @@ void create_semantics(node* root){
                                     if(strcmp(aux1->type, "Declaration")==0){
                                         aux2 = aux1->son;
                                         if (search_var_in_variables(aux_variable, aux2->brother->id) == NULL && search_param_in_params(local_table->parameters, aux2->brother->id) == 0){ // procura var na funcao e nos parametros
-                                            aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+                                            // testar se é do tipo void!
+                                            if (strcmp(aux2->type, "Void") == 0){
+                                                printf("Line %d, col %d: Invalid use of void type in declaration\n", aux2->brother->line, aux2->brother->col);
+                                            } else {
+                                                aux_variable = add_to_varList(aux_variable, create_var(aux2->brother->id, aux2->type));
+                                            }
                                         } else {
                                             printf("Line %d, col %d: Symbol %s already defined\n",aux2->brother->line, aux2->brother->col,  aux2->brother->id);
                                         }
@@ -168,6 +185,10 @@ void create_semantics(node* root){
                         printf("Line %d, col %d: Invalid use of void type in declaration\n", actual_node->son->line, actual_node->son->col);
                     }
 				} else {
+                    // testar se é do tipo certo!
+                    /*if (actual_node->son->brother->brother!=NULL){
+                        printf("#DEBUG: %s %s\n", actual_node->son->brother->brother->type, actual_node->son->brother->brother->anoted);
+                    }*/
 					aux_variable = create_var(actual_node->son->brother->id, actual_node->son->type);
                     test_var = search_var_in_table(symtab_global, actual_node->son->brother->id);
 					if (test_var==NULL){
@@ -192,6 +213,9 @@ void create_semantics(node* root){
 				void_flag_col = 0;
 				void_flag_line = 0;
 				count_params = 0;
+                error_flag_line = 0;
+                error_flag_col = 0;
+                void_flag_first = 0;
 
 				aux = actual_node->son;
 
@@ -203,7 +227,6 @@ void create_semantics(node* root){
 				aux1 = aux->brother->son->brother->son;
 
 				aux_variable->function = 0;
-                void_flag_first = 0;
 
 				while (aux1!=NULL){
 
@@ -212,6 +235,12 @@ void create_semantics(node* root){
 						void_flag_col = aux1->son->col;
                         void_flag_first = 1;
 					}
+
+                    if (aux1->son->brother!=NULL && strcmp(aux1->son->type, "Void") == 0){
+                        error_flag_line =  aux1->son->line;
+						error_flag_col = aux1->son->col;
+                    }
+
 					aux_variable->parameters = add_to_paramList(aux_variable->parameters, create_param("", aux1->son->type));
 
 					aux1 = aux1->brother;
@@ -223,7 +252,9 @@ void create_semantics(node* root){
 
 				if (void_flag_line && void_flag_col && count_params>1){
 					printf("Line %d, col %d: Invalid use of void type in declaration\n", void_flag_line, void_flag_col);
-				} else {
+				} else if (error_flag_col && error_flag_line){
+                    printf("Line %d, col %d: Invalid use of void type in declaration\n", error_flag_line, error_flag_col);
+                } else {
 					if (test_var==NULL){
 						insert_global(aux_variable);
 						create_local(local_table);
@@ -618,20 +649,46 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             aux2 = aux2->son;
         }
 
-        // Se os tipos forem iguais -> fixe; se nao, se for double, undef ou void, da erro; o resto da bem!
         if(aux2 != NULL){
-            if(strcmp(table_local->variables->type, aux2->anoted) == 0){
+            if (aux2->params!=NULL){
+                printf("Line %d, col %d: Conflicting types (got %s",  aux2->line, aux2->col, aux2->anoted);
+                printf("(");
+                aux_param = aux2->params;
+                while(aux_param->next!=NULL){
+                    printf("%s, ", aux_param->type);
+                    aux_param = aux_param->next;
+                }
+                printf("%s)", aux_param->type);
+                printf(", expected %s)\n", table_local->variables->type);
+            }
+            else if(strcmp(table_local->variables->type, aux2->anoted) == 0){
                 return;
+            }
+            else if (strcmp(table_local->variables->type, "void") == 0 && strcmp(aux2->anoted, "undef")!=0){
+                printf("Line %d, col %d: Conflicting types (got %s, expected %s)\n",  aux2->line, aux2->col, aux2->anoted, table_local->variables->type);
+
             }
             else if(strcmp(aux2->anoted, "double")==0 || strcmp(aux2->anoted, "undef")==0 || strcmp(aux2->anoted, "void")==0){
                 printf("Line %d, col %d: Conflicting types (got %s, expected %s)\n",  aux2->line, aux2->col, aux2->anoted, table_local->variables->type);
             }
         }
         else{
-            // ERROR
-            if(strcmp(table_local->variables->type, "void")){
-                printf("Line %d, col %d: Incompatible type void in return statement\n",  atual->line, atual->col);
+            /*printf("Line %d, col %d: Conflicting types (got %s",  atual->line, atual->col, table_local->tableType);
+            if (table_local->parameters!=NULL){
+                printf("(");
+                aux_param = table_local->parameters;
+                while(aux_param->next!=NULL){
+                    printf("%s, ", aux_param->type);
+                    aux_param = aux_param->next;
+                }
+                printf("%s)", aux_param->type);
             }
+            printf(", expected %s)\n", table_local->variables->type);*/
+
+
+            /*if(strcmp(table_local->variables->type, "void")){
+                printf("Line %d, col %d: Incompatible type void in return statement\n",  atual->line, atual->col);
+            }*/
         }
     }
     else if(strcmp(atual->type, "Store") == 0){//Store
@@ -748,12 +805,10 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                     aux1 = aux1->brother;
                 }
 
-                if( count_params == 1 ){
-                    //correto
+                if( count_params != 0){
+                    printf("Line %d, col %d: Wrong number of arguments to function %s (got %d, required 1)\n", atual->line, atual->col, atual->son->id, count_params);
                 }
-                else{
-                    //incorreto
-                }
+
                 atual->son->n_params = 1;
                 atual->son->params = create_param("", "void"); //tecnicamente
                 atual->son->anoted = "int";
@@ -773,12 +828,10 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                     aux1 = aux1->brother;
                 }
 
-                if( count_params == 1){
-                    //correto
+                if( count_params != 1){
+                    printf("Line %d, col %d: Wrong number of arguments to function %s (got %d, required 1)\n", atual->line, atual->col, atual->son->id, count_params);
                 }
-                else{
-                    //incorreto
-                }
+
                 atual->son->n_params = 1;
                 atual->son->params = create_param("", "int"); //tecnicamente
                 atual->son->anoted = "int";
@@ -812,7 +865,7 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
                 atual->son->anoted = aux_vars_local->type;
             }
             else{ //a funcao nao existe
-                atual->anoted = "undef"; 
+                atual->anoted = "undef";
                 atual->son->anoted = "undef";
                 // procura nas variáveis globais -> se existir, é porque é variável logo está mal; se não, não existe
                 if (search_var_in_table(symtab_global, atual->son->id) != NULL){ // se não existe na local, mas existe na global, é porque não é função, mas variável
@@ -1039,7 +1092,33 @@ void anote_ast(table_element *table_global, table_element *table_local, node *at
             }
             atual->anoted = "int";
         } else {
-            if(strcmp(aux2->anoted, "int")==0){
+            // RETHINK
+            if (aux2->params!=NULL || aux3->params!=NULL){
+                printf("Line %d, col %d: Operator %s cannot be applied to types ", atual->line, atual->col, aux);
+                printf("%s", aux2->anoted);
+                if (aux2->params!=NULL){
+                    printf("(");
+                    aux_param = aux2->params;
+                    while(aux_param->next!=NULL){
+                        printf("%s, ", aux_param->type);
+                        aux_param = aux_param->next;
+                    }
+                    printf("%s)", aux_param->type);
+                }
+                printf(", %s", aux3->anoted);
+                if (aux3->params!=NULL){
+                    printf("(");
+                    aux_param = aux3->params;
+                    while(aux_param->next!=NULL){
+                        printf("%s, ", aux_param->type);
+                        aux_param = aux_param->next;
+                    }
+                    printf("%s)", aux_param->type);
+                }
+                printf("\n");
+                atual->anoted = "undef";
+            }
+            else if(strcmp(aux2->anoted, "int")==0){
                 if(strcmp(aux3->anoted, "int")==0){
                     atual->anoted = "int";
                 }

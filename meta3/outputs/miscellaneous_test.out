@@ -115,6 +115,7 @@ Line 38, col 23: Operator + cannot be applied to types undef, undef
 Line 38, col 34: Unknown symbol angle3
 Line 38, col 32: Operator + cannot be applied to types undef, undef
 Line 38, col 14: Operator = cannot be applied to types int, undef
+Line 0, col 0: Wrong number of arguments to function putchar (got 0, required 1)
 Line 43, col 15: Unknown symbol angle1
 Line 43, col 24: Unknown symbol angle2
 Line 43, col 22: Operator + cannot be applied to types undef, undef
@@ -306,6 +307,7 @@ Line 138, col 9: Operator >= cannot be applied to types undef, short
 Line 138, col 13: Unknown symbol e
 Line 138, col 14: Operator <= cannot be applied to types undef, short
 Line 138, col 45: Conflicting types (got int, expected void)
+Line 138, col 50: Wrong number of arguments to function getchar (got 1, required 1)
 Line 140, col 8: Unknown symbol side1
 Line 140, col 16: Unknown symbol side2
 Line 140, col 14: Operator + cannot be applied to types undef, undef

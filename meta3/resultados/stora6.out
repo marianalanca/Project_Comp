@@ -22,16 +22,20 @@ a	int
 f1	void(void)
 f2	void(void)
 f20	void(char,char,int)
+
 ===== Function f1 Symbol Table =====
 return	void
+
 ===== Function f2 Symbol Table =====
 return	void
+
 ===== Function f20 Symbol Table =====
 return	void
 x	char	param
 y	char	param
 z	int	param
 p	int
+
 Program
 ..Declaration
 ....Void

@@ -1,0 +1,383 @@
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+A0	int
+A1	int
+A2	int
+A3	int
+A4	int
+B1	short
+B2	short
+B3	short
+B4	short
+C0	char
+C1	char
+C2	char
+C3	char
+C4	char
+D1	double
+D2	double
+D3	double
+D4	double
+argc	char
+argv	int
+g0	void(void)
+g1	char(void)
+g2	int(void)
+f0	int(int,short,char,double)
+f1	char(int,short,char,double)
+f2	short(int,short,char,double)
+f3	double(int,short,char,double)
+f4	void(int,short,char,double)
+main	int(void)
+
+===== Function main Symbol Table =====
+return	int
+
+Program
+..Declaration
+....Int
+....Id(A0)
+..Declaration
+....Int
+....Id(A1)
+..Declaration
+....Int
+....Id(A2)
+..Declaration
+....Int
+....Id(A3)
+..Declaration
+....Int
+....Id(A4)
+..Declaration
+....Short
+....Id(B1)
+..Declaration
+....Short
+....Id(B2)
+..Declaration
+....Short
+....Id(B3)
+..Declaration
+....Short
+....Id(B4)
+..Declaration
+....Char
+....Id(C0)
+..Declaration
+....Char
+....Id(C1)
+..Declaration
+....Char
+....Id(C2)
+..Declaration
+....Char
+....Id(C3)
+..Declaration
+....Char
+....Id(C4)
+..Declaration
+....Double
+....Id(D1)
+..Declaration
+....Double
+....Id(D2)
+..Declaration
+....Double
+....Id(D3)
+..Declaration
+....Double
+....Id(D4)
+..Declaration
+....Char
+....Id(argc)
+..Declaration
+....Int
+....Id(argv)
+..FuncDeclaration
+....Void
+....Id(g0)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Char
+....Id(g1)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Int
+....Id(g2)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Int
+....Id(f0)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDeclaration
+....Char
+....Id(f1)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDeclaration
+....Short
+....Id(f2)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDeclaration
+....Double
+....Id(f3)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDeclaration
+....Void
+....Id(f4)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Call - int
+........Id(f0) - int(int,short,char,double)
+........Id(A0) - int
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - char
+........Id(f1) - char(int,short,char,double)
+........Id(A0) - int
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - short
+........Id(f2) - short(int,short,char,double)
+........Id(A0) - int
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - double
+........Id(f3) - double(int,short,char,double)
+........Id(A0) - int
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - void
+........Id(f4) - void(int,short,char,double)
+........Id(A0) - int
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - char
+........Id(f1) - char(int,short,char,double)
+........Call - int
+..........Id(f0) - int(int,short,char,double)
+..........Id(A0) - int
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Id(B1) - short
+........Id(C0) - char
+........Id(D1) - double
+......Call - short
+........Id(f2) - short(int,short,char,double)
+........Call - int
+..........Id(f0) - int(int,short,char,double)
+..........Id(A0) - int
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - char
+..........Id(f1) - char(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Id(C0) - char
+........Id(D1) - double
+......Call - double
+........Id(f3) - double(int,short,char,double)
+........Call - int
+..........Id(f0) - int(int,short,char,double)
+..........Id(A0) - int
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - char
+..........Id(f1) - char(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - short
+..........Id(f2) - short(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Call - char
+............Id(f1) - char(int,short,char,double)
+............Call - int
+..............Id(f0) - int(int,short,char,double)
+..............Id(A0) - int
+..............Id(B1) - short
+..............Id(C0) - char
+..............Id(D1) - double
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Id(C0) - char
+..........Id(D1) - double
+........Id(D1) - double
+......Call - void
+........Id(f4) - void(int,short,char,double)
+........Call - int
+..........Id(f0) - int(int,short,char,double)
+..........Id(A0) - int
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - char
+..........Id(f1) - char(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Id(B1) - short
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - short
+..........Id(f2) - short(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Call - char
+............Id(f1) - char(int,short,char,double)
+............Call - int
+..............Id(f0) - int(int,short,char,double)
+..............Id(A0) - int
+..............Id(B1) - short
+..............Id(C0) - char
+..............Id(D1) - double
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Id(C0) - char
+..........Id(D1) - double
+........Call - double
+..........Id(f3) - double(int,short,char,double)
+..........Call - int
+............Id(f0) - int(int,short,char,double)
+............Id(A0) - int
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Call - char
+............Id(f1) - char(int,short,char,double)
+............Call - int
+..............Id(f0) - int(int,short,char,double)
+..............Id(A0) - int
+..............Id(B1) - short
+..............Id(C0) - char
+..............Id(D1) - double
+............Id(B1) - short
+............Id(C0) - char
+............Id(D1) - double
+..........Call - short
+............Id(f2) - short(int,short,char,double)
+............Call - int
+..............Id(f0) - int(int,short,char,double)
+..............Id(A0) - int
+..............Id(B1) - short
+..............Id(C0) - char
+..............Id(D1) - double
+............Call - char
+..............Id(f1) - char(int,short,char,double)
+..............Call - int
+................Id(f0) - int(int,short,char,double)
+................Id(A0) - int
+................Id(B1) - short
+................Id(C0) - char
+................Id(D1) - double
+..............Id(B1) - short
+..............Id(C0) - char
+..............Id(D1) - double
+............Id(C0) - char
+............Id(D1) - double
+..........Id(D1) - double
+......Call - void
+........Id(f4) - void(int,short,char,double)
+........Id(B1) - short
+........Id(C1) - char
+........Id(C0) - char
+........Id(A1) - int
+......Comma - void
+........Comma - int
+..........Comma - char
+............Call - void
+..............Id(g0) - void(void)
+............Call - char
+..............Id(g1) - char(void)
+..........Call - int
+............Id(g2) - int(void)
+........Call - void
+..........Id(g0) - void(void)

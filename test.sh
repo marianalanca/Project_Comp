@@ -4,5 +4,5 @@ do
     filename=$(basename -- "$file")
     filename="${filename%.*}"
     printf "$filename\n"
-    ./uccompiler -s < "$file" > "meta3/testes/$filename.out"
+    ./uccompiler -s < "$file" > "meta3/outputs/$filename.out"
 done
