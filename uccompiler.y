@@ -144,13 +144,13 @@ optParamDec: ID                                                 { $$ = insertNod
     |  /*epsilon*/                                              { $$ = NULL; }
     ;
 
-Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNode(NULL, "Declaration", $1, 0, 0);
+Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNode(NULL, "Declaration", $1, $1->line, $1->col);
                                                                   connectBrothers($1, $2);
                                                                   if ($3 != NULL) {
                                                                       connectBrothers($$, $3);
                                                                       while ($3!=NULL){
                                                                           aux = $3->son;
-                                                                          $3->son = insertNode(NULL, $1->type, NULL, 0, 0);
+                                                                          $3->son = insertNode(NULL, $1->type, NULL, $3->line, $3->col);
                                                                           connectBrothers($3->son, aux);
                                                                           $3 = $3->brother;
                                                                       }
@@ -161,7 +161,7 @@ Declaration: TypeSpec Declarator optDeclaration SEMI            { $$ = insertNod
 
 
 
-optDeclaration: optDeclaration COMMA Declarator                 { aux = insertNode(NULL, "Declaration", $3, 0, 0);
+optDeclaration: optDeclaration COMMA Declarator                 { aux = insertNode(NULL, "Declaration", $3, $3->line, $3->col);
                                                                   if ( $1 != NULL){
                                                                       connectBrothers($1, aux);
                                                                       $$ = $1;
@@ -288,7 +288,7 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | INTLIT                                                    { $$ = insertNode($1->id, "IntLit", NULL, $1->line, $1->col); /*freeToken($1);*/}
     | CHRLIT                                                    { $$ = insertNode($1->id, "ChrLit", NULL, $1->line, $1->col); /*freeToken($1);*/}
     | REALLIT                                                   { $$ = insertNode($1->id, "RealLit", NULL, $1->line, $1->col); /*freeToken($1);*/}
-    | LPAR Expr RPAR                                            { $$ = insertNode(NULL, NULL, $2, 0, 0); }
+    | LPAR Expr RPAR                                            { $$ = insertNode(NULL, NULL, $2, $2->line, $2->col); }
     ;
 
 optExpCExp: Expr optCExp                                        { if ($2!= NULL) connectBrothers( $1, $2); $$ = insertNode(NULL, NULL, $1, 0, 0); }

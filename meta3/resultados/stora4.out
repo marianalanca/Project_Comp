@@ -1,0 +1,144 @@
+Line 9, col 7: Operator + cannot be applied to types int(void), int(void)
+Line 10, col 8: Operator + cannot be applied to types int, int(void)
+Line 11, col 12: Operator + cannot be applied to types short, int(void)
+Line 13, col 14: Operator + cannot be applied to types double, int(void)
+Line 14, col 8: Operator + cannot be applied to types double, int(void)
+Line 14, col 12: Operator + cannot be applied to types undef, int(void)
+Line 15, col 9: Unknown symbol h
+Line 15, col 7: Operator + cannot be applied to types int(void), undef
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+A0	int
+A1	int
+A2	int
+A3	int
+A4	int
+B1	short
+B2	short
+B3	short
+B4	short
+C0	char
+C1	char
+C2	char
+C3	char
+C4	char
+D1	double
+D2	double
+D3	double
+D4	double
+argc	char
+argv	int
+f	int(void)
+main	int(void)
+
+===== Function f Symbol Table =====
+return	int
+
+===== Function main Symbol Table =====
+return	int
+
+Program
+..Declaration
+....Int
+....Id(A0)
+..Declaration
+....Int
+....Id(A1)
+..Declaration
+....Int
+....Id(A2)
+..Declaration
+....Int
+....Id(A3)
+..Declaration
+....Int
+....Id(A4)
+..Declaration
+....Short
+....Id(B1)
+..Declaration
+....Short
+....Id(B2)
+..Declaration
+....Short
+....Id(B3)
+..Declaration
+....Short
+....Id(B4)
+..Declaration
+....Char
+....Id(C0)
+..Declaration
+....Char
+....Id(C1)
+..Declaration
+....Char
+....Id(C2)
+..Declaration
+....Char
+....Id(C3)
+..Declaration
+....Char
+....Id(C4)
+..Declaration
+....Double
+....Id(D1)
+..Declaration
+....Double
+....Id(D2)
+..Declaration
+....Double
+....Id(D3)
+..Declaration
+....Double
+....Id(D4)
+..Declaration
+....Char
+....Id(argc)
+..Declaration
+....Int
+....Id(argv)
+..FuncDefinition
+....Int
+....Id(f)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Add - undef
+........Id(f) - int(void)
+........Id(main) - int(void)
+......Add - undef
+........Id(A1) - int
+........Id(f) - int(void)
+......Add - undef
+........Add - short
+..........Id(B1) - short
+..........Id(B2) - short
+........Id(f) - int(void)
+......Add - int
+........Call - int
+..........Id(f) - int(void)
+........Id(B1) - short
+......Add - undef
+........Add - double
+..........Id(D1) - double
+..........Call - int
+............Id(f) - int(void)
+........Id(main) - int(void)
+......Add - undef
+........Add - undef
+..........Id(D1) - double
+..........Id(f) - int(void)
+........Id(main) - int(void)
+......Add - undef
+........Id(f) - int(void)
+........Id(h) - undef

@@ -1,0 +1,20 @@
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a	int
+b	int
+t	int
+
+Program
+..Declaration
+....Int
+....Id(a)
+..Declaration
+....Int
+....Id(b)
+..Declaration
+....Int
+....Id(t)
+....Add - double
+......IntLit(1) - int
+......RealLit(2.0) - double

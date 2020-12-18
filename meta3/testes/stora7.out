@@ -1,0 +1,21 @@
+Line 1, col 6: Invalid use of void type in declaration
+Line 1, col 10: Invalid use of void type in declaration
+Line 1, col 14: Invalid use of void type in declaration
+Line 1, col 18: Invalid use of void type in declaration
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+
+Program
+..Declaration
+....Void
+....Id(Z1)
+..Declaration
+....Void
+....Id(Z2)
+..Declaration
+....Void
+....Id(Z3)
+..Declaration
+....Void
+....Id(Z4)

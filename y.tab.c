@@ -1708,13 +1708,13 @@ yyreduce:
 
   case 21:
 #line 147 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Declaration", (yyvsp[-3].node), 0, 0);
+                                                                { (yyval.node) = insertNode(NULL, "Declaration", (yyvsp[-3].node), (yyvsp[-3].node)->line, (yyvsp[-3].node)->col);
                                                                   connectBrothers((yyvsp[-3].node), (yyvsp[-2].node));
                                                                   if ((yyvsp[-1].node) != NULL) {
                                                                       connectBrothers((yyval.node), (yyvsp[-1].node));
                                                                       while ((yyvsp[-1].node)!=NULL){
                                                                           aux = (yyvsp[-1].node)->son;
-                                                                          (yyvsp[-1].node)->son = insertNode(NULL, (yyvsp[-3].node)->type, NULL, 0, 0);
+                                                                          (yyvsp[-1].node)->son = insertNode(NULL, (yyvsp[-3].node)->type, NULL, (yyvsp[-1].node)->line, (yyvsp[-1].node)->col);
                                                                           connectBrothers((yyvsp[-1].node)->son, aux);
                                                                           (yyvsp[-1].node) = (yyvsp[-1].node)->brother;
                                                                       }
@@ -1731,7 +1731,7 @@ yyreduce:
 
   case 23:
 #line 164 "uccompiler.y"
-                                                                { aux = insertNode(NULL, "Declaration", (yyvsp[0].node), 0, 0);
+                                                                { aux = insertNode(NULL, "Declaration", (yyvsp[0].node), (yyvsp[0].node)->line, (yyvsp[0].node)->col);
                                                                   if ( (yyvsp[-2].node) != NULL){
                                                                       connectBrothers((yyvsp[-2].node), aux);
                                                                       (yyval.node) = (yyvsp[-2].node);
@@ -2106,7 +2106,7 @@ yyreduce:
 
   case 77:
 #line 291 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node), 0, 0); }
+                                                                { (yyval.node) = insertNode(NULL, NULL, (yyvsp[-1].node), (yyvsp[-1].node)->line, (yyvsp[-1].node)->col); }
 #line 2111 "y.tab.c"
     break;
 

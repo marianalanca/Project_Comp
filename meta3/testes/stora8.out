@@ -1,0 +1,61 @@
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a	int
+b	int
+t	int
+g	double
+h	char
+cvb	short
+l	short
+o	int
+A1	int
+d	int
+
+Program
+..Declaration
+....Int
+....Id(a)
+..Declaration
+....Int
+....Id(b)
+..Declaration
+....Int
+....Id(t)
+....Add - double
+......IntLit(1) - int
+......RealLit(2.0) - double
+..Declaration
+....Double
+....Id(g)
+..Declaration
+....Char
+....Id(h)
+....RealLit(15.0) - double
+..Declaration
+....Short
+....Id(cvb)
+..Declaration
+....Short
+....Id(l)
+..Declaration
+....Int
+....Id(a)
+..Declaration
+....Int
+....Id(b)
+..Declaration
+....Int
+....Id(o)
+....Add - int
+......IntLit(1) - int
+......IntLit(0) - int
+..Declaration
+....Int
+....Id(A1)
+..Declaration
+....Int
+....Id(d)
+....Add - double
+......RealLit(.04e23) - double
+......IntLit(2) - int

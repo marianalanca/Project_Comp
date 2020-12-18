@@ -1,0 +1,8 @@
+Line 13, col 7: Operator + cannot be applied to types int(void), int(void)
+Line 14, col 8: Operator + cannot be applied to types int, int(void)
+Line 15, col 12: Operator + cannot be applied to types short, int(void)
+Line 17, col 14: Operator + cannot be applied to types double, int(void)
+Line 18, col 8: Operator + cannot be applied to types double, int(void)
+Line 18, col 12: Operator + cannot be applied to types undef, int(void)
+Line 19, col 7: Operator + cannot be applied to types int(void), undef
+Line 19, col 9: Unknown symbol h

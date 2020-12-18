@@ -1,0 +1,3 @@
+Line 19, col 9: Conflicting types (got void, expected int)
+
+Line 22, col 7: Operator = cannot be applied to types double, undef

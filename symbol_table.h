@@ -27,12 +27,13 @@ typedef struct _vars{
 typedef struct _symbol_table{
 	char* tableName;
 	char* tableType;
-	int exists; 
+	int exists;
 	struct _vars* variables;
 	struct _params* parameters; // lista ligada dos parâmetros que estão incluídos -> será necessário imprimir os tipos
-	int n_params; 
+	int n_params;
 	struct _symbol_table *next; // no caso de ser local
 } table_element;
+
 
 extern table_element* symtab_global;
 extern table_element* symtab_local;
