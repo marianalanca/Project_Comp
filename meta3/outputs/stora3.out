@@ -1,0 +1,327 @@
+Line 9, col 8: Operator = cannot be applied to types int, double
+Line 13, col 8: Operator = cannot be applied to types int, double
+Line 14, col 8: Operator = cannot be applied to types int, double
+Line 15, col 8: Operator = cannot be applied to types int, double
+Line 21, col 8: Operator = cannot be applied to types short, double
+Line 25, col 8: Operator = cannot be applied to types short, double
+Line 26, col 8: Operator = cannot be applied to types short, double
+Line 27, col 8: Operator = cannot be applied to types short, double
+Line 56, col 8: Operator = cannot be applied to types char, double
+Line 60, col 8: Operator = cannot be applied to types char, double
+Line 61, col 8: Operator = cannot be applied to types char, double
+Line 62, col 8: Operator = cannot be applied to types char, double
+Line 66, col 7: Operator = cannot be applied to types void(void), int
+Line 67, col 7: Operator = cannot be applied to types void(void), short
+Line 68, col 7: Operator = cannot be applied to types void(void), double
+Line 69, col 7: Operator = cannot be applied to types void(void), char
+Line 70, col 7: Operator = cannot be applied to types void(void), char
+Line 71, col 7: Operator = cannot be applied to types void(void), short
+Line 72, col 7: Operator = cannot be applied to types void(void), double
+Line 73, col 7: Operator = cannot be applied to types void(void), double
+Line 74, col 7: Operator = cannot be applied to types void(void), double
+Line 75, col 7: Operator = cannot be applied to types void(void), int
+Line 76, col 7: Operator = cannot be applied to types void(void), int
+Line 77, col 7: Operator = cannot be applied to types void(void), int
+Line 78, col 7: Lvalue required
+Line 79, col 7: Lvalue required
+Line 80, col 7: Lvalue required
+Line 81, col 7: Lvalue required
+Line 82, col 7: Lvalue required
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a0	int
+a1	short
+c2	short
+c0	char
+c1	char
+b1	double
+a2	double
+b2	double
+x	int
+y	int
+z	int
+v	void(void)
+
+===== Function v Symbol Table =====
+return	void
+
+Program
+..Declaration
+....Int
+....Id(a0)
+..Declaration
+....Short
+....Id(a1)
+..Declaration
+....Short
+....Id(c2)
+..Declaration
+....Char
+....Id(c0)
+..Declaration
+....Char
+....Id(c1)
+..Declaration
+....Double
+....Id(b1)
+..Declaration
+....Double
+....Id(a2)
+..Declaration
+....Double
+....Id(b2)
+..Declaration
+....Int
+....Id(x)
+..Declaration
+....Int
+....Id(y)
+..Declaration
+....Int
+....Id(z)
+..FuncDefinition
+....Void
+....Id(v)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Store - int
+........Id(a0) - int
+........Id(a0) - int
+......Store - int
+........Id(a0) - int
+........Id(a1) - short
+......Store - int
+........Id(a0) - int
+........Id(a2) - double
+......Store - int
+........Id(a0) - int
+........Id(c0) - char
+......Store - int
+........Id(a0) - int
+........Id(c1) - char
+......Store - int
+........Id(a0) - int
+........Id(c2) - short
+......Store - int
+........Id(a0) - int
+........Id(b1) - double
+......Store - int
+........Id(a0) - int
+........Id(b2) - double
+......Store - int
+........Id(a0) - int
+........Id(b1) - double
+......Store - int
+........Id(a0) - int
+........Id(x) - int
+......Store - int
+........Id(a0) - int
+........Id(y) - int
+......Store - int
+........Id(a0) - int
+........Id(z) - int
+......Store - short
+........Id(a1) - short
+........Id(a0) - int
+......Store - short
+........Id(a1) - short
+........Id(a1) - short
+......Store - short
+........Id(a1) - short
+........Id(a2) - double
+......Store - short
+........Id(a1) - short
+........Id(c0) - char
+......Store - short
+........Id(a1) - short
+........Id(c1) - char
+......Store - short
+........Id(a1) - short
+........Id(c2) - short
+......Store - short
+........Id(a1) - short
+........Id(b1) - double
+......Store - short
+........Id(a1) - short
+........Id(b2) - double
+......Store - short
+........Id(a1) - short
+........Id(b1) - double
+......Store - short
+........Id(a1) - short
+........Id(x) - int
+......Store - short
+........Id(a1) - short
+........Id(y) - int
+......Store - short
+........Id(a1) - short
+........Id(z) - int
+......Store - double
+........Id(b1) - double
+........Id(a0) - int
+......Store - double
+........Id(b1) - double
+........Id(a1) - short
+......Store - double
+........Id(b1) - double
+........Id(a2) - double
+......Store - double
+........Id(b1) - double
+........Id(c0) - char
+......Store - double
+........Id(b1) - double
+........Id(c1) - char
+......Store - double
+........Id(b1) - double
+........Id(c2) - short
+......Store - double
+........Id(b1) - double
+........Id(b1) - double
+......Store - double
+........Id(b1) - double
+........Id(b2) - double
+......Store - double
+........Id(b1) - double
+........Id(b1) - double
+......Store - double
+........Id(b1) - double
+........Id(x) - int
+......Store - double
+........Id(b1) - double
+........Id(y) - int
+......Store - double
+........Id(b1) - double
+........Id(z) - int
+......Store - double
+........Id(b2) - double
+........Id(a0) - int
+......Store - double
+........Id(b2) - double
+........Id(a1) - short
+......Store - double
+........Id(b2) - double
+........Id(a2) - double
+......Store - double
+........Id(b2) - double
+........Id(c0) - char
+......Store - double
+........Id(b2) - double
+........Id(c1) - char
+......Store - double
+........Id(b2) - double
+........Id(c2) - short
+......Store - double
+........Id(b2) - double
+........Id(b1) - double
+......Store - double
+........Id(b2) - double
+........Id(b2) - double
+......Store - double
+........Id(b2) - double
+........Id(x) - int
+......Store - double
+........Id(b2) - double
+........Id(y) - int
+......Store - double
+........Id(b2) - double
+........Id(z) - int
+......Store - char
+........Id(c0) - char
+........Id(a0) - int
+......Store - char
+........Id(c0) - char
+........Id(a1) - short
+......Store - char
+........Id(c0) - char
+........Id(a2) - double
+......Store - char
+........Id(c0) - char
+........Id(c0) - char
+......Store - char
+........Id(c0) - char
+........Id(c1) - char
+......Store - char
+........Id(c0) - char
+........Id(c2) - short
+......Store - char
+........Id(c0) - char
+........Id(b1) - double
+......Store - char
+........Id(c0) - char
+........Id(b2) - double
+......Store - char
+........Id(c0) - char
+........Id(b1) - double
+......Store - char
+........Id(c0) - char
+........Id(x) - int
+......Store - char
+........Id(c0) - char
+........Id(y) - int
+......Store - char
+........Id(c0) - char
+........Id(z) - int
+......Store - void
+........Id(v) - void(void)
+........Id(a0) - int
+......Store - void
+........Id(v) - void(void)
+........Id(a1) - short
+......Store - void
+........Id(v) - void(void)
+........Id(a2) - double
+......Store - void
+........Id(v) - void(void)
+........Id(c0) - char
+......Store - void
+........Id(v) - void(void)
+........Id(c1) - char
+......Store - void
+........Id(v) - void(void)
+........Id(c2) - short
+......Store - void
+........Id(v) - void(void)
+........Id(b1) - double
+......Store - void
+........Id(v) - void(void)
+........Id(b2) - double
+......Store - void
+........Id(v) - void(void)
+........Id(b1) - double
+......Store - void
+........Id(v) - void(void)
+........Id(x) - int
+......Store - void
+........Id(v) - void(void)
+........Id(y) - int
+......Store - void
+........Id(v) - void(void)
+........Id(z) - int
+......Store - int
+........Mul - int
+..........Id(a0) - int
+..........IntLit(1) - int
+........Id(c0) - char
+......Store - int
+........Add - int
+..........Id(a1) - short
+..........IntLit(1) - int
+........Id(x) - int
+......Store - double
+........Sub - double
+..........Id(b2) - double
+..........IntLit(1) - int
+........Id(y) - int
+......Store - int
+........Div - int
+..........Id(c0) - char
+..........IntLit(1) - int
+........Id(a0) - int
+......Store - int
+........Sub - int
+..........Id(c1) - char
+..........IntLit(1) - int
+........Id(z) - int

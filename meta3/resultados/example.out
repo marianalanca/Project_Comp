@@ -18,9 +18,11 @@ zytrf3	int(char)
 zfsrty3	char(short)
 ===== Function main Symbol Table =====
 return	int
+
 ===== Function blah Symbol Table =====
 return	char
 q	int	param
+
 ===== Function zfsy3 Symbol Table =====
 return	char
 a	int	param
@@ -33,6 +35,7 @@ B3	double	param
 B4	char	param
 c1	char	param
 c2	int	param
+
 ===== Function zfsy4 Symbol Table =====
 return	void
 a	int	param
@@ -47,6 +50,7 @@ i	short	param
 j	char	param
 k	int	param
 l	char	param
+
 ===== Function zfsy5 Symbol Table =====
 return	void
 a	int	param
@@ -64,9 +68,11 @@ l	char	param
 m	double	param
 n	double	param
 o	char	param
+
 ===== Function zytrf3 Symbol Table =====
 return	int
 y56789	char	param
+
 Program
 ..FuncDeclaration
 ....Int

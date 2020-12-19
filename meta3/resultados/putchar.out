@@ -1,0 +1,71 @@
+Line 11, col 5: Conflicting types (got int(int,short,char,double,int), expected int(int,short,char,double))
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+f0	int(int,short,char,double)
+main	int(void)
+
+===== Function main Symbol Table =====
+return	int
+a	int
+
+Program
+..FuncDeclaration
+....Int
+....Id(f0)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Call - int
+........Id(putchar) - int(int)
+........IntLit(64) - int
+......Call - int
+........Id(getchar) - int(void)
+......Call - int
+........Id(putchar) - int(int)
+........ChrLit('a') - int
+......Declaration
+........Int
+........Id(a)
+......Call - int
+........Id(f0) - int(int,short,char,double)
+........IntLit(1) - int
+........IntLit(1) - int
+........ChrLit('a') - int
+........RealLit(2.0) - double
+..FuncDefinition
+....Int
+....Id(f0)
+....ParamList
+......ParamDeclaration
+........Int
+........Id(a)
+......ParamDeclaration
+........Short
+........Id(b)
+......ParamDeclaration
+........Char
+........Id(c)
+......ParamDeclaration
+........Double
+........Id(d)
+......ParamDeclaration
+........Int
+........Id(e)
+....FuncBody
+......Store
+........Id(a)
+........IntLit(1)
