@@ -2066,7 +2066,7 @@ yyreduce:
 
   case 71:
 #line 281 "uccompiler.y"
-                                                                { (yyval.node) = insertNode(NULL, "Call", insertNode((yyvsp[-2].id)->id, "Id", NULL, (yyvsp[-2].id)->line, (yyvsp[-2].id)->col), 0, 0); /*freeToken($1);*/}
+                                                                { (yyval.node) = insertNode(NULL, "Call", insertNode((yyvsp[-2].id)->id, "Id", NULL, (yyvsp[-2].id)->line, (yyvsp[-2].id)->col),(yyvsp[-2].id)->line, (yyvsp[-2].id)->col); /*freeToken($1);*/}
 #line 2071 "y.tab.c"
     break;
 

@@ -1,8 +1,6 @@
-entrei2
 Line 6, col 13: Unknown symbol log10
 Line 6, col 13: Wrong number of arguments to function log10 (got 1, required 0)
 Line 6, col 11: Operator = cannot be applied to types int, undef
-entrei2
 Line 7, col 26: Unknown symbol pow
 Line 7, col 26: Wrong number of arguments to function pow (got 2, required 0)
 Line 7, col 24: Operator / cannot be applied to types int, undef
@@ -52,9 +50,8 @@ Line 17, col 22: Operator * cannot be applied to types undef, undef
 Line 17, col 30: Unknown symbol s
 Line 17, col 31: Operator - cannot be applied to types undef, short
 Line 17, col 28: Operator * cannot be applied to types undef, undef
-entrei2
 Line 17, col 10: Unknown symbol sqrt
-Line 17, col 10: Wrong number of arguments to function sqrt (got 4, required 0)
+Line 17, col 10: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 17, col 8: Operator = cannot be applied to types undef, undef
 Line 18, col 1: Unknown symbol area
 Line 18, col 9: Unknown symbol base
@@ -68,11 +65,9 @@ Line 20, col 10: Operator == cannot be applied to types undef, undef
 Line 20, col 22: Unknown symbol side2
 Line 20, col 31: Unknown symbol side3
 Line 20, col 28: Operator == cannot be applied to types undef, undef
-entrei2
 Line 22, col 19: Unknown symbol log10
 Line 22, col 19: Wrong number of arguments to function log10 (got 1, required 0)
 Line 22, col 17: Operator = cannot be applied to types int, undef
-entrei2
 Line 24, col 26: Unknown symbol pow
 Line 24, col 26: Wrong number of arguments to function pow (got 2, required 0)
 Line 24, col 24: Operator / cannot be applied to types int, undef
@@ -115,14 +110,13 @@ Line 38, col 23: Operator + cannot be applied to types undef, undef
 Line 38, col 34: Unknown symbol angle3
 Line 38, col 32: Operator + cannot be applied to types undef, undef
 Line 38, col 14: Operator = cannot be applied to types int, undef
-Line 0, col 0: Wrong number of arguments to function putchar (got 0, required 1)
+Line 42, col 3: Wrong number of arguments to function putchar (got 0, required 1)
 Line 43, col 15: Unknown symbol angle1
 Line 43, col 24: Unknown symbol angle2
 Line 43, col 22: Operator + cannot be applied to types undef, undef
 Line 43, col 33: Unknown symbol angle3
 Line 43, col 31: Operator + cannot be applied to types undef, undef
 Line 43, col 13: Operator = cannot be applied to types int, undef
-entrei2
 Line 47, col 13: Unknown symbol func
 Line 47, col 13: Wrong number of arguments to function func (got 1, required 0)
 Line 49, col 11: Unknown symbol angle1
@@ -137,7 +131,6 @@ Line 51, col 36: Unknown symbol ROI
 Line 51, col 39: Operator / cannot be applied to types undef, int
 Line 51, col 34: Operator + cannot be applied to types int, undef
 Line 51, col 46: Unknown symbol Time_Period
-entrei2
 Line 51, col 26: Unknown symbol pow
 Line 51, col 26: Wrong number of arguments to function pow (got 2, required 0)
 Line 51, col 23: Operator * cannot be applied to types undef, undef
@@ -156,7 +149,6 @@ Line 52, col 53: Operator * cannot be applied to types undef, undef
 Line 52, col 35: Operator = cannot be applied to types undef, undef
 Line 53, col 6: Unknown symbol cube
 Line 53, col 27: Unknown symbol number
-entrei2
 Line 53, col 13: Unknown symbol Calculte_Cude
 Line 53, col 13: Wrong number of arguments to function Calculte_Cude (got 1, required 0)
 Line 53, col 11: Operator = cannot be applied to types undef, undef
@@ -243,7 +235,6 @@ Line 103, col 22: Operator % cannot be applied to types undef, int
 Line 103, col 15: Operator = cannot be applied to types undef, int
 Line 104, col 22: Unknown symbol Reminder
 Line 104, col 32: Unknown symbol Times
-entrei2
 Line 104, col 18: Unknown symbol pow
 Line 104, col 18: Wrong number of arguments to function pow (got 2, required 0)
 Line 104, col 16: Operator + cannot be applied to types int, undef
@@ -252,7 +243,7 @@ Line 105, col 6: Unknown symbol Temp
 Line 105, col 13: Unknown symbol Temp
 Line 105, col 18: Operator / cannot be applied to types undef, int
 Line 105, col 11: Operator = cannot be applied to types undef, undef
-Line 118, col 11: Conflicting types (got int, expected void)
+Line 118, col 5: Wrong number of arguments to function func (got 6, required 0)
 Line 122, col 10: Unknown symbol Area
 Line 122, col 23: Unknown symbol width
 Line 122, col 21: Operator * cannot be applied to types double, undef
@@ -266,9 +257,8 @@ Line 123, col 29: Unknown symbol height
 Line 123, col 36: Unknown symbol height
 Line 123, col 35: Operator * cannot be applied to types undef, undef
 Line 123, col 26: Operator + cannot be applied to types undef, undef
-entrei2
 Line 123, col 7: Unknown symbol sqrt
-Line 123, col 7: Wrong number of arguments to function sqrt (got 3, required 0)
+Line 123, col 7: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 123, col 5: Operator = cannot be applied to types short, undef
 Line 124, col 3: Unknown symbol Perimeter
 Line 124, col 15: Unknown symbol width
@@ -300,13 +290,13 @@ Line 132, col 45: Operator + cannot be applied to types undef, undef
 Line 132, col 35: Operator * cannot be applied to types int, undef
 Line 132, col 31: Operator = cannot be applied to types undef, undef
 Line 135, col 33: Unknown symbol inforestudante
-Line 135, col 22: Conflicting types (got double, expected void)
+Line 135, col 17: Wrong number of arguments to function func (got 3, required 0)
 Line 129, col 20: Conflicting types (got undef, expected int)
 Line 138, col 8: Unknown symbol e
 Line 138, col 9: Operator >= cannot be applied to types undef, short
 Line 138, col 13: Unknown symbol e
 Line 138, col 14: Operator <= cannot be applied to types undef, short
-Line 138, col 45: Conflicting types (got int, expected void)
+Line 138, col 39: Wrong number of arguments to function func (got 1, required 0)
 Line 138, col 50: Wrong number of arguments to function getchar (got 1, required 1)
 Line 140, col 8: Unknown symbol side1
 Line 140, col 16: Unknown symbol side2
@@ -340,7 +330,6 @@ Line 151, col 15: Operator + cannot be applied to types undef, undef
 Line 151, col 25: Unknown symbol side2
 Line 151, col 23: Operator > cannot be applied to types undef, undef
 Line 154, col 21: Unknown symbol Area
-entrei2
 Line 154, col 29: Unknown symbol sqrt
 Line 154, col 29: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 154, col 36: Operator / cannot be applied to types undef, int
@@ -358,7 +347,6 @@ Line 156, col 10: Unknown symbol Perimeter
 Line 156, col 19: Operator / cannot be applied to types undef, int
 Line 156, col 8: Operator = cannot be applied to types undef, undef
 Line 157, col 3: Unknown symbol Altitude
-entrei2
 Line 157, col 15: Unknown symbol sqrt
 Line 157, col 15: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 157, col 22: Operator / cannot be applied to types undef, int
@@ -405,7 +393,6 @@ Line 188, col 19: Unknown symbol Total
 Line 188, col 25: Operator / cannot be applied to types undef, int
 Line 188, col 32: Operator * cannot be applied to types undef, int
 Line 188, col 16: Operator = cannot be applied to types undef, undef
-entrei2
 Line 190, col 15: Unknown symbol sqrt
 Line 190, col 15: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 190, col 13: Operator = cannot be applied to types double, undef
@@ -436,7 +423,6 @@ Line 207, col 23: Operator + cannot be applied to types undef, undef
 Line 207, col 13: Operator = cannot be applied to types undef, undef
 Line 209, col 5: Unknown symbol root1
 Line 209, col 24: Unknown symbol discriminant
-entrei2
 Line 209, col 19: Unknown symbol sqrt
 Line 209, col 19: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 209, col 38: Operator / cannot be applied to types undef, int
@@ -444,7 +430,6 @@ Line 209, col 17: Operator + cannot be applied to types int, undef
 Line 209, col 11: Operator = cannot be applied to types undef, undef
 Line 210, col 5: Unknown symbol root2
 Line 210, col 24: Unknown symbol discriminant
-entrei2
 Line 210, col 19: Unknown symbol sqrt
 Line 210, col 19: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 210, col 38: Operator / cannot be applied to types undef, int
@@ -461,7 +446,6 @@ Line 212, col 17: Operator = cannot be applied to types undef, undef
 Line 213, col 11: Unknown symbol imaginary
 Line 213, col 29: Unknown symbol discriminant
 Line 213, col 28: Operator - cannot be applied to type undef
-entrei2
 Line 213, col 23: Unknown symbol sqrt
 Line 213, col 23: Wrong number of arguments to function sqrt (got 1, required 0)
 Line 213, col 43: Operator / cannot be applied to types undef, int

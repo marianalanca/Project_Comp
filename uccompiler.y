@@ -278,7 +278,7 @@ Expr: Expr ASSIGN Expr                                          { $$ = insertNod
     | MINUS Expr %prec NOT                                      { $$ = insertNode(NULL, "Minus", $2, $1->line, $1->col); /*freeToken($1);*/}
     | NOT Expr                                                  { $$ = insertNode(NULL, "Not", $2, $1->line, $1->col); /*freeToken($1);*/}
 
-    | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col), 0, 0); /*freeToken($1);*/}
+    | ID LPAR RPAR                                              { $$ = insertNode(NULL, "Call", insertNode($1->id, "Id", NULL, $1->line, $1->col),$1->line, $1->col); /*freeToken($1);*/}
     | ID LPAR optExpCExp RPAR                                   { aux = insertNode($1->id, "Id", NULL, $1->line, $1->col);
                                                                   if ($3 == NULL){ $$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); }
                                                                   else{$$ = insertNode(NULL, "Call", aux,  $1->line, $1->col); connectBrothers(aux , $3); }

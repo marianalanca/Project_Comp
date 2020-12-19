@@ -48,13 +48,11 @@ Line 51, col 12: Operator = cannot be applied to types undef, int
 Line 50, col 5: Conflicting types (got undef, expected int)
 Line 68, col 9: Unknown symbol num
 Line 68, col 13: Operator == cannot be applied to types undef, int
-entrei2
 Line 76, col 8: Unknown symbol bola
 Line 76, col 8: Wrong number of arguments to function bola (got 2, required 0)
-entrei2
+Line 80, col 12: Wrong number of arguments to function factorial (got 2, required 1)
 Line 83, col 2: Unknown symbol func1
 Line 83, col 2: Wrong number of arguments to function func1 (got 3, required 0)
-entrei2
 Line 85, col 2: Unknown symbol func2
 Line 85, col 2: Wrong number of arguments to function func2 (got 2, required 0)
 Line 88, col 3: Unknown symbol statement1
@@ -79,9 +77,9 @@ Line 122, col 3: Unknown symbol statement1
 Line 122, col 14: Operator = cannot be applied to types undef, int
 Line 122, col 19: Unknown symbol statement2
 Line 122, col 30: Operator = cannot be applied to types undef, int
-entrei2
 Line 123, col 10: Unknown symbol ctoi
-Line 123, col 10: Wrong number of arguments to function ctoi (got 0, required 0)
+Line 123, col 10: Wrong number of arguments to function ctoi (got 1, required 0)
+Line 126, col 6: Wrong number of arguments to function tail_recursive_fac (got 1, required 2)
 Line 139, col 9: Unknown symbol o
 Line 139, col 12: Unknown symbol e
 Line 139, col 10: Operator == cannot be applied to types undef, undef
@@ -92,7 +90,6 @@ Line 163, col 16: Unknown symbol r
 Line 163, col 15: Operator = cannot be applied to types char, undef
 Line 174, col 18: Unknown symbol e
 Line 174, col 19: Operator == cannot be applied to types undef, int
-entrei2
 Line 201, col 9: Unknown symbol weird_char
 Line 201, col 9: Wrong number of arguments to function weird_char (got 2, required 0)
 Line 201, col 26: Operator < cannot be applied to types undef, char
@@ -108,30 +105,25 @@ Line 314, col 8: Symbol d already defined
 Line 316, col 7: Symbol c already defined
 Line 319, col 15: Symbol a already defined
 Line 320, col 10: Symbol c already defined
-entrei2
 Line 302, col 9: Unknown symbol infinite_putchar
 Line 302, col 9: Wrong number of arguments to function infinite_putchar (got 1, required 0)
-entrei2
 Line 303, col 12: Unknown symbol infinite_putchar
 Line 303, col 12: Wrong number of arguments to function infinite_putchar (got 1, required 0)
-entrei2
 Line 322, col 5: Unknown symbol function
 Line 322, col 5: Wrong number of arguments to function function (got 1, required 0)
-entrei2
 Line 322, col 19: Unknown symbol function
 Line 322, col 19: Wrong number of arguments to function function (got 1, required 0)
 Line 322, col 17: Operator + cannot be applied to types undef, undef
-entrei2
 Line 324, col 15: Unknown symbol function
 Line 324, col 15: Wrong number of arguments to function function (got 1, required 0)
 Line 324, col 13: Operator < cannot be applied to types int, undef
-entrei2
-Line 0, col 0: Unknown symbol nao_existe
-Line 0, col 0: Wrong number of arguments to function nao_existe (got 0, required 0)
+Line 326, col 11: Unknown symbol nao_existe
+Line 326, col 11: Wrong number of arguments to function nao_existe (got 0, required 0)
 Line 326, col 9: Operator % cannot be applied to types double, undef
 Line 336, col 9: Operator ^ cannot be applied to types double, int
 Line 344, col 7: Operator = cannot be applied to types int, double
 Line 345, col 15: Unknown symbol e
+Line 345, col 15: Conflicting types (got undef, expected double)
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)

@@ -1,0 +1,133 @@
+Line 13, col 5: Operator ! cannot be applied to type double
+Line 15, col 7: Operator ^ cannot be applied to types int, double
+Line 16, col 7: Operator ^ cannot be applied to types double, double
+Line 17, col 7: Operator ^ cannot be applied to types int, int(void)
+Line 18, col 6: Operator && cannot be applied to types int, int(void)
+Line 20, col 6: Operator & cannot be applied to types double, int(void)
+Line 21, col 9: Operator & cannot be applied to types int(void), int(void)
+Line 22, col 10: Operator + cannot be applied to types int(void), int(void)
+Line 24, col 10: Operator > cannot be applied to types int(void), int(void)
+Line 26, col 5: Operator ! cannot be applied to type int(void)
+Line 28, col 7: Operator = cannot be applied to types void(void), int
+Line 29, col 5: Lvalue required
+Line 31, col 12: Conflicting types (got int(void), expected int)
+Line 36, col 12: Conflicting types (got int(int,short,char,double), expected int)
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+v	void(void)
+f0	int(int,short,char,double)
+main	int(void)
+
+===== Function main Symbol Table =====
+return	int
+a	int
+b	char
+c	short
+d	double
+D1	double
+C0	short
+c0	char
+
+Program
+..FuncDeclaration
+....Void
+....Id(v)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDeclaration
+....Int
+....Id(f0)
+....ParamList
+......ParamDeclaration
+........Int
+......ParamDeclaration
+........Short
+......ParamDeclaration
+........Char
+......ParamDeclaration
+........Double
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Declaration
+........Int
+........Id(a)
+......Declaration
+........Char
+........Id(b)
+......Declaration
+........Short
+........Id(c)
+......Declaration
+........Double
+........Id(d)
+......Not - int
+........Id(a) - int
+......Not - int
+........Id(b) - char
+......Not - int
+........Id(c) - short
+......Not - int
+........Id(d) - double
+......BitWiseXor - int
+........Id(a) - int
+........Id(d) - double
+......BitWiseXor - int
+........Id(d) - double
+........Id(d) - double
+......BitWiseXor - int
+........Id(a) - int
+........Id(main) - int(void)
+......And - int
+........Id(a) - int
+........Id(main) - int(void)
+......BitWiseAnd - int
+........Id(d) - double
+........Id(main) - int(void)
+......BitWiseAnd - int
+........Id(main) - int(void)
+........Id(main) - int(void)
+......Add - undef
+........Id(main) - int(void)
+........Id(main) - int(void)
+......Add - int
+........Call - int
+..........Id(main) - int(void)
+........Call - int
+..........Id(main) - int(void)
+......Gt - int
+........Id(main) - int(void)
+........Id(main) - int(void)
+......Not - int
+........Id(main) - int(void)
+......Store - undef
+........Id(v) - void(void)
+........IntLit(1) - int
+......Store - int
+........IntLit(1) - int
+........Id(v) - void(void)
+......Return
+........Id(main) - int(void)
+......Declaration
+........Double
+........Id(D1)
+......Declaration
+........Short
+........Id(C0)
+......Declaration
+........Char
+........Id(c0)
+......Call - int
+........Id(f0) - int(int,short,char,double)
+........Id(C0) - short
+........Id(C0) - short
+........Id(C0) - short
+........Id(C0) - short
+......Return
+........Id(f0) - int(int,short,char,double)

@@ -1,9 +1,16 @@
-Line 11, col 5: Conflicting types (got int(int,short,char,double,int), expected int(int,short,char,double))
 ===== Global Symbol Table =====
 putchar	int(int)
 getchar	int(void)
 f0	int(int,short,char,double)
 main	int(void)
+
+===== Function f0 Symbol Table =====
+return	int
+a	int	param
+b	short	param
+c	char	param
+d	double	param
+e	int	param
 
 ===== Function main Symbol Table =====
 return	int
@@ -66,6 +73,6 @@ Program
 ........Int
 ........Id(e)
 ....FuncBody
-......Store
-........Id(a)
-........IntLit(1)
+......Store - int
+........Id(a) - int
+........IntLit(1) - int

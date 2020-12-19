@@ -1,0 +1,66 @@
+Line 6, col 12: Conflicting types (got int, expected void)
+Line 7, col 12: Conflicting types (got short, expected void)
+Line 8, col 12: Conflicting types (got char, expected void)
+Line 12, col 9: Conflicting types (got int(void), expected int)
+Line 14, col 12: Conflicting types (got int(void), expected int)
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+a0	int
+a1	short
+c0	char
+v	void(void)
+g0	void(void)
+main	int(void)
+
+===== Function g0 Symbol Table =====
+return	void
+
+===== Function main Symbol Table =====
+return	int
+
+Program
+..Declaration
+....Int
+....Id(a0)
+..Declaration
+....Short
+....Id(a1)
+..Declaration
+....Char
+....Id(c0)
+..FuncDeclaration
+....Void
+....Id(v)
+....ParamList
+......ParamDeclaration
+........Void
+..FuncDefinition
+....Void
+....Id(g0)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Return
+........Id(a0) - int
+......Return
+........Id(a1) - short
+......Return
+........Id(c0) - char
+..FuncDefinition
+....Int
+....Id(main)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......If
+........Id(main) - int(void)
+........Null
+........Null
+......While
+........Id(main) - int(void)
+........Null
+......Return
+........IntLit(0) - int

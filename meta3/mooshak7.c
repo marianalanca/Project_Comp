@@ -1,37 +1,93 @@
-int a, A1, A5, A4;
-char blah(int r);
-char c1;
-char localvars(
-    int A0,
-    char A1,
-    short A2,
-    double A3,
-    int A4,
-    char C0) {
-    char c0, c1, c2, c3, c4;
-    int a0, a1, a2, a3, a4;
-    double b1, b2, b3, b4;
-    int blah, localvars;
-}
-char C1, C2, C3, C4;
-char localvars(
-    int A0,
-    char A1,
-    short A2,
-    double A3,
-    int A4,
-    char C0);
-char blah(int q) {
-    int blah, localvars, f;
-    char p, b;
-    int i,j,k;
-    short v;
-}
-char C1, C2, C3, C4;
-int zf23(int x);
-void f(void) {
-    char c0, c1, c2, c3, c4;
-    int a0, a1, a2, a3, a4;
-    double b1, b2, b3, b4;
-    short d1, d2, d3, d4;
+int a0;
+short a1, c2;
+char c0, c1;
+double b1, a2, b2;
+int x, y, z;
+
+
+void v(void) {
+    a0 = a0;
+    a0 = a1;
+    a0 = a2;
+    a0 = c0;
+    a0 = c1;
+    a0 = c2;
+    a0 = b1;
+    a0 = b2;
+    a0 = b1;
+    a0 = x;
+    a0 = y;
+    a0 = z;
+
+    a1 = a0;
+    a1 = a1;
+    a1 = a2;
+    a1 = c0;
+    a1 = c1;
+    a1 = c2;
+    a1 = b1;
+    a1 = b2;
+    a1 = b1;
+    a1 = x;
+    a1 = y;
+    a1 = z;
+
+    b1 = a0;
+    b1 = a1;
+    b1 = a2;
+    b1 = c0;
+    b1 = c1;
+    b1 = c2;
+    b1 = b1;
+    b1 = b2;
+    b1 = b1;
+    b1 = x;
+    b1 = y;
+    b1 = z;
+
+    b2 = a0;
+    b2 = a1;
+    b2 = a2;
+    b2 = c0;
+    b2 = c1;
+    b2 = c2;
+    b2 = b1;
+    b2 = b2;
+    b2 = x;
+    b2 = y;
+    b2 = z;
+
+    c0 = a0;
+    c0 = a1;
+    c0 = a2;
+    c0 = c0;
+    c0 = c1;
+    c0 = c2;
+    c0 = b1;
+    c0 = b2;
+    c0 = b1;
+    c0 = x;
+    c0 = y;
+    c0 = z;
+
+    v = a0;
+    v = a1;
+    v = a2;
+    v = c0;
+    v = c1;
+    v = c2;
+    v = b1;
+    v = b2;
+    v = b1;
+    v = x;
+    v = y;
+    v = z;
+
+    a0*1 = c0;
+    a1+1 = x;
+    b2-1 = y;
+    c0/1 = a0;
+    c1-1 = z;
+
+
 }

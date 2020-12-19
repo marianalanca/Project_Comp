@@ -6,7 +6,8 @@ Line 10, col 14: Operator && cannot be applied to types int, double
 Line 13, col 6: Symbol f already defined
 Line 15, col 12: Unknown symbol y
 Line 15, col 8: Conflicting types (got undef, expected double)
-Line 19, col 9: Conflicting types (got void, expected int)
+Line 18, col 5: Wrong number of arguments to function s (got 2, required 1)
+Line 19, col 5: Wrong number of arguments to function dbl (got 1, required 2)
 Line 20, col 10: Unknown symbol und3f
 Line 20, col 7: Operator >= cannot be applied to types double, undef
 Line 20, col 18: Unknown symbol und3f

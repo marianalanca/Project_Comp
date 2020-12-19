@@ -1,0 +1,24 @@
+Line 22, col 7: Operator = cannot be applied to types void(void), int
+===== Global Symbol Table =====
+putchar	int(int)
+getchar	int(void)
+v	void(void)
+
+===== Function v Symbol Table =====
+return	void
+A0	int
+
+Program
+..FuncDefinition
+....Void
+....Id(v)
+....ParamList
+......ParamDeclaration
+........Void
+....FuncBody
+......Declaration
+........Int
+........Id(A0)
+......Store - void
+........Id(v) - void(void)
+........Id(A0) - int
